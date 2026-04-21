@@ -6,8 +6,7 @@ public class TestModel {
 		Utente u = new Utente("topolino","minni");
 		System.out.println(u.login("pippo","pluto"));
 		System.out.println(u.login("topolino","minni"));
-ciao
-		//test repo
+		
 	}
 
 }
