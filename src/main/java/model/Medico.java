@@ -10,7 +10,7 @@ public class Medico {
     private Date data;
     private Esito esito;
     private String descrizione;
-    private LocalTime ora_prestazione
+    private LocalTime ora_prestazione;
 
     public void creaPrestazione(String tipoPrestazione, Date data,Esito esito,String descrizione){
         this.tipoPrestazione=tipoPrestazione;
