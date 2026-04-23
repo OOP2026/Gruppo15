@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 
 public class Utente {
+    private String nome;
+    private String cognome;
     private String login;
     private String password;
 
