@@ -20,7 +20,7 @@ public class Medico {
     public void creaPrestazione(String tipoPrestazione, Date data,Esito esito,String descrizione){
         this.tipoPrestazione=tipoPrestazione;
         this.data=data;
-        this.esito=esito;
+        this.esito=esito.positivo;
         this.descrizione=descrizione;
         this.ora_prestazione= LocalTime.now();
 
