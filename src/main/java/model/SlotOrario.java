@@ -25,6 +25,14 @@ public class SlotOrario {
         this.oraFine=oraFine;
     }
 
+    // metodo String per rendere i dati leggibili
+    @Override
+    public String toString(){
+        return "Giorno " + giorno +
+                "| Inizio: " + oraInizio +
+                "| Fine: " + oraFine;
+    }
+
 } // Creata questa classe per poterla usare con l'agenda
 
 

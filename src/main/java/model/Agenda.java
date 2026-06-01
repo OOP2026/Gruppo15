@@ -17,8 +17,9 @@ public class Agenda{
         slots.add(slot2);
     }
 
-    public SlotOrario getSlot1() {
-        return slots.get(0);
+    // metodo per ottenere tutti gli slots presenti in Agenda
+    public List<SlotOrario> getSlots() {
+        return slots;
     }
 
 

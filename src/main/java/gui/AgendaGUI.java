@@ -1,15 +1,15 @@
 package gui;
 
 import controller.Controller;
-import model.*;
+import model.SlotOrario;
+
 import javax.swing.*;
-import java.time.DayOfWeek;
-import java.time.LocalTime;
 
 public class AgendaGUI extends JFrame {
 
     private JPanel AgendaPanel;
     private JLabel LabelGiorno;
+    private JTextArea areaAgenda;
     private Controller controller;
     public AgendaGUI(Controller controller) {
         this.controller = controller;
@@ -19,8 +19,18 @@ public class AgendaGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
-        LabelGiorno.setText("Giorno: "+ controller.medicoMostraAgenda() );
+      //  LabelGiorno.setText("Giorno: "+ controller.medicoMostraAgenda() );
 
+
+        String testoSlots = ""; //variabile temporanea per aggiungere tutti gli slot presi con il get
+
+        // ciclo per mostrare tutti gli slot uno a uno
+
+        for(SlotOrario slot : controller.medicoMostraAgenda()){
+            testoSlots += slot.toString() + "\n";
+        }
+        // inserisco il testo ottenuto nell'areaAgenda
+        areaAgenda.setText(testoSlots);
     }
 
 

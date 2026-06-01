@@ -12,9 +12,11 @@ public class Controller {
 	public Controller() {
 	}
 
-	public SlotOrario medicoMostraAgenda() {
+	// metodo che richiama l'agenda per ottenere gli slots
 
-		return agenda.getSlot1();
+	public List<SlotOrario> medicoMostraAgenda() {
+
+		return agenda.getSlots();
 
 	}
 
