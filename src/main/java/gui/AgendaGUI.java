@@ -19,13 +19,10 @@ public class AgendaGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
+        LabelGiorno.setText("Giorno: "+ controller.medicoMostraAgenda() );
+
     }
 
-    public void mostraAgenda() { // dobbiamo capire come far uscire l'agenda qui dentro
-
-        Agenda agenda=new Agenda(DayOfWeek.MONDAY, LocalTime.of(12, 0), LocalTime.of(23, 59));
-        LabelGiorno.setText(agenda.getDay().toString());
-    }
 
 
 

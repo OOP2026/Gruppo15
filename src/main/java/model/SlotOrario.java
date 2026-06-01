@@ -9,11 +9,10 @@ public class SlotOrario {
     private LocalTime oraFine;
     private Medico medico;
 
-    public SlotOrario(DayOfWeek giorno, LocalTime oraInizio,LocalTime oraFine,String n_albo){
+    public SlotOrario(DayOfWeek giorno, LocalTime oraInizio,LocalTime oraFine){
         this.giorno=giorno;
         this.oraInizio=oraInizio;
         this.oraFine=oraFine;
-        this.medico.setAlbo(n_albo);
     } // costruttore slot
 
     public void stampaSlot(){

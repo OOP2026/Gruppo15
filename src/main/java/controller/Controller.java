@@ -1,17 +1,20 @@
 package controller;
 import model.*;
 
+import java.time.DayOfWeek;
 import java.util.Date;
+import java.util.List;
 
 public class Controller {
 
 	Medico medico=new Medico();
+	Agenda agenda=new Agenda();
 	public Controller() {
 	}
 
-	public void medicoMostraAgenda() {
+	public SlotOrario medicoMostraAgenda() {
 
-		medico.getAgenda();
+		return agenda.getSlot1();
 
 	}
 

@@ -2,7 +2,9 @@ package model;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Medico {
     public String n_albo;
@@ -33,6 +35,9 @@ public class Medico {
         this.descrizione=descrizione;
     }
 
+
+
+
     public String getAlbo(){
         return n_albo;
     }
@@ -41,18 +46,17 @@ public class Medico {
         this.n_albo=n_albo;
     }
 
-    public Agenda getAgenda(){
-        return agenda;
+    public String getAgenda(){
+        return agenda.toString();
     }
-
-    public String getN_albo(){
-        return n_albo;
-    }
+    public void setAgenda(String agenda){
 
 
 
 
 
-}
+
+
+}}
 
 
