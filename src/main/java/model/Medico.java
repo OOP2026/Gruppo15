@@ -1,5 +1,6 @@
 package model;
 
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -35,9 +36,19 @@ public class Medico {
     public String getAlbo(){
         return n_albo;
     }
+
     public void setAlbo(String n_albo){
         this.n_albo=n_albo;
     }
+
+    public Agenda getAgenda(){
+        return agenda;
+    }
+
+    public String getN_albo(){
+        return n_albo;
+    }
+
 
 
 
