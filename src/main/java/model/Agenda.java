@@ -17,6 +17,17 @@ public class Agenda{
         this.oraFine=oraFine;
     }
 
+    public String getDay(){
+        return day.toString();
+    }
+    public String getOraInizio(){
+        return oraInizio.toString();
+
+    }
+    public String getOraFine(){
+        return oraFine.toString();
+    }
+
 
 
 

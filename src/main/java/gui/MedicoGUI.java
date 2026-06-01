@@ -21,6 +21,7 @@ public class MedicoGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AgendaGUI agendaGUI = new AgendaGUI(controller);
+                agendaGUI.mostraAgenda();
                 agendaGUI.setVisible(true);
                 dispose();
             }

@@ -1,14 +1,18 @@
 package gui;
 
 import controller.Controller;
-
+import model.*;
 import javax.swing.*;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 
 public class AgendaGUI extends JFrame {
 
     private JPanel AgendaPanel;
-
+    private JLabel LabelGiorno;
+    private Controller controller;
     public AgendaGUI(Controller controller) {
+        this.controller = controller;
         setContentPane(AgendaPanel);
         setTitle("Agenda");
         setSize(300, 200);
@@ -17,6 +21,11 @@ public class AgendaGUI extends JFrame {
 
     }
 
+    public void mostraAgenda() { // dobbiamo capire come far uscire l'agenda qui dentro
+
+        Agenda agenda=new Agenda(DayOfWeek.MONDAY, LocalTime.of(12, 0), LocalTime.of(23, 59));
+        LabelGiorno.setText(agenda.getDay().toString());
+    }
 
 
 
