@@ -30,7 +30,7 @@ public class Home extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                AmministratoreGUI secondagui=new AmministratoreGUI(controller);
+                AmministratoreGUI secondagui=new AmministratoreGUI(controller,Home.this);
                 secondagui.setVisible(true);
                 dispose();
             }
@@ -38,7 +38,7 @@ public class Home extends JFrame {
         accediComeMedicoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MedicoGUI medicoGUI = new MedicoGUI(controller);
+                MedicoGUI medicoGUI = new MedicoGUI(controller,Home.this);
                 medicoGUI.setVisible(true);
                 dispose();
             }

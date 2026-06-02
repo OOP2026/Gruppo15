@@ -1,7 +1,6 @@
 package gui;
 
 import controller.Controller;
-import model.Medico;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,8 +9,9 @@ import java.awt.event.ActionListener;
 public class MedicoGUI extends JFrame {
     private JPanel MedicoPanel;
     private JButton mostraAgendaButton;
-
-    public MedicoGUI(Controller controller) {
+    private JButton ritornaIndietroButton;
+    private JFrame framePrecedente;
+    public MedicoGUI(Controller controller,JFrame framePrecedente) {
         setContentPane(MedicoPanel);
         setTitle("Medico");
         setSize(300, 200);
@@ -24,6 +24,13 @@ public class MedicoGUI extends JFrame {
                 controller.medicoMostraAgenda();
 
                 agendaGUI.setVisible(true);
+                dispose();
+            }
+        });
+        ritornaIndietroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                framePrecedente.setVisible(true);
                 dispose();
             }
         });

@@ -15,10 +15,6 @@ public class SlotOrario {
         this.oraFine=oraFine;
     } // costruttore slot
 
-    public void stampaSlot(){
-        System.out.println("Giorno: "+ giorno + "\nOra inizio: "+ oraInizio + "\nOra fine turno: "+oraFine);
-    } // metodo che stampa l'orario di lavoro insieme al giorno
-
     public void modificaSlot(DayOfWeek giorno, LocalTime oraInizio,LocalTime oraFine){
         this.giorno=giorno;
         this.oraInizio=oraInizio;

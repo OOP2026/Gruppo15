@@ -15,7 +15,7 @@ public class AgendaGUI extends JFrame {
         this.controller = controller;
         setContentPane(AgendaPanel);
         setTitle("Agenda");
-        setSize(300, 200);
+        setSize(400, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 

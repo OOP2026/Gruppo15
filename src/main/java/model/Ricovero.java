@@ -10,6 +10,10 @@ public class Ricovero {
     private Paziente paziente;
     private Letto letto;
 
+    public Ricovero() {
+
+    }
+
     public Ricovero(LocalDateTime inizio_ricovero, LocalDateTime fine_ricovero, Paziente paziente, Letto letto) {
         this.inizio_ricovero = inizio_ricovero;
         this.fine_ricovero = fine_ricovero;
@@ -25,5 +29,12 @@ public class Ricovero {
     public LocalDateTime getFineRicoveroPaziente(){
         return fine_ricovero;
     }
+
+    @Override
+    public String toString(){
+        return "Orario inizio: "+inizio_ricovero;
+    }
+
+
 
 }
