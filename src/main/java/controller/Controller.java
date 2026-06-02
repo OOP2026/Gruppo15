@@ -37,11 +37,17 @@ public class Controller {
 
 	}
 
+	// testo da restituire
+	String testoRicovero="<html>";
+
 	public String mostraRicovero() {
 		for(Ricovero ricovero: ricoveri){
-			 return ricovero.toString();
+			 testoRicovero+=ricovero.toString() + "<br>";
+
 		}
-		return "Finito";
+		testoRicovero+="</html>";
+
+		return testoRicovero;
 	}
 
 

@@ -15,7 +15,6 @@ public class AgendaGUI extends JFrame {
         setContentPane(AgendaPanel);
         setTitle("Agenda");
         setSize(400, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
       //  LabelGiorno.setText("Giorno: "+ controller.medicoMostraAgenda() );

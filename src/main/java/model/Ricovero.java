@@ -33,9 +33,9 @@ public class Ricovero {
     @Override
     public String toString(){
         return "Paziente: " + paziente.getNome() +
-                "Orario inizio: " + inizio_ricovero +
-                "Orario fine: " + fine_ricovero +
-                "Letto occupato: " + letto;
+                "\nOrario inizio: " + inizio_ricovero.getHour() + inizio_ricovero.getMinute() +
+                "\nOrario fine: " + fine_ricovero +
+                "\nLetto occupato: " + letto;
     }
 
 

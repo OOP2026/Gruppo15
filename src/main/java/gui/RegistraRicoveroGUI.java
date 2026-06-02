@@ -41,8 +41,8 @@ public class RegistraRicoveroGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.salvaRicovero(nomeField.getText(),cognomeField.getText(),tesseraField.getText(), diagnosiField.getText());
-                JOptionPane.showMessageDialog(null, "Ricovero registrado com sucesso!");
-                
+                JOptionPane.showMessageDialog(null, "Ricovero registrato com successo!");
+
 
 
 
