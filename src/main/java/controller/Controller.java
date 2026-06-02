@@ -35,13 +35,13 @@ public class Controller {
 		Ricovero ricovero=new Ricovero(inizioRicovero,null,pazienteNuovo,null);
 		ricoveri.add(ricovero);
 
-
-
-
 	}
 
-	public void mostraRicovero(String Tessera) {
-		ricoveri.toString();
+	public String mostraRicovero() {
+		for(Ricovero ricovero: ricoveri){
+			 return ricovero.toString();
+		}
+		return "Finito";
 	}
 
 

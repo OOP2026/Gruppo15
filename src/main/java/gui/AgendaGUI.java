@@ -8,8 +8,7 @@ import javax.swing.*;
 public class AgendaGUI extends JFrame {
 
     private JPanel AgendaPanel;
-    private JLabel LabelGiorno;
-    private JTextArea areaAgenda;
+    private JLabel agendaLabel;
     private Controller controller;
     public AgendaGUI(Controller controller) {
         this.controller = controller;
@@ -22,15 +21,17 @@ public class AgendaGUI extends JFrame {
       //  LabelGiorno.setText("Giorno: "+ controller.medicoMostraAgenda() );
 
 
-        String testoSlots = ""; //variabile temporanea per aggiungere tutti gli slot presi con il get
+        String testoSlots = "<html>"; //variabile temporanea per aggiungere tutti gli slot presi con il get, letta come html
 
         // ciclo per mostrare tutti gli slot uno a uno
 
         for(SlotOrario slot : controller.medicoMostraAgenda()){
-            testoSlots += slot.toString() + "\n";
+            testoSlots += slot.toString() + "<br>";
         }
+        testoSlots += "</html>";
+
         // inserisco il testo ottenuto nell'areaAgenda
-        areaAgenda.setText(testoSlots);
+        agendaLabel.setText(testoSlots);
     }
 
 

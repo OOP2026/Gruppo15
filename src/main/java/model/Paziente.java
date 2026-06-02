@@ -21,4 +21,8 @@ public class Paziente {
     public String getTessera(){
         return tessera_sanitaria;
     }
+
+    public String getNome(){
+        return nome;
+    }
 }

@@ -24,7 +24,7 @@ public class MedicoGUI extends JFrame {
                 controller.medicoMostraAgenda();
 
                 agendaGUI.setVisible(true);
-                dispose();
+
             }
         });
         ritornaIndietroButton.addActionListener(new ActionListener() {
