@@ -35,14 +35,7 @@ public class Home extends JFrame {
                 dispose();
             }
         });
-        accediComeMedicoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MedicoGUI medicoGUI = new MedicoGUI(controller,Home.this);
-                medicoGUI.setVisible(true);
-                dispose();
-            }
-        });
+
     }
 
     public static void main(String[] args) {
