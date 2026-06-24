@@ -22,4 +22,7 @@ public class Stanza {
     public int getCapienza(){
         return letti.size();
     }
+    public void setCapienza(int capienzaLetti){
+        this.letti=new ArrayList<>();
+    }
 }

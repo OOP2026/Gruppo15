@@ -8,11 +8,17 @@ public class Letto {
         this.id_letto=id_letto;
     }
 
-    public void modificaStato(){
-        occupato = !occupato;
+    public int getId_letto(){
+        return id_letto;
     }
 
-    public boolean statoLetto(){
+    public void setId_letto(int id_letto){
+        this.id_letto=id_letto;
+    }
+    public boolean isOccupato(){
         return occupato;
+    }
+    public void setOccupato(boolean occupato){
+        this.occupato=occupato;
     }
 }

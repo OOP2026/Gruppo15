@@ -38,6 +38,31 @@ public class Ricovero {
                 "\nLetto occupato: " + letto;
     }
 
+    public LocalDateTime getInizioRicovero() {
+        return inizio_ricovero;
+    }
+    public void setInizioRicovero(LocalDateTime inizio_ricovero) {
+        this.inizio_ricovero = inizio_ricovero;
+    }
+    public LocalDateTime getFine_ricovero() {
+        return fine_ricovero;
+    }
+    public void setFine_ricovero(LocalDateTime fine_ricovero) {
+        this.fine_ricovero = fine_ricovero;
+    }
+    public Paziente getPaziente() {
+        return paziente;
+    }
+    public void setPaziente(Paziente paziente) {
+        this.paziente = paziente;
+    }
+    public Letto getLetto() {
+        return letto;
+    }
+    public void setLetto(Letto letto) {
+        this.letto = letto;
+    }
+
 
 
 }

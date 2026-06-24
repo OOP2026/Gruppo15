@@ -3,7 +3,7 @@ package database_connection;
 import java.sql.*;
 public class ConnessioneDatabase {
     private static ConnessioneDatabase instance;
-    private Connection connection = null;
+    private static Connection connection = null;
     private String nome = "postgres";
     private String password = "postgres";
     private String url = "jdbc:postgresql://localhost:5432/postgres";
@@ -24,7 +24,7 @@ public class ConnessioneDatabase {
 
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return connection;
     }
 
