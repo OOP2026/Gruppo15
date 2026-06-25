@@ -1,0 +1,9 @@
+25/06/2026
+
+Ho aggiunto la cryptazione della password con Bcrypt, ho modificato:
+
+-UtentePostGresDao, ho semplicemente aggiunto che quando si chiede la password, questa venga confrontata con quella crìptata e se è tutto ok, il login viene effettuato
+-Pom.XML, ho aggiunto la dipendenza BCrypto
+-Inserito quasi la possibilità di aggiungere i ricoveri al DB mancherebbe solo aggiungere nel controller la possibilità di passarlo al DB, quindi da sviluppare quello.
+
+-AggiuntoRicoveroPostresDAO per poter salvare il ricovero DAO

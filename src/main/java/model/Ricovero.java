@@ -1,67 +1,76 @@
 package model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
 public class Ricovero {
-    private LocalDateTime inizio_ricovero;
-    private LocalDateTime fine_ricovero;
-    private Paziente paziente;
-    private Letto letto;
+    private int id_ricovero;
+    private String tessera_sanitaria;
+    private int medico_id;
+    private Timestamp dataInizio;
+    private Timestamp dataFine; // Può essere null se il ricovero è attivo
+    private int id_reparto;
+    private int id_letto;
 
-    public Ricovero() {
+    public Ricovero(String tessera_sanitaria, int medico_id, int id_reparto, int id_letto) {
+        this.tessera_sanitaria = tessera_sanitaria;
+        this.medico_id = medico_id;
+        this.id_reparto = id_reparto;
+        this.id_letto = id_letto;
 
-    }
-
-    public Ricovero(LocalDateTime inizio_ricovero, LocalDateTime fine_ricovero, Paziente paziente, Letto letto) {
-        this.inizio_ricovero = inizio_ricovero;
-        this.fine_ricovero = fine_ricovero;
-        this.paziente=paziente;
-        this.letto=letto;
-    }
-// modificato ricovero in modo che possa ottenere tutte le info di paziente e letto
-// la parte complessa risulta che ora per creare i metodi per ottenere un ricovero a partire da un paziente o una data
-// bisognerebbe avere una lista di ricoveri, non presente qui
-// quindi è necessario un sistema che li gestista, che non è l'amministratore, poichè egli esegue e basta
-// analizzare il problema e capire se creare la classe GestoreRicoveri
-
-    public LocalDateTime getFineRicoveroPaziente(){
-        return fine_ricovero;
     }
 
-    @Override
-    public String toString(){
-        return "Paziente: " + paziente.getNome() +
-                "\nOrario inizio: " + inizio_ricovero.getHour() + inizio_ricovero.getMinute() +
-                "\nOrario fine: " + fine_ricovero +
-                "\nLetto occupato: " + letto;
+    public int getId_ricovero() {
+        return id_ricovero;
+    }
+    public void setId_ricovero(int id_ricovero) {
+        this.id_ricovero = id_ricovero;
+
+    }
+    public String getTessera_sanitaria() {
+        return tessera_sanitaria;
+
+    }
+    public void setTessera_sanitaria(String tessera_sanitaria) {
+        this.tessera_sanitaria = tessera_sanitaria;
+    }
+    public int getMedico_id() {
+        return medico_id;
+    }
+    public void setMedico_id(int medico_id) {
+        this.medico_id = medico_id;
+    }
+    public Timestamp getDataInizio() {
+        return dataInizio;
+
+    }
+    public void setDataInizio(Timestamp dataInizio) {
+        this.dataInizio = dataInizio;
+    }
+    public Timestamp getDataFine() {
+        return dataFine;
+    }
+    public void setDataFine(Timestamp dataFine) {
+        this.dataFine = dataFine;
+    }
+    public int getId_reparto() {
+        return id_reparto;
+    }
+    public void setId_reparto(int id_reparto) {
+        this.id_reparto = id_reparto;
+
+    }
+    public int getId_letto() {
+        return id_letto;
+    }
+    public void setId_letto(int id_letto) {
+        this.id_letto = id_letto;
     }
 
-    public LocalDateTime getInizioRicovero() {
-        return inizio_ricovero;
-    }
-    public void setInizioRicovero(LocalDateTime inizio_ricovero) {
-        this.inizio_ricovero = inizio_ricovero;
-    }
-    public LocalDateTime getFine_ricovero() {
-        return fine_ricovero;
-    }
-    public void setFine_ricovero(LocalDateTime fine_ricovero) {
-        this.fine_ricovero = fine_ricovero;
-    }
-    public Paziente getPaziente() {
-        return paziente;
-    }
-    public void setPaziente(Paziente paziente) {
-        this.paziente = paziente;
-    }
-    public Letto getLetto() {
-        return letto;
-    }
-    public void setLetto(Letto letto) {
-        this.letto = letto;
-    }
+
+
 
 
 

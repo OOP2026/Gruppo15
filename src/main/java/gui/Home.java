@@ -5,6 +5,7 @@ import controller.Controller;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Home extends JFrame {
     private Controller controller;
@@ -35,7 +36,12 @@ public class Home extends JFrame {
                 String email = Utente.getText();
                 String password = new String(passwordField.getPassword());
 
-                controller.eseguiLogin(email, password);
+                try {
+                    controller.eseguiLogin(email, password);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
             }
         });
 

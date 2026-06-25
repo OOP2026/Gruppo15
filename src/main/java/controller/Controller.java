@@ -7,6 +7,7 @@ import implementazioneDao.UtentePostgresDao;
 import model.*;
 
 import javax.swing.*;
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,14 +28,7 @@ public class Controller {
 
 	}
 
-	public void salvaRicovero(String nome, String cognome, String tesseraSanitaria, String diagnosi) {
 
-		Paziente pazienteNuovo = new Paziente(tesseraSanitaria, nome, cognome, diagnosi);
-		LocalDateTime inizioRicovero = LocalDateTime.now();
-		Ricovero ricovero = new Ricovero(inizioRicovero, null, pazienteNuovo, null);
-		ricoveri.add(ricovero);
-
-	}
 
 	// testo da restituire
 	String testoRicovero = "<html>";
@@ -61,7 +55,7 @@ public class Controller {
 
 	//metodo per eseguire la login, in base al ruolo apre una schermata differente
 
-	public void eseguiLogin(String emailInserita, String passwordInserita) {
+	public void eseguiLogin(String emailInserita, String passwordInserita) throws SQLException {
 
 		// 1. Chiamata al database tramite il DAO
 		Utente utenteLoggato = utenteDAO.login(emailInserita, passwordInserita);
@@ -101,6 +95,10 @@ public class Controller {
 			// Chiudiamo la finestra di login
 			finestraLogin.dispose();
 		}
+	}
+
+	public void salvaRicovero(){
+
 	}
 
 

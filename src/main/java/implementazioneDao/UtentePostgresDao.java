@@ -2,6 +2,7 @@ package implementazioneDao;
 
 import java.sql.*;
 
+import Password.PasswordUtils;
 import dao.UtenteDAO;
 import model.Amministratore;
 import model.Medico;
@@ -10,12 +11,12 @@ import database_connection.ConnessioneDatabase;
 
 public class UtentePostgresDao implements UtenteDAO {
     @Override
-    public Utente login(String email, String password) {
+    public Utente login(String email, String password) throws SQLException {
 
         // 1. Definiamo la stringa SQL. Selezioniamo sia i campi comuni che quelli specifici
-        String sql = "SELECT id, nome, cognome, email, ruolo " +
+        String sql = "SELECT id, nome, cognome,password_hash, email, ruolo " +
                 "FROM utenti_sistema " +
-                "WHERE email = ? AND password_hash = ?";
+                "WHERE email = ?";
         //creiamo l'istanza con il database per ottenere e verificare i suoi dati
         try {
             ConnessioneDatabase.getInstance();
@@ -31,58 +32,64 @@ public class UtentePostgresDao implements UtenteDAO {
             // 3. Associano i parametri posizionali ai punti interrogativi (?)
             // 1 corrisponde al primo '?', 2 al secondo '?'
             pstmt.setString(1, email);
-            pstmt.setString(2, password);
 
             // 4. Eseguiamo la query sul database Postgres
             try (ResultSet rs = pstmt.executeQuery()) {
 
                 // 5. Muoviamo il cursore sulla prima riga di risultati con rs.next()
                 if (rs.next()) {
-                    // Se siamo qui, rs.next() è true: l'utente esiste!
-                    // Leggiamo la colonna 'ruolo' per capire chi è
-                    String ruoloDalDB = rs.getString("ruolo");
+                    System.out.println("Utente loggato: " + email);
+                    String hashDalDB = rs.getString("password_hash");
 
-                    // 6. POLIMORFISMO: Creiamo l'oggetto specifico in base al ruolo trovato
-                    if ("MEDICO".equalsIgnoreCase(ruoloDalDB)) {
+                    if (PasswordUtils.verificaPassword(password, hashDalDB)) {
 
-                        Medico medico = new Medico();
-                        // Riempiamo i dati ereditati dalla classe madre Utente
-                        medico.setId(rs.getInt("id"));
-                        medico.setNome(rs.getString("nome"));
-                        medico.setCognome(rs.getString("cognome"));
-                        medico.setEmail(rs.getString("email"));
 
-                        //aggiungo il set del ruolo altrimenti non salviamo questo dato
-                        medico.setRuolo(ruoloDalDB);
+                        // Se siamo qui, rs.next() è true: l'utente esiste!
+                        // Leggiamo la colonna 'ruolo' per capire chi è
+                        String ruoloDalDB = rs.getString("ruolo");
 
-                        // Riempiamo il dato specifico della classe figlia Medico
-                        return medico; // Restituiamo il medico pronto
+                        // 6. POLIMORFISMO: Creiamo l'oggetto specifico in base al ruolo trovato
+                        if ("MEDICO".equalsIgnoreCase(ruoloDalDB)) {
 
-                    } else if ("AMMINISTRATORE".equalsIgnoreCase(ruoloDalDB)) {
+                            Medico medico = new Medico();
+                            // Riempiamo i dati ereditati dalla classe madre Utente
+                            medico.setId(rs.getInt("id"));
+                            medico.setNome(rs.getString("nome"));
+                            medico.setCognome(rs.getString("cognome"));
+                            medico.setEmail(rs.getString("email"));
 
-                        Amministratore admin = new Amministratore();
-                        // Riempiamo i dati ereditati dalla classe madre Utente
-                        admin.setId(rs.getInt("id"));
-                        admin.setNome(rs.getString("nome"));
-                        admin.setCognome(rs.getString("cognome"));
-                        admin.setEmail(rs.getString("email"));
+                            //aggiungo il set del ruolo altrimenti non salviamo questo dato
+                            medico.setRuolo(ruoloDalDB);
 
-                        //aggiungo il set del ruolo altrimenti non salviamo questo dato
-                        admin.setRuolo(ruoloDalDB);
+                            // Riempiamo il dato specifico della classe figlia Medico
+                            return medico; // Restituiamo il medico pronto
 
-                        return admin; // Restituiamo l'amministratore pronto
+                        } else if ("AMMINISTRATORE".equalsIgnoreCase(ruoloDalDB)) {
+
+                            Amministratore admin = new Amministratore();
+                            // Riempiamo i dati ereditati dalla classe madre Utente
+                            admin.setId(rs.getInt("id"));
+                            admin.setNome(rs.getString("nome"));
+                            admin.setCognome(rs.getString("cognome"));
+                            admin.setEmail(rs.getString("email"));
+
+                            //aggiungo il set del ruolo altrimenti non salviamo questo dato
+                            admin.setRuolo(ruoloDalDB);
+
+                            return admin; // Restituiamo l'amministratore pronto
+                        }
                     }
                 }
+
+            } catch (SQLException e) {
+                // Gestione dell'errore in caso di problemi con Postgres (es. server spento, tabella inesistente)
+                System.err.println("❌ Errore critico durante l'esecuzione del Login nel database:");
+                e.printStackTrace();
             }
 
-        } catch (SQLException e) {
-            // Gestione dell'errore in caso di problemi con Postgres (es. server spento, tabella inesistente)
-            System.err.println("❌ Errore critico durante l'esecuzione del Login nel database:");
-            e.printStackTrace();
+            // 7. Se il database non trova nessuna riga (credenziali errate) o se c'è un errore, restituisce null
+            return null;
         }
-
-        // 7. Se il database non trova nessuna riga (credenziali errate) o se c'è un errore, restituisce null
-        return null;
     }
 }
 
