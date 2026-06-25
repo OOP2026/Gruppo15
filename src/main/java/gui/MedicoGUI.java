@@ -1,6 +1,7 @@
 package gui;
 
 import controller.Controller;
+import model.Medico;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,9 +11,16 @@ public class MedicoGUI extends JFrame {
     private JPanel MedicoPanel;
     private JButton mostraAgendaButton;
     private JButton ritornaIndietroButton;
+    private JLabel nomeLabel;
+    private JLabel cognomeLabel;
     private JFrame framePrecedente;
-    public MedicoGUI(Controller controller,JFrame framePrecedente) {
+
+    //passiamo anche il medico per ottenere i dati da visualizzare
+    public MedicoGUI(Controller controller,JFrame framePrecedente, Medico medico) {
         setContentPane(MedicoPanel);
+        //assegno alle label create i valori ottenuti dall'oggetto medico
+        nomeLabel.setText(medico.getNome());
+        cognomeLabel.setText(medico.getCognome());
         setTitle("Medico");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,4 +43,6 @@ public class MedicoGUI extends JFrame {
             }
         });
     }
+
+
 }

@@ -11,10 +11,17 @@ import database_connection.ConnessioneDatabase;
 public class UtentePostgresDao implements UtenteDAO {
     @Override
     public Utente login(String email, String password) {
+
         // 1. Definiamo la stringa SQL. Selezioniamo sia i campi comuni che quelli specifici
-        String sql = "SELECT id, nome, cognome, email, ruolo, specializzazione, ufficio " +
+        String sql = "SELECT id, nome, cognome, email, ruolo " +
                 "FROM utenti_sistema " +
                 "WHERE email = ? AND password_hash = ?";
+        //creiamo l'istanza con il database per ottenere e verificare i suoi dati
+        try {
+            ConnessioneDatabase.getInstance();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         // 2. Apriamo la connessione e prepariamo il PreparedStatement
         // Il try-with-resources chiuderà automaticamente tutto alla fine (anche in caso di errore)
@@ -45,9 +52,10 @@ public class UtentePostgresDao implements UtenteDAO {
                         medico.setCognome(rs.getString("cognome"));
                         medico.setEmail(rs.getString("email"));
 
+                        //aggiungo il set del ruolo altrimenti non salviamo questo dato
+                        medico.setRuolo(ruoloDalDB);
+
                         // Riempiamo il dato specifico della classe figlia Medico
-
-
                         return medico; // Restituiamo il medico pronto
 
                     } else if ("AMMINISTRATORE".equalsIgnoreCase(ruoloDalDB)) {
@@ -59,8 +67,8 @@ public class UtentePostgresDao implements UtenteDAO {
                         admin.setCognome(rs.getString("cognome"));
                         admin.setEmail(rs.getString("email"));
 
-
-
+                        //aggiungo il set del ruolo altrimenti non salviamo questo dato
+                        admin.setRuolo(ruoloDalDB);
 
                         return admin; // Restituiamo l'amministratore pronto
                     }

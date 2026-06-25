@@ -1,6 +1,7 @@
 package gui;
 
 import controller.Controller;
+import model.Amministratore;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +15,9 @@ public class AmministratoreGUI extends JFrame {
     private JButton visualizzaRicoveriButton;
     private JFrame framePrecedente;
 
-    public AmministratoreGUI(Controller controller,JFrame framePrecedente) {
+    //aggiunto anche qui l'oggetto amministratore passato dal controller
+
+    public AmministratoreGUI(Controller controller,JFrame framePrecedente, Amministratore admin) {
         this.framePrecedente=framePrecedente;
         setContentPane(AmministratorePanel);
         setTitle("Amministratore");
@@ -48,5 +51,6 @@ public class AmministratoreGUI extends JFrame {
             }
         });
     }
+
 
 }

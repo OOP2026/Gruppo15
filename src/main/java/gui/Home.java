@@ -18,7 +18,7 @@ public class Home extends JFrame {
     private JButton accediComeMedicoButton;
 
     public Home() {
-        controller = new Controller();
+        controller = new Controller(this);
         setContentPane(HomePanel);
         setTitle("Login");
         setSize(600,400);
@@ -26,13 +26,16 @@ public class Home extends JFrame {
         setVisible(true);
         setLocationRelativeTo(null); // Centra lo schermo
 
+        //modificato l'access in modo che non venga aperta immediatamente la prossima schermata, ma che venga prima eseguito il metodo "eseguiLogin"
+        //il controller aprirà poi medicoGUI o amministratoreGUI in base ai dati inseriti
+
         Access.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String email = Utente.getText();
+                String password = new String(passwordField.getPassword());
 
-                AmministratoreGUI secondagui=new AmministratoreGUI(controller,Home.this);
-                secondagui.setVisible(true);
-                dispose();
+                controller.eseguiLogin(email, password);
             }
         });
 

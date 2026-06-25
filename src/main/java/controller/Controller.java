@@ -1,6 +1,8 @@
 package controller;
 import dao.UtenteDAO;
+import gui.AmministratoreGUI;
 import gui.Home;
+import gui.MedicoGUI;
 import implementazioneDao.UtentePostgresDao;
 import model.*;
 
@@ -16,10 +18,6 @@ public class Controller {
 	Medico medico = new Medico();
 	Agenda agenda = new Agenda();
 	List<Ricovero> ricoveri = new ArrayList<Ricovero>();
-
-	public Controller() {
-		this.utenteDAO = new UtentePostgresDao(); // Colleghiamo Postgres tramite l'interfaccia
-	}
 
 	// metodo che richiama l'agenda per ottenere gli slots
 
@@ -55,6 +53,14 @@ public class Controller {
 	private UtenteDAO utenteDAO;
 	private Home finestraLogin;
 
+	//assegno home al controller siccome prima non aveva mai un valore
+	public Controller(Home home){
+		this.finestraLogin = home;
+		this.utenteDAO = new UtentePostgresDao();
+	}
+
+	//metodo per eseguire la login, in base al ruolo apre una schermata differente
+
 	public void eseguiLogin(String emailInserita, String passwordInserita) {
 
 		// 1. Chiamata al database tramite il DAO
@@ -77,7 +83,7 @@ public class Controller {
 			Medico medico = (Medico) utenteLoggato;
 
 			// Apriamo la schermata del medico passandogli l'oggetto
-			SchermataMedico viewMedico = new SchermataMedico(medico);
+			MedicoGUI viewMedico = new MedicoGUI(this, finestraLogin, medico);
 			viewMedico.setVisible(true);
 
 			// Chiudiamo la finestra di login
@@ -88,8 +94,8 @@ public class Controller {
 			// CAST: Trasformiamo l'Utente in Amministratore
 			Amministratore admin = (Amministratore) utenteLoggato;
 
-			// Apriamo la schermata dell'amministratore passandogli l'oggetto
-			SchermataAdmin viewAdmin = new SchermataAdmin(admin);
+			// Apriamo la schermata dell'amministratore passandogli l'oggetto admin
+			AmministratoreGUI viewAdmin = new AmministratoreGUI(this, finestraLogin, admin);
 			viewAdmin.setVisible(true);
 
 			// Chiudiamo la finestra di login
@@ -99,5 +105,5 @@ public class Controller {
 
 
 	}
-}
+
 
