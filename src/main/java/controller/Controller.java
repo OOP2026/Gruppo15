@@ -1,17 +1,16 @@
 package controller;
 import dao.UtenteDAO;
+import dao.RicoveroDAO;
 import gui.AmministratoreGUI;
 import gui.Home;
 import gui.MedicoGUI;
+import implementazioneDao.RicoveroPostgresDao;
 import implementazioneDao.UtentePostgresDao;
 import model.*;
 
 import javax.swing.*;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Controller {
@@ -46,11 +45,14 @@ public class Controller {
 	// nuovi metodi dopo l'aggiunta del DB
 	private UtenteDAO utenteDAO;
 	private Home finestraLogin;
+	private RicoveroDAO ricoveroDAO;
 
 	//assegno home al controller siccome prima non aveva mai un valore
 	public Controller(Home home){
 		this.finestraLogin = home;
+		// assegnamo tutti i valori dei DAO, aggiunto ricoveroDAO
 		this.utenteDAO = new UtentePostgresDao();
+		this.ricoveroDAO = new RicoveroPostgresDao();
 	}
 
 	//metodo per eseguire la login, in base al ruolo apre una schermata differente
@@ -97,8 +99,11 @@ public class Controller {
 		}
 	}
 
-	public void salvaRicovero(){
+	//metodo che salva il ricovero e restituisce true/false
 
+	public boolean salvaRicovero(Ricovero ricovero) throws  SQLException{
+		// chiamata al db tramite Dao
+		return ricoveroDAO.salvaRicovero(ricovero);
 	}
 
 

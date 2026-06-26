@@ -1,8 +1,6 @@
 package model;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Date;
 
 public class Ricovero {
@@ -11,14 +9,16 @@ public class Ricovero {
     private int medico_id;
     private Timestamp dataInizio;
     private Timestamp dataFine; // Può essere null se il ricovero è attivo
-    private int id_reparto;
-    private int id_letto;
+    private String reparto;
+    private String diagnosi;
+    // private int id_letto;
 
-    public Ricovero(String tessera_sanitaria, int medico_id, int id_reparto, int id_letto) {
+    public Ricovero(String tessera_sanitaria, int medico_id, String diagnosi, String reparto, int id_letto) {
         this.tessera_sanitaria = tessera_sanitaria;
         this.medico_id = medico_id;
-        this.id_reparto = id_reparto;
-        this.id_letto = id_letto;
+        this.diagnosi = diagnosi;
+        this.reparto = reparto;
+        // this.id_letto = id_letto;
 
     }
 
@@ -46,28 +46,41 @@ public class Ricovero {
         return dataInizio;
 
     }
+
+    //cambiato get e set reparto in String siccome è VARCHAR in SQL
     public void setDataInizio(Timestamp dataInizio) {
         this.dataInizio = dataInizio;
     }
-    public Timestamp getDataFine() {
+    public Date getDataFine() {
         return dataFine;
     }
     public void setDataFine(Timestamp dataFine) {
         this.dataFine = dataFine;
     }
-    public int getId_reparto() {
-        return id_reparto;
+    public String getReparto() {
+        return reparto;
     }
-    public void setId_reparto(int id_reparto) {
-        this.id_reparto = id_reparto;
+    public void setReparto(String reparto) {
+        this.reparto = reparto;
 
     }
-    public int getId_letto() {
-        return id_letto;
+
+    //aggiunti set e get diagnosi
+
+    public void setDiagnosi(String diagnosi) {
+        this.diagnosi = diagnosi;
     }
-    public void setId_letto(int id_letto) {
-        this.id_letto = id_letto;
-    }
+
+    public String getDiagnosi(){ return diagnosi;}
+
+    //ho momentaneamente commentato il codice di set e get id siccome dava problemi essendo inutilizzabile
+
+    // public int getId_letto() {
+    //    return id_letto;
+   // }
+   //  public void setId_letto(int id_letto) {
+   //     this.id_letto = id_letto;
+   // }
 
 
 

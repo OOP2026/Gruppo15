@@ -6,6 +6,7 @@ import database_connection.ConnessioneDatabase;
 import model.Ricovero;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,8 +14,18 @@ import java.util.List;
 public class RicoveroPostgresDao implements RicoveroDAO {
     @Override
     public boolean salvaRicovero(Ricovero ricovero) {
-        String sql = "INSERT INTO ricoveri (paziente_id,medico_id, inizio_ricovero , id_reparto, id_letto) " +
-                "VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?)";
+
+        // debug
+        System.out.println("TS: " + ricovero.getTessera_sanitaria());
+        System.out.println("Medico: " + ricovero.getMedico_id());
+        System.out.println("Diagnosi: " + ricovero.getDiagnosi());
+        System.out.println("Reparto: " + ricovero.getReparto());
+        System.out.println("Data fine: " + ricovero.getDataFine());
+
+        //modificato leggermente la query per aggiungere tutti i valori, manca data fine nella GUI
+        //per ora letto id non è inserito siccome manca come attributo SQL
+        String sql = "INSERT INTO ricoveri (paziente_id,medico_id,motivo, data_inizio ,reparto, data_fine) " +
+                "VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?)"; // da aggiungere letto_id siccome non è inserito in SQL
 
         try {
             ConnessioneDatabase.getInstance();
@@ -27,11 +38,17 @@ public class RicoveroPostgresDao implements RicoveroDAO {
 
             pstmt.setString(1, ricovero.getTessera_sanitaria());
             pstmt.setInt(2, ricovero.getMedico_id());
-            pstmt.setInt(3, ricovero.getId_reparto());
-            pstmt.setInt(4, ricovero.getId_letto());
+            pstmt.setString(3, ricovero.getDiagnosi());
+            pstmt.setString(4, ricovero.getReparto());
+           // pstmt.setInt(4, ricovero.getId_letto());
+            pstmt.setDate(5, (Date) ricovero.getDataFine());
 
-            return pstmt.executeUpdate() > 0;
+            //debug
+            int righe = pstmt.executeUpdate();
 
+            System.out.println("Righe inserite: " + righe);
+
+            return righe > 0;
         } catch (SQLException e) {
             System.err.println("❌ Errore durante il salvataggio del ricovero:");
             e.printStackTrace();
