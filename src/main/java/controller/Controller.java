@@ -101,9 +101,9 @@ public class Controller {
 
 	//metodo che salva il ricovero e restituisce true/false
 
-	public boolean salvaRicovero(Ricovero ricovero) throws  SQLException{
+	public boolean salvaRicovero(Ricovero ricovero,Paziente paziente) throws  SQLException{
 		// chiamata al db tramite Dao
-		return ricoveroDAO.salvaRicovero(ricovero);
+		return ricoveroDAO.salvaRicovero(ricovero,paziente);
 	}
 
 

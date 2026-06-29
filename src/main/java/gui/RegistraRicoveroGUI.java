@@ -1,5 +1,6 @@
 package gui;
 import controller.Controller;
+import model.Paziente;
 import model.Ricovero;
 
 import javax.swing.*;
@@ -22,6 +23,10 @@ public class RegistraRicoveroGUI extends JFrame {
     private JLabel RepartoLabel;
     private JLabel IdLettoLABEL;
     private JTextField LettoField;
+    private JTextField nomeField;
+    private JTextField CognomeField;
+    private JLabel cognomeLabel;
+    private JLabel nomeLabel;
     private JFrame framePrecedente;
 
     public RegistraRicoveroGUI(Controller controller,JFrame framePrecedente) {
@@ -29,7 +34,7 @@ public class RegistraRicoveroGUI extends JFrame {
         this.controller = controller;
         setContentPane(RegistraRicoveroPanel);
         setTitle("Amministratore");
-        setSize(300, 350);
+        setSize(300, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
@@ -47,11 +52,11 @@ public class RegistraRicoveroGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Ricovero ricovero = new Ricovero(TesseraSanitariaField.getText(),Integer.parseInt(MedicoAlboField.getText()),DiagnosiField.getText(),RepartoField.getText(),Integer.parseInt(LettoField.getText()));
-
+                Paziente paziente = new Paziente(TesseraSanitariaField.getText(),nomeField.getText(),CognomeField.getText(),DiagnosiField.getText());
                 //aggiunto codice che permette di provare a salvare il ricovero, in caso contrario va in errore
                 boolean salvato = false;
                 try {
-                    salvato = controller.salvaRicovero(ricovero);
+                    salvato = controller.salvaRicovero(ricovero,paziente);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(
                             RegistraRicoveroGUI.this,

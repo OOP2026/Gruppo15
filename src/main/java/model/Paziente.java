@@ -7,7 +7,7 @@ public class Paziente {
     private String diagnosi;
     private String cura;
 
-    public Paziente(String tessera_sanitaria, String nome,String cognome, String diagnosi){
+    public Paziente(String tessera_sanitaria, String nome,String cognome, String diagnosi) {
         this.tessera_sanitaria=tessera_sanitaria;
         this.nome=nome;
         this.cognome=cognome;
