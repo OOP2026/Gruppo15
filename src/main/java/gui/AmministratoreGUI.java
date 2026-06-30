@@ -46,8 +46,10 @@ public class AmministratoreGUI extends JFrame {
         visualizzaRicoveriButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 MostraRicoveriGUI mostraRicoveriGUI = new MostraRicoveriGUI(controller, AmministratoreGUI.this);
                 mostraRicoveriGUI.setVisible(true);
+                dispose();
             }
         });
     }

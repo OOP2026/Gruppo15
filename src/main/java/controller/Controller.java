@@ -32,15 +32,7 @@ public class Controller {
 	// testo da restituire
 	String testoRicovero = "<html>";
 
-	public String mostraRicovero() {
-		for (Ricovero ricovero : ricoveri) {
-			testoRicovero += ricovero.toString() + "<br>";
 
-		}
-		testoRicovero += "</html>";
-
-		return testoRicovero;
-	}
 
 	// nuovi metodi dopo l'aggiunta del DB
 	private UtenteDAO utenteDAO;
@@ -105,6 +97,12 @@ public class Controller {
 		// chiamata al db tramite Dao
 		return ricoveroDAO.salvaRicovero(ricovero,paziente);
 	}
+
+	public Ricovero mostraRicovero(String tesseraSanitaria) throws SQLException{
+		return ricoveroDAO.mostraRicovero(tesseraSanitaria);
+	}
+
+
 
 
 	}

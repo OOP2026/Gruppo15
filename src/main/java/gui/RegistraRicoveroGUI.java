@@ -52,6 +52,7 @@ public class RegistraRicoveroGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Ricovero ricovero = new Ricovero(TesseraSanitariaField.getText(),Integer.parseInt(MedicoAlboField.getText()),DiagnosiField.getText(),RepartoField.getText(),Integer.parseInt(LettoField.getText()));
+
                 Paziente paziente = new Paziente(TesseraSanitariaField.getText(),nomeField.getText(),CognomeField.getText(),DiagnosiField.getText());
                 //aggiunto codice che permette di provare a salvare il ricovero, in caso contrario va in errore
                 boolean salvato = false;

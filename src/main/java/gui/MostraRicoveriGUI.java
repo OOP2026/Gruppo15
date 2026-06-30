@@ -4,25 +4,49 @@ import controller.Controller;
 import model.Ricovero;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class MostraRicoveriGUI extends JFrame {
     private JPanel mostraRicoveriPanel;
     private JLabel ricoveriLabel;
-    private JLabel ricoveriOutput;
+    private JTextField tesseraSanitariaField;
+    private JButton inviaButton;
+    private JButton ritornaIndietroButton;
     private JFrame frameprecedente;
 
     public MostraRicoveriGUI(Controller controller, JFrame frameprecedente){
         this.frameprecedente = frameprecedente;
         setContentPane(mostraRicoveriPanel);
-        setTitle("Ricoveri");
-        setSize(300, 200);
+        setTitle("RicercaRicovero");
+        setSize(400, 300);
         setLocationRelativeTo(null); // Centra lo schermo
 
-        ricoveriOutput.setText(controller.mostraRicovero());
 
+        inviaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-        
+                Ricovero ricovero;
+                try {
+                    ricovero = controller.mostraRicovero(tesseraSanitariaField.getText());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                RicoveroPazienteGUI ricoveroPazienteGUI = new RicoveroPazienteGUI(controller, frameprecedente, ricovero);
+                ricoveroPazienteGUI.setVisible(true);
+                dispose();
 
+            }
+        });
+        ritornaIndietroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frameprecedente.setVisible(true);
+                dispose();
+            }
+        });
     }
     }
 

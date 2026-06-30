@@ -6,10 +6,8 @@ import database_connection.ConnessioneDatabase;
 import model.Paziente;
 import model.Ricovero;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RicoveroPostgresDao implements RicoveroDAO {
@@ -66,6 +64,41 @@ public class RicoveroPostgresDao implements RicoveroDAO {
             System.err.println("❌ Errore durante il salvataggio del ricovero:");
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public Ricovero mostraRicovero(String tesseraSanitaria) throws SQLException {
+
+        System.out.println("TS: " + tesseraSanitaria);
+        try {
+            ConnessioneDatabase.getInstance();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String sql="SELECT paziente_id,medico_id,data_inizio,data_fine,reparto,motivo FROM ricoveri where paziente_id=?";
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            pstmt.setString(1, tesseraSanitaria);
+
+            try (ResultSet rs = pstmt.executeQuery()){
+                if (rs.next()) { // Entra qui solo se trova il record
+                    Ricovero r = new Ricovero();
+                    r.setTessera_sanitaria(rs.getString("paziente_id"));
+                    r.setDiagnosi(rs.getString("motivo"));
+                    r.setDataInizio(rs.getTimestamp("data_inizio"));
+                    r.setMedico_id(rs.getInt("medico_id"));
+                    r.setReparto(rs.getString("reparto"));
+
+                    return r;
+                }
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
+
         }
     }
 

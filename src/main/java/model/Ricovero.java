@@ -13,6 +13,10 @@ public class Ricovero {
     private String diagnosi;
     // private int id_letto;
 
+    public Ricovero() {
+
+    }
+
     public Ricovero(String tessera_sanitaria, int medico_id, String diagnosi, String reparto, int id_letto) {
         this.tessera_sanitaria = tessera_sanitaria;
         this.medico_id = medico_id;
