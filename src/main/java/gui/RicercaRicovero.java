@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
 public class RicercaRicovero extends JFrame {
     private JPanel mostraRicoveriPanel;
@@ -28,13 +29,13 @@ public class RicercaRicovero extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Ricovero ricovero;
+                List<Ricovero> ricoveri;
                 try {
-                    ricovero = controller.mostraRicovero(tesseraSanitariaField.getText());
+                    ricoveri = controller.mostraRicoveri(tesseraSanitariaField.getText());
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                RicoveroPazienteGUI ricoveroPazienteGUI = new RicoveroPazienteGUI(controller, frameprecedente, ricovero);
+                RicoveroPazienteGUI ricoveroPazienteGUI = new RicoveroPazienteGUI(controller, frameprecedente, ricoveri);
                 ricoveroPazienteGUI.setVisible(true);
                 dispose();
 

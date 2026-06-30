@@ -12,5 +12,6 @@ public interface RicoveroDAO {
     // vedere tutti i ricoveri di un reparto
     //List<Ricovero> trovaRicoveriAttiviPerReparto(String reparto);
 
-    Ricovero mostraRicovero(String tesseraSanitaria) throws SQLException;
+//    Ricovero mostraRicovero(String tesseraSanitaria) throws SQLException;
+    List<Ricovero> getRicoveriPerPaziente(String tesseraSanitaria) throws SQLException;
 }

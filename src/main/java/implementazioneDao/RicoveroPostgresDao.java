@@ -25,8 +25,8 @@ public class RicoveroPostgresDao implements RicoveroDAO {
         //per ora letto id non è inserito siccome manca come attributo SQL
         String sqlPaziente="INSERT INTO pazienti (tessera_sanitaria,nome,cognome,diagnosi)" +
                 "VALUES (?,?,?,?)";
-        String sql = "INSERT INTO ricoveri (paziente_id,medico_id,motivo, data_inizio ,reparto, data_fine) " +
-                "VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?)"; // da aggiungere letto_id siccome non è inserito in SQL
+        String sql = "INSERT INTO ricoveri (paziente_id,medico_id,motivo, data_inizio ,reparto, data_fine,id_letto) " +
+                "VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?,?)"; // da aggiungere letto_id siccome non è inserito in SQL
 
         try {
             ConnessioneDatabase.getInstance();
@@ -54,8 +54,8 @@ public class RicoveroPostgresDao implements RicoveroDAO {
             pstmt.setInt(2, ricovero.getMedico_id());
             pstmt.setString(3, ricovero.getDiagnosi());
             pstmt.setString(4, ricovero.getReparto());
-           // pstmt.setInt(4, ricovero.getId_letto());
             pstmt.setDate(5, (Date) ricovero.getDataFine());
+            pstmt.setInt(6, ricovero.getId_letto());
 
 
             //debug
@@ -71,39 +71,42 @@ public class RicoveroPostgresDao implements RicoveroDAO {
         }
     }
 
-    public Ricovero mostraRicovero(String tesseraSanitaria) throws SQLException {
 
-        System.out.println("TS: " + tesseraSanitaria);
+
+    public List<Ricovero> getRicoveriPerPaziente(String tesseraSanitaria){
+        List<Ricovero> listaRicoveri = new ArrayList<>();
+        String sql = "SELECT id,paziente_id,medico_id,data_inizio, data_fine, reparto, motivo,id_letto FROM ricoveri WHERE paziente_id = ?";
+
         try {
             ConnessioneDatabase.getInstance();
         } catch (SQLException e) {
             e.printStackTrace();
+
         }
 
-        String sql="SELECT paziente_id,medico_id,data_inizio,data_fine,reparto,motivo FROM ricoveri where paziente_id=?";
         try (Connection conn = ConnessioneDatabase.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)){
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, tesseraSanitaria);
 
-            try (ResultSet rs = pstmt.executeQuery()){
-                if (rs.next()) { // Entra qui solo se trova il record
-                    Ricovero r = new Ricovero();
-                    r.setTessera_sanitaria(rs.getString("paziente_id"));
-                    r.setDiagnosi(rs.getString("motivo"));
-                    r.setDataInizio(rs.getTimestamp("data_inizio"));
-                    r.setMedico_id(rs.getInt("medico_id"));
-                    r.setReparto(rs.getString("reparto"));
-
-                    return r;
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Ricovero r = new Ricovero(
+                            rs.getString("paziente_id"),
+                            rs.getInt("medico_id"),
+                            rs.getString("motivo"),
+                            rs.getString("reparto"),
+                            rs.getInt("id_letto")
+                    );
+                    listaRicoveri.add(r);
                 }
             }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return null;
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gestisci l'errore o mostra un avviso nella GUI
         }
+        return listaRicoveri;
+
     }
 
 

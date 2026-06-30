@@ -11,7 +11,7 @@ public class Ricovero {
     private Timestamp dataFine; // Può essere null se il ricovero è attivo
     private String reparto;
     private String diagnosi;
-    // private int id_letto;
+    private int id_letto;
 
     public Ricovero() {
 
@@ -22,7 +22,7 @@ public class Ricovero {
         this.medico_id = medico_id;
         this.diagnosi = diagnosi;
         this.reparto = reparto;
-        // this.id_letto = id_letto;
+        this.id_letto = id_letto;
 
     }
 
@@ -79,12 +79,12 @@ public class Ricovero {
 
     //ho momentaneamente commentato il codice di set e get id siccome dava problemi essendo inutilizzabile
 
-    // public int getId_letto() {
-    //    return id_letto;
-   // }
-   //  public void setId_letto(int id_letto) {
-   //     this.id_letto = id_letto;
-   // }
+     public int getId_letto() {
+        return id_letto;
+    }
+     public void setId_letto(int id_letto) {
+        this.id_letto = id_letto;
+    }
 
 
 

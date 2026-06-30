@@ -98,8 +98,8 @@ public class Controller {
 		return ricoveroDAO.salvaRicovero(ricovero,paziente);
 	}
 
-	public Ricovero mostraRicovero(String tesseraSanitaria) throws SQLException{
-		return ricoveroDAO.mostraRicovero(tesseraSanitaria);
+	public List<Ricovero> mostraRicoveri(String tesseraSanitaria) throws SQLException{
+		return ricoveroDAO.getRicoveriPerPaziente(tesseraSanitaria);
 	}
 
 
