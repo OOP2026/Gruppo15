@@ -4,6 +4,8 @@ import controller.Controller;
 import model.Ricovero;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Timestamp;
 
 public class RicoveroPazienteGUI extends JFrame {
@@ -38,9 +40,13 @@ public class RicoveroPazienteGUI extends JFrame {
        repartoLabel.setText("Ricovero: "+ ricovero.getReparto());
 
 
-
-
-
+        ritornaIndietroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                framePrecedente.setVisible(true);
+                dispose();
+            }
+        });
     }
 
 }

@@ -47,8 +47,8 @@ public class AmministratoreGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                MostraRicoveriGUI mostraRicoveriGUI = new MostraRicoveriGUI(controller, AmministratoreGUI.this);
-                mostraRicoveriGUI.setVisible(true);
+                RicercaRicovero ricercaRicovero = new RicercaRicovero(controller, AmministratoreGUI.this);
+                ricercaRicovero.setVisible(true);
                 dispose();
             }
         });

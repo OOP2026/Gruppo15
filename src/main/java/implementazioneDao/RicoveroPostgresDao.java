@@ -39,12 +39,16 @@ public class RicoveroPostgresDao implements RicoveroDAO {
              PreparedStatement pstmtPaziente = conn.prepareStatement(sqlPaziente);
 
              // paziente
-             pstmtPaziente.setString(1, paziente.getTessera());
-             pstmtPaziente.setString(2,paziente.getNome());
-             pstmtPaziente.setString(3,paziente.getCognome());
-             pstmtPaziente.setString(4,paziente.getDiagnosi());
-             pstmtPaziente.executeUpdate();
-
+            try {
+                pstmtPaziente.setString(1, paziente.getTessera());
+                pstmtPaziente.setString(2, paziente.getNome());
+                pstmtPaziente.setString(3, paziente.getCognome());
+                pstmtPaziente.setString(4, paziente.getDiagnosi());
+                pstmtPaziente.executeUpdate();
+            }
+            catch (SQLException e) {
+                System.out.println("Esiste già il paziente");
+            }
              // Ricovero
             pstmt.setString(1, ricovero.getTessera_sanitaria());
             pstmt.setInt(2, ricovero.getMedico_id());

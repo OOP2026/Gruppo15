@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class MostraRicoveriGUI extends JFrame {
+public class RicercaRicovero extends JFrame {
     private JPanel mostraRicoveriPanel;
     private JLabel ricoveriLabel;
     private JTextField tesseraSanitariaField;
@@ -16,7 +16,7 @@ public class MostraRicoveriGUI extends JFrame {
     private JButton ritornaIndietroButton;
     private JFrame frameprecedente;
 
-    public MostraRicoveriGUI(Controller controller, JFrame frameprecedente){
+    public RicercaRicovero(Controller controller, JFrame frameprecedente){
         this.frameprecedente = frameprecedente;
         setContentPane(mostraRicoveriPanel);
         setTitle("RicercaRicovero");
