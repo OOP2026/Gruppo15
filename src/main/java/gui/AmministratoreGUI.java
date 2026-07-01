@@ -54,10 +54,14 @@ public class AmministratoreGUI extends JFrame {
             }
         });
 
+        //button per mostrare la schemrata di registra slot orario
         registraSlotOrarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                RegistraSlotOrarioGUI registraSlotOrario = new RegistraSlotOrarioGUI( controller, AmministratoreGUI.this);
+                registraSlotOrario.setVisible(true);
 
+                dispose();
             }
         });
     }

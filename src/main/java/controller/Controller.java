@@ -1,15 +1,9 @@
 package controller;
-import dao.AgendaDAO;
-import dao.PrestazioneDAO;
-import dao.UtenteDAO;
-import dao.RicoveroDAO;
+import dao.*;
 import gui.AmministratoreGUI;
 import gui.Home;
 import gui.MedicoGUI;
-import implementazioneDao.AgendaPostgresDao;
-import implementazioneDao.PrestazionePostgresDao;
-import implementazioneDao.RicoveroPostgresDao;
-import implementazioneDao.UtentePostgresDao;
+import implementazioneDao.*;
 import model.*;
 
 import javax.swing.*;
@@ -34,6 +28,7 @@ public class Controller {
 	private AgendaDAO agendaDAO;
 	private Medico medicoLoggato;
 	private PrestazioneDAO prestazioneDAO;
+	private SlotOrarioDAO slotOrarioDAO;
 
 	//assegno home al controller siccome prima non aveva mai un valore
 	public Controller(Home home){
@@ -43,6 +38,7 @@ public class Controller {
 		this.ricoveroDAO = new RicoveroPostgresDao();
 		this.agendaDAO = new AgendaPostgresDao();
 		this.prestazioneDAO = new PrestazionePostgresDao();
+		this.slotOrarioDAO = new SlotOrarioPostgresDao();
 	}
 
 	//metodo per eseguire la login, in base al ruolo apre una schermata differente
@@ -110,6 +106,11 @@ public class Controller {
 
 	public boolean salvaPrestazione(Prestazione prestazione) throws SQLException{
 		return prestazioneDAO.salvaPrestazione(prestazione);
+	}
+
+	//metodo per salvare gli slot orari
+	public boolean salvaSlotOrario(SlotOrario slotOrario) throws SQLException{
+		return slotOrarioDAO.creaSlot(slotOrario);
 	}
 
 

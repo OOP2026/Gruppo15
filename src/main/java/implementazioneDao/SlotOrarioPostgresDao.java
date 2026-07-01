@@ -15,8 +15,8 @@ import java.util.List;
 public class SlotOrarioPostgresDao implements SlotOrarioDAO{
     @Override
     public boolean creaSlot(SlotOrario slotOrario) throws SQLException {
-        String sql = "INSERT INTO SlotOrario (giorno, ora_inizio, ora_fine, id_agenda) " +
-                "VALUES (?, ?, ?, ?)"; // da aggiungere letto_id siccome non è inserito in SQL
+        String sql = "INSERT INTO slot_orario (giorno, ora_inizio, ora_fine, id_agenda) " +
+                "VALUES (?::giorno_settimana, ?, ?, ?)"; // da aggiungere letto_id siccome non è inserito in SQL
 
         try {
             ConnessioneDatabase.getInstance();
@@ -64,11 +64,15 @@ public class SlotOrarioPostgresDao implements SlotOrarioDAO{
         ResultSet rs = pstmt.executeQuery();
 
         while (rs.next()) {
+            //creiamo prima un agenda siccome nel costruttore non prendiamo solo l'id ma tutto l'oggetto
+            Agenda agenda = new Agenda();
+            agenda.setId_agenda(rs.getInt("id_agenda"));
 
             SlotOrario slot = new SlotOrario(
                     rs.getString("giorno"),
                     rs.getTime("ora_inizio").toLocalTime(),
-                    rs.getTime("ora_fine").toLocalTime()
+                    rs.getTime("ora_fine").toLocalTime(),
+                    agenda
             );
 
             slots.add(slot);
