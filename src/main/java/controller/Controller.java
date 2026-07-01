@@ -95,6 +95,8 @@ public class Controller {
 		return ricoveroDAO.salvaRicovero(ricovero,paziente);
 	}
 
+
+
 	public List<Ricovero> mostraRicoveri(String tesseraSanitaria) throws SQLException{
 		return ricoveroDAO.getRicoveriPerPaziente(tesseraSanitaria);
 	}
@@ -107,10 +109,16 @@ public class Controller {
 	public boolean salvaPrestazione(Prestazione prestazione) throws SQLException{
 		return prestazioneDAO.salvaPrestazione(prestazione);
 	}
+	public boolean modificaPrestazione(Prestazione prestazione) throws SQLException{
+		return prestazioneDAO.aggiornaPrestazione(prestazione);
+	}
 
 	//metodo per salvare gli slot orari
 	public boolean salvaSlotOrario(SlotOrario slotOrario) throws SQLException{
 		return slotOrarioDAO.creaSlot(slotOrario);
+	}
+	public List<Prestazione> mostraTutteLePrestazioni() throws SQLException {
+		return prestazioneDAO.getTutteLePrestazioni();
 	}
 
 

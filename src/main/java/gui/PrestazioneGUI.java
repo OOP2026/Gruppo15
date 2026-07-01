@@ -24,19 +24,31 @@ public class PrestazioneGUI extends JFrame {
     private JLabel descrizioneLabel;
     private JLabel esitoLabel;
     private JLabel tesseraLabel;
+    private JTextField id_prestazioneField;
+    private JLabel id_prestazioneLabel;
 
 
     private TipoPrestazione tipoPrestazioneEnum;
     private Esito esitoEnum;
     private Timestamp timestamp;
-    public PrestazioneGUI(Controller controller, JFrame frameprecedente, Medico medico) {
-        setContentPane(creaPrestazionePanel);
-        //assegno alle label create i valori ottenuti dall'oggetto medico
-        setTitle("Creazione prestazione");
-        setSize(300, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centra lo schermo
-
+    public PrestazioneGUI(Controller controller, JFrame frameprecedente, Medico medico, boolean modifica) {
+        if (modifica) {
+            setContentPane(creaPrestazionePanel);
+            setTitle("Modifica Prestazione");
+            setSize(300, 350);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setLocationRelativeTo(null); // Centra lo schermo
+            inviaButton.setText("Modifica");
+        }
+        else {
+            setContentPane(creaPrestazionePanel);
+            setTitle("Creazione prestazione");
+            setSize(300, 300);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setLocationRelativeTo(null); // Centra lo schermo
+            id_prestazioneField.setVisible(false);
+            id_prestazioneLabel.setVisible(false);
+        }
 
         inviaButton.addActionListener(new ActionListener() {
             @Override
@@ -59,9 +71,25 @@ public class PrestazioneGUI extends JFrame {
 
                Prestazione prestazione = new Prestazione(tipoPrestazioneEnum,timestamp,esitoEnum,descrizioneField.getText(),tesseraField.getText(), medico.getId());
 
+                if (modifica) {
+                    try {
+                        int idPrestazione = Integer.parseInt(id_prestazioneField.getText().trim());
+                        prestazione.setId(idPrestazione); // Assicurati che la classe Prestazione abbia il metodo setId(int id)
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(PrestazioneGUI.this, "Inserisci un ID prestazione valido per la modifica.", "Errore Input", JOptionPane.ERROR_MESSAGE);
+                        return; // Interrompe l'esecuzione se l'ID non è numerico
+                    }
+                }
+
                 boolean salvato=false;
                 try {
-                 salvato = controller.salvaPrestazione(prestazione);
+                    if(modifica){
+                        salvato=controller.modificaPrestazione(prestazione);
+                    }
+                 else {
+                        salvato = controller.salvaPrestazione(prestazione);
+                    }
+
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(
                             PrestazioneGUI.this,

@@ -56,7 +56,7 @@ public class SlotOrarioPostgresDao implements SlotOrarioDAO{
 
         Connection conn = ConnessioneDatabase.getConnection();
 
-        String sql = "SELECT giorno, ora_inizio, ora_fine FROM slot_orario WHERE id_agenda = ? ORDER BY giorno, ora_inizio";
+        String sql = "SELECT giorno, ora_inizio, ora_fine,id_agenda FROM slot_orario WHERE id_agenda = ? ORDER BY giorno, ora_inizio";
 
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, idAgenda);

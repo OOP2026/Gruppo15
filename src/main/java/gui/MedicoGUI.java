@@ -15,6 +15,7 @@ public class MedicoGUI extends JFrame {
     private JLabel nomeLabel;
     private JButton creaPrestazioneButton;
     private JButton modificaPrestazioneButton;
+    private JButton visualizzaLePrestazioniButton;
     private JLabel cognomeLabel;
     private JFrame framePrecedente;
 
@@ -54,7 +55,7 @@ public class MedicoGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PrestazioneGUI prestazioneGUI = null;
-                prestazioneGUI =new PrestazioneGUI(controller,MedicoGUI.this, medico);
+                prestazioneGUI =new PrestazioneGUI(controller,MedicoGUI.this, medico,false);
                 prestazioneGUI.setVisible(true);
                 dispose();
 
@@ -66,7 +67,18 @@ public class MedicoGUI extends JFrame {
         modificaPrestazioneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                PrestazioneGUI prestazioneGUI = null;
+                prestazioneGUI =new PrestazioneGUI(controller,MedicoGUI.this, medico,true);
+                prestazioneGUI.setVisible(true);
+                dispose();
+            }
+        });
+        visualizzaLePrestazioniButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                VisualizzaPrestazioniGUI viewLista = new VisualizzaPrestazioniGUI(controller,MedicoGUI.this);
+                viewLista.setVisible(true);
+                dispose();
             }
         });
     }
