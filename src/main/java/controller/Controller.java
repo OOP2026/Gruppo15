@@ -1,11 +1,13 @@
 package controller;
 import dao.AgendaDAO;
+import dao.PrestazioneDAO;
 import dao.UtenteDAO;
 import dao.RicoveroDAO;
 import gui.AmministratoreGUI;
 import gui.Home;
 import gui.MedicoGUI;
 import implementazioneDao.AgendaPostgresDao;
+import implementazioneDao.PrestazionePostgresDao;
 import implementazioneDao.RicoveroPostgresDao;
 import implementazioneDao.UtentePostgresDao;
 import model.*;
@@ -31,6 +33,7 @@ public class Controller {
 	private RicoveroDAO ricoveroDAO;
 	private AgendaDAO agendaDAO;
 	private Medico medicoLoggato;
+	private PrestazioneDAO prestazioneDAO;
 
 	//assegno home al controller siccome prima non aveva mai un valore
 	public Controller(Home home){
@@ -39,6 +42,7 @@ public class Controller {
 		this.utenteDAO = new UtentePostgresDao();
 		this.ricoveroDAO = new RicoveroPostgresDao();
 		this.agendaDAO = new AgendaPostgresDao();
+		this.prestazioneDAO = new PrestazionePostgresDao();
 	}
 
 	//metodo per eseguire la login, in base al ruolo apre una schermata differente
@@ -102,6 +106,10 @@ public class Controller {
 	//metodo per mostrare l'agenda
 	public Agenda mostraAgenda(int idMedico)throws SQLException{
 		return agendaDAO.trovaDaMedico(medicoLoggato.getId());
+	}
+
+	public boolean salvaPrestazione(Prestazione prestazione) throws SQLException{
+		return prestazioneDAO.salvaPrestazione(prestazione);
 	}
 
 

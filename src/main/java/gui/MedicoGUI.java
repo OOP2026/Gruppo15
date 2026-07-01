@@ -13,6 +13,8 @@ public class MedicoGUI extends JFrame {
     private JButton mostraAgendaButton;
     private JButton ritornaIndietroButton;
     private JLabel nomeLabel;
+    private JButton creaPrestazioneButton;
+    private JButton modificaPrestazioneButton;
     private JLabel cognomeLabel;
     private JFrame framePrecedente;
 
@@ -20,8 +22,7 @@ public class MedicoGUI extends JFrame {
     public MedicoGUI(Controller controller,JFrame framePrecedente, Medico medico) {
         setContentPane(MedicoPanel);
         //assegno alle label create i valori ottenuti dall'oggetto medico
-        nomeLabel.setText(medico.getNome());
-        cognomeLabel.setText(medico.getCognome());
+        nomeLabel.setText(medico.getNome()+ " "+ medico.getCognome());
         setTitle("Medico");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,6 +46,27 @@ public class MedicoGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 framePrecedente.setVisible(true);
                 dispose();
+            }
+        });
+
+
+        creaPrestazioneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PrestazioneGUI prestazioneGUI = null;
+                prestazioneGUI =new PrestazioneGUI(controller,MedicoGUI.this, medico);
+                prestazioneGUI.setVisible(true);
+                dispose();
+
+            }
+        });
+
+
+
+        modificaPrestazioneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
