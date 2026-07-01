@@ -13,6 +13,7 @@ public class AmministratoreGUI extends JFrame {
     private JButton registraRicoveroButton;
     private JButton ritornaIndietroButton;
     private JButton visualizzaRicoveriButton;
+    private JButton registraSlotOrarioButton;
     private JFrame framePrecedente;
 
     //aggiunto anche qui l'oggetto amministratore passato dal controller
@@ -50,6 +51,13 @@ public class AmministratoreGUI extends JFrame {
                 RicercaRicovero ricercaRicovero = new RicercaRicovero(controller, AmministratoreGUI.this);
                 ricercaRicovero.setVisible(true);
                 dispose();
+            }
+        });
+
+        registraSlotOrarioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }

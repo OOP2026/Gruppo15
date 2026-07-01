@@ -6,6 +6,7 @@ import model.Medico;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class MedicoGUI extends JFrame {
     private JPanel MedicoPanel;
@@ -28,8 +29,12 @@ public class MedicoGUI extends JFrame {
         mostraAgendaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AgendaGUI agendaGUI = new AgendaGUI(controller);
-                controller.medicoMostraAgenda();
+                AgendaGUI agendaGUI = null;
+                try {
+                    agendaGUI = new AgendaGUI(controller, medico);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
 
                 agendaGUI.setVisible(true);
 

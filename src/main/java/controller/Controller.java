@@ -1,9 +1,11 @@
 package controller;
+import dao.AgendaDAO;
 import dao.UtenteDAO;
 import dao.RicoveroDAO;
 import gui.AmministratoreGUI;
 import gui.Home;
 import gui.MedicoGUI;
+import implementazioneDao.AgendaPostgresDao;
 import implementazioneDao.RicoveroPostgresDao;
 import implementazioneDao.UtentePostgresDao;
 import model.*;
@@ -18,17 +20,6 @@ public class Controller {
 	Medico medico = new Medico();
 	Agenda agenda = new Agenda();
 	List<Ricovero> ricoveri = new ArrayList<Ricovero>();
-
-	// metodo che richiama l'agenda per ottenere gli slots
-
-	public List<SlotOrario> medicoMostraAgenda() {
-
-		return agenda.getSlots();
-
-	}
-
-
-
 	// testo da restituire
 	String testoRicovero = "<html>";
 
@@ -38,6 +29,8 @@ public class Controller {
 	private UtenteDAO utenteDAO;
 	private Home finestraLogin;
 	private RicoveroDAO ricoveroDAO;
+	private AgendaDAO agendaDAO;
+	private Medico medicoLoggato;
 
 	//assegno home al controller siccome prima non aveva mai un valore
 	public Controller(Home home){
@@ -45,6 +38,7 @@ public class Controller {
 		// assegnamo tutti i valori dei DAO, aggiunto ricoveroDAO
 		this.utenteDAO = new UtentePostgresDao();
 		this.ricoveroDAO = new RicoveroPostgresDao();
+		this.agendaDAO = new AgendaPostgresDao();
 	}
 
 	//metodo per eseguire la login, in base al ruolo apre una schermata differente
@@ -69,6 +63,9 @@ public class Controller {
 
 			// CAST: Trasformiamo l'Utente in Medico per sbloccare i campi specifici
 			Medico medico = (Medico) utenteLoggato;
+
+			//salvo il medico loggato per poterlo riutilizzare negli altri metodi
+			this.medicoLoggato = medico;
 
 			// Apriamo la schermata del medico passandogli l'oggetto
 			MedicoGUI viewMedico = new MedicoGUI(this, finestraLogin, medico);
@@ -100,6 +97,11 @@ public class Controller {
 
 	public List<Ricovero> mostraRicoveri(String tesseraSanitaria) throws SQLException{
 		return ricoveroDAO.getRicoveriPerPaziente(tesseraSanitaria);
+	}
+
+	//metodo per mostrare l'agenda
+	public Agenda mostraAgenda(int idMedico)throws SQLException{
+		return agendaDAO.trovaDaMedico(medicoLoggato.getId());
 	}
 
 

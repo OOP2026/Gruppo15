@@ -1,36 +1,45 @@
 package gui;
 
 import controller.Controller;
+import model.Agenda;
+import model.Medico;
 import model.SlotOrario;
 
 import javax.swing.*;
+import java.sql.SQLException;
 
 public class AgendaGUI extends JFrame {
 
     private JPanel AgendaPanel;
     private JLabel agendaLabel;
     private Controller controller;
-    public AgendaGUI(Controller controller) {
+    public AgendaGUI(Controller controller, Medico medico) throws SQLException {
         this.controller = controller;
         setContentPane(AgendaPanel);
         setTitle("Agenda");
         setSize(400, 200);
         setLocationRelativeTo(null); // Centra lo schermo
 
-      //  LabelGiorno.setText("Giorno: "+ controller.medicoMostraAgenda() );
+        try {
+            Agenda agenda = controller.mostraAgenda(medico.getId());
+            String testoSlots = "<html>"; //variabile temporanea per aggiungere tutti gli slot presi con il get, letta come html
 
+            // ciclo per mostrare tutti gli slot uno a uno
 
-        String testoSlots = "<html>"; //variabile temporanea per aggiungere tutti gli slot presi con il get, letta come html
+            for (SlotOrario slot : agenda.getSlots()) {
+                testoSlots += slot.toString() + "<br>";
+            }
+            testoSlots += "</html>";
 
-        // ciclo per mostrare tutti gli slot uno a uno
+            // inserisco il testo ottenuto nell'areaAgenda
+            agendaLabel.setText(testoSlots);
+        }catch (SQLException e){
+            e.printStackTrace();
 
-        for(SlotOrario slot : controller.medicoMostraAgenda()){
-            testoSlots += slot.toString() + "<br>";
-        }
-        testoSlots += "</html>";
-
-        // inserisco il testo ottenuto nell'areaAgenda
-        agendaLabel.setText(testoSlots);
+            JOptionPane.showMessageDialog(this,
+                    e.getMessage(),
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE);}
     }
 
 

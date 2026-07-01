@@ -4,47 +4,50 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 public class SlotOrario {
-    private DayOfWeek giorno;
+    private int id_slot;
+    private String giorno;
     private LocalTime oraInizio;
     private LocalTime oraFine;
-    private Medico medico;
+    private Agenda agenda;
 
-    public SlotOrario(DayOfWeek giorno, LocalTime oraInizio,LocalTime oraFine){
-        this.giorno=giorno;
-        this.oraInizio=oraInizio;
-        this.oraFine=oraFine;
-    } // costruttore slot
-
-    public void modificaSlot(DayOfWeek giorno, LocalTime oraInizio,LocalTime oraFine){
+    public SlotOrario(String giorno, LocalTime oraInizio,LocalTime oraFine){
         this.giorno=giorno;
         this.oraInizio=oraInizio;
         this.oraFine=oraFine;
     }
-    public DayOfWeek getGiorno() {
+
+    public int getId_slot(){return id_slot;}
+
+    public void setId_slot(int id_slot) {
+        this.id_slot = id_slot;
+    }
+
+    public String getGiorno() {
         return giorno;
     }
-    public void setGiorno(DayOfWeek giorno) {
+    public void setGiorno(String giorno) {
         this.giorno = giorno;
     }
+
     public LocalTime getOraInizio() {
         return oraInizio;
     }
     public void setOraInizio(LocalTime oraInizio) {
         this.oraInizio = oraInizio;
     }
+
     public LocalTime getOraFine() {
         return oraFine;
     }
     public void setOraFine(LocalTime oraFine) {
         this.oraFine = oraFine;
     }
-    public Medico getMedico() {
-        return medico;
-    }
-    public void setMedico(Medico medico) {
-        this.medico = medico;
-    }
 
+    public Agenda getAgenda(){return agenda;}
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
+    }
 
     // metodo String per rendere i dati leggibili
     @Override

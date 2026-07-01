@@ -14,13 +14,6 @@ public class RicoveroPostgresDao implements RicoveroDAO {
     @Override
     public boolean salvaRicovero(Ricovero ricovero,Paziente paziente) {
 
-        // debug
-        System.out.println("TS: " + ricovero.getTessera_sanitaria());
-        System.out.println("Medico: " + ricovero.getMedico_id());
-        System.out.println("Diagnosi: " + ricovero.getDiagnosi());
-        System.out.println("Reparto: " + ricovero.getReparto());
-        System.out.println("Data fine: " + ricovero.getDataFine());
-
         //modificato leggermente la query per aggiungere tutti i valori, manca data fine nella GUI
         //per ora letto id non è inserito siccome manca come attributo SQL
         String sqlPaziente="INSERT INTO pazienti (tessera_sanitaria,nome,cognome,diagnosi)" +
