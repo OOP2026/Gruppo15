@@ -94,6 +94,9 @@ public class Controller {
 		// chiamata al db tramite Dao
 		return ricoveroDAO.salvaRicovero(ricovero,paziente);
 	}
+	public boolean modificaRicovero(Ricovero ricovero,Paziente paziente) throws SQLException{
+		return ricoveroDAO.aggiornaRicovero(ricovero,paziente);
+	}
 
 
 
@@ -117,6 +120,10 @@ public class Controller {
 	public boolean salvaSlotOrario(SlotOrario slotOrario) throws SQLException{
 		return slotOrarioDAO.creaSlot(slotOrario);
 	}
+	public boolean modificaSlotOrario(SlotOrario slotOrario) throws SQLException{
+		return slotOrarioDAO.aggiornaSlot(slotOrario);
+	}
+
 	public List<Prestazione> mostraTutteLePrestazioni() throws SQLException {
 		return prestazioneDAO.getTutteLePrestazioni();
 	}

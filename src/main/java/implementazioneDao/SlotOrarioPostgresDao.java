@@ -26,7 +26,7 @@ public class SlotOrarioPostgresDao implements SlotOrarioDAO{
 
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            // Ricovero
+
             pstmt.setString(1, slotOrario.getGiorno());
             pstmt.setTime(2, java.sql.Time.valueOf(slotOrario.getOraInizio()));
             pstmt.setTime(3, java.sql.Time.valueOf((slotOrario.getOraFine())));
@@ -46,8 +46,40 @@ public class SlotOrarioPostgresDao implements SlotOrarioDAO{
     }
 
     @Override
-    public boolean modificaSlot(SlotOrario slotOrario) throws SQLException {
-        return false;
+    public boolean aggiornaSlot(SlotOrario slotOrario) throws SQLException {
+        try {
+            ConnessioneDatabase.getInstance();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "UPDATE slot_orario SET giorno = ?::giorno_settimana, ora_inizio = ?, ora_fine = ?, id_agenda = ? " +
+                "WHERE id_slot = ?";
+
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // 1. Impostiamo i nuovi valori
+            pstmt.setString(1, slotOrario.getGiorno()); // da rivedere siccome il giorno non è string
+            pstmt.setTime(2, java.sql.Time.valueOf(slotOrario.getOraInizio()));
+            pstmt.setTime(3, java.sql.Time.valueOf(slotOrario.getOraFine()));
+            pstmt.setInt(4, slotOrario.getAgenda().getId_agenda());
+
+            // 2. Identifichiamo LO SLOT SPECIFICO da aggiornare tramite il suo ID nella clausola WHERE
+            // Assicurati che l'oggetto slotOrario che passi a questa funzione contenga l'ID recuperato dal DB
+            pstmt.setInt(5, slotOrario.getId_slot());
+
+            int righeModificate = pstmt.executeUpdate();
+
+            System.out.println("Righe slot aggiornate: " + righeModificate);
+
+            return righeModificate > 0;
+
+        } catch (SQLException e) {
+            System.err.println("❌ Errore durante l'aggiornamento dello slot:");
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

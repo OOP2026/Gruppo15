@@ -16,6 +16,12 @@ public class SlotOrario {
         this.oraFine=oraFine;
         this.agenda = agenda;
     }
+    public SlotOrario(String giorno, LocalTime oraInizio, LocalTime oraFine, Agenda agenda,int id_slot){
+        this.giorno=giorno;
+        this.oraInizio=oraInizio;
+        this.oraFine=oraFine;
+        this.agenda = agenda;
+    }
 
     public int getId_slot(){return id_slot;}
 

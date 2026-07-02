@@ -9,8 +9,8 @@ public interface RicoveroDAO {
 
     boolean salvaRicovero(Ricovero ricovero,Paziente paziente) throws SQLException; //per salvare il ricovero nel database
 
-    // vedere tutti i ricoveri di un reparto
-    //List<Ricovero> trovaRicoveriAttiviPerReparto(String reparto);
+
+      boolean aggiornaRicovero(Ricovero ricovero,Paziente paziente) throws SQLException;
 
 //    Ricovero mostraRicovero(String tesseraSanitaria) throws SQLException;
     List<Ricovero> getRicoveriPerPaziente(String tesseraSanitaria) throws SQLException;

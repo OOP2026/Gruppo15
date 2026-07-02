@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalTime;
 
-public class RegistraSlotOrarioGUI extends JFrame{
+public class SlotOrarioGUI extends JFrame{
     private JPanel registraSlotPanel;
     private JButton annullaButton;
     private JLabel giornoLabel;
@@ -22,10 +22,24 @@ public class RegistraSlotOrarioGUI extends JFrame{
     private JLabel agendaLabel;
     private JButton salvaButton;
     private JTextField oraFineField;
+    private JComboBox giornoCombobox;
+    private JComboBox orarioInizioCombobox;
+    private JComboBox orarioFineCombobox;
+    private JTextField idSlotField;
+    private JLabel idSlotLabel;
     private Controller controller;
     private JFrame framePrecedente;
+    private SlotOrario slotOrario;
 
-    public RegistraSlotOrarioGUI(Controller controller, JFrame framePrecedente){
+    public SlotOrarioGUI(Controller controller, JFrame framePrecedente,boolean modifica){
+        idSlotField.setVisible(false);
+        idSlotLabel.setVisible(false);
+
+        if(modifica){
+            salvaButton.setText("Modifica");
+            idSlotField.setVisible(true);
+            idSlotLabel.setVisible(true);
+        }
         this.framePrecedente = framePrecedente;
         this.controller = controller;
         setContentPane(registraSlotPanel);
@@ -33,6 +47,7 @@ public class RegistraSlotOrarioGUI extends JFrame{
         setSize(300, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
+
 
         //button per tornare alla schermata precedente
         annullaButton.addActionListener(new ActionListener() {
@@ -50,14 +65,25 @@ public class RegistraSlotOrarioGUI extends JFrame{
                 Agenda agenda = new Agenda();
                 agenda.setId_agenda(Integer.parseInt(agendaField.getText()));
 
+                if (modifica){
+                    SlotOrario slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda,Integer.parseInt(idSlotField.getText()));
+                }
+                else {
+                    SlotOrario slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda);
+                }
 
-                SlotOrario slotOrario = new SlotOrario(giornoField.getText(), LocalTime.parse(oraInizioField.getText()), LocalTime.parse(oraFineField.getText()), agenda);
                 boolean salvato = false;
                 try {
-                    salvato = controller.salvaSlotOrario(slotOrario);
+                    if(modifica){
+                        salvato= controller.modificaSlotOrario(slotOrario);
+                    }
+                    else {
+                        salvato = controller.salvaSlotOrario(slotOrario);
+                    }
+
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(
-                            RegistraSlotOrarioGUI.this,
+                            SlotOrarioGUI.this,
                             "Errore durante il salvataggio nel database.",
                             "Errore",
                             JOptionPane.ERROR_MESSAGE

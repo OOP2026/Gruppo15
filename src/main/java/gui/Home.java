@@ -48,6 +48,11 @@ public class Home extends JFrame {
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf()); // Oppure FlatDarkLaf() per il tema scuro
+        } catch(Exception ex) {
+            System.err.println("Impossibile caricare il tema");
+        }
         Home frame = new Home();
     }
 }

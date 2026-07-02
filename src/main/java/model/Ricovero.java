@@ -17,12 +17,27 @@ public class Ricovero {
 
     }
 
-    public Ricovero(String tessera_sanitaria, int medico_id, String diagnosi, String reparto, int id_letto) {
+    public Ricovero(String tessera_sanitaria, int medico_id, String diagnosi, String reparto, int id_letto,Timestamp dataInizio,Timestamp dataFine,int id_ricovero) {
         this.tessera_sanitaria = tessera_sanitaria;
         this.medico_id = medico_id;
         this.diagnosi = diagnosi;
         this.reparto = reparto;
         this.id_letto = id_letto;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
+        this.id_ricovero = id_ricovero;
+
+    }
+    //
+
+    public Ricovero(String tessera_sanitaria, int medico_id, String diagnosi, String reparto, int id_letto,Timestamp dataInizio,Timestamp dataFine) {
+        this.tessera_sanitaria = tessera_sanitaria;
+        this.medico_id = medico_id;
+        this.diagnosi = diagnosi;
+        this.reparto = reparto;
+        this.id_letto = id_letto;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
 
     }
 

@@ -23,7 +23,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="mario.rossi@ospedale.it"/>
+          <text value="admin@ospedale.it"/>
         </properties>
       </component>
       <component id="22dae" class="javax.swing.JLabel" binding="UtenteLabel">
@@ -41,7 +41,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="medico"/>
+          <text value="admin"/>
         </properties>
       </component>
       <component id="8f4cf" class="javax.swing.JLabel" binding="PasswordLabel">

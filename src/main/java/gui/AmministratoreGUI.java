@@ -14,6 +14,12 @@ public class AmministratoreGUI extends JFrame {
     private JButton ritornaIndietroButton;
     private JButton visualizzaRicoveriButton;
     private JButton registraSlotOrarioButton;
+    private JButton modificaRicoveroButton;
+    private JButton modificaSlotOrarioButton;
+    private JButton assegnaAgendaAdUnButton;
+    private JButton aggiungiMedicoButton;
+    private JButton aggiungiPazienteButton;
+    private JButton modificaPazienteButton;
     private JFrame framePrecedente;
 
     //aggiunto anche qui l'oggetto amministratore passato dal controller
@@ -22,14 +28,14 @@ public class AmministratoreGUI extends JFrame {
         this.framePrecedente=framePrecedente;
         setContentPane(AmministratorePanel);
         setTitle("Amministratore");
-        setSize(300, 200);
+        setSize(300, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
         registraRicoveroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RegistraRicoveroGUI registraRicovero = new RegistraRicoveroGUI(controller,AmministratoreGUI.this);
+                RicoveroGUI registraRicovero = new RicoveroGUI(controller,AmministratoreGUI.this, false);
                 registraRicovero.setVisible(true);
                 dispose();
 
@@ -58,7 +64,24 @@ public class AmministratoreGUI extends JFrame {
         registraSlotOrarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RegistraSlotOrarioGUI registraSlotOrario = new RegistraSlotOrarioGUI( controller, AmministratoreGUI.this);
+                SlotOrarioGUI registraSlotOrario = new SlotOrarioGUI( controller, AmministratoreGUI.this,false);
+                registraSlotOrario.setVisible(true);
+
+                dispose();
+            }
+        });
+        modificaRicoveroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RicoveroGUI modificaRicovero = new RicoveroGUI(controller, AmministratoreGUI.this,true);
+                modificaRicovero.setVisible(true);
+
+            }
+        });
+        modificaSlotOrarioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SlotOrarioGUI registraSlotOrario = new SlotOrarioGUI( controller, AmministratoreGUI.this,true);
                 registraSlotOrario.setVisible(true);
 
                 dispose();

@@ -5,7 +5,8 @@ import model.Prestazione;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,32 +15,39 @@ public class VisualizzaPrestazioniGUI extends JFrame {
     private DefaultTableModel tableModel;
     private JScrollPane scrollPane;
     private Controller controller;
-    private JPanel panel1;
-    private JTable table1;
+    private JPanel visualizzaDatiPanel;
+    private JTable tableDati;
+    private JButton ritornaIndietroButton;
 
     public VisualizzaPrestazioniGUI(Controller controller,JFrame framePrecedente) {
         this.controller = controller;
-
+        setContentPane(visualizzaDatiPanel);
         setTitle("Elenco Prestazioni Mediche");
-        setSize(700, 400);
+        setSize(750, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         // 1. Definiamo le colonne della tabella
         String[] colonne = {"ID", "Paziente (Tessera)", "ID Medico", "Tipo", "Descrizione", "Esito", "Data"};
+
         tableModel = new DefaultTableModel(colonne, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Rende la tabella non modificabile direttamente con un doppio click
+                return false; // Rende la tabella non modificabile
             }
         };
+        tableDati.setModel(tableModel);
 
-        tabellaPrestazioni = new JTable(tableModel);
-        scrollPane = new JScrollPane(tabellaPrestazioni);
-        add(scrollPane, BorderLayout.CENTER);
 
-        // 2. Carichiamo i dati richiamando il controller
         caricaDatiTabelle();
+
+        ritornaIndietroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                framePrecedente.setVisible(true);
+                dispose();
+            }
+        });
     }
 
     private void caricaDatiTabelle() {
@@ -59,7 +67,7 @@ public class VisualizzaPrestazioniGUI extends JFrame {
                         p.getTipo_prestazione(),
                         p.getDescrizione(),
                         p.getEsito(),
-                        p.getData() // Supponendo che restituisca la data formattata o il timestamp
+                        p.getData()
                 };
                 tableModel.addRow(riga);
             }
