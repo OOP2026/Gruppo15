@@ -66,10 +66,10 @@ public class SlotOrarioGUI extends JFrame{
                 agenda.setId_agenda(Integer.parseInt(agendaField.getText()));
 
                 if (modifica){
-                    SlotOrario slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda,Integer.parseInt(idSlotField.getText()));
+                     slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda,Integer.parseInt(idSlotField.getText()));
                 }
                 else {
-                    SlotOrario slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda);
+                     slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda);
                 }
 
                 boolean salvato = false;

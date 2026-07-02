@@ -20,6 +20,7 @@ public class AmministratoreGUI extends JFrame {
     private JButton aggiungiMedicoButton;
     private JButton aggiungiPazienteButton;
     private JButton modificaPazienteButton;
+    private JButton visualizzaStrutturaOspedalieraButton;
     private JFrame framePrecedente;
 
     //aggiunto anche qui l'oggetto amministratore passato dal controller
@@ -83,6 +84,16 @@ public class AmministratoreGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 SlotOrarioGUI registraSlotOrario = new SlotOrarioGUI( controller, AmministratoreGUI.this,true);
                 registraSlotOrario.setVisible(true);
+
+                dispose();
+            }
+        });
+
+        visualizzaStrutturaOspedalieraButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                VisualizzaRepartiGUI visualizzaRepartiGUI = new VisualizzaRepartiGUI(controller, AmministratoreGUI.this);
+                visualizzaRepartiGUI.setVisible(true);
 
                 dispose();
             }

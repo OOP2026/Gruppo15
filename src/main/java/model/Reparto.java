@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Reparto {
-    private List<Stanza> stanze;
+    private int id;
     private String nomeReparto;
+    private int piano;
+    private List<Stanza> stanze;
 
-    public Reparto(String nomeReparto){
-        this.stanze=new ArrayList<>();
-        this.nomeReparto=nomeReparto;
+    public Reparto(int id, String nomeReparto, int piano){
+        this.id = id;
+        this.nomeReparto = nomeReparto;
+        this.piano = piano;
     }
+
 
     public List<Stanza> getStanze() {
         return stanze;
@@ -25,4 +29,17 @@ public class Reparto {
         this.nomeReparto = nomeReparto;
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPiano() {
+        return piano;
+    }
+    public void setPiano(int piano) {
+        this.piano = piano;
+    }
 }
