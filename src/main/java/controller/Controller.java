@@ -30,6 +30,7 @@ public class Controller {
 	private PrestazioneDAO prestazioneDAO;
 	private SlotOrarioDAO slotOrarioDAO;
 	private RepartoDAO repartoDAO;
+	private PazienteDAO pazienteDAO;
 
 	//assegno home al controller siccome prima non aveva mai un valore
 	public Controller(Home home){
@@ -41,6 +42,7 @@ public class Controller {
 		this.prestazioneDAO = new PrestazionePostgresDao();
 		this.slotOrarioDAO = new SlotOrarioPostgresDao();
 		this.repartoDAO = new RepartoPostgresDao();
+		this.pazienteDAO = new PazientePostgresDao();
 	}
 
 	//metodo per eseguire la login, in base al ruolo apre una schermata differente
@@ -132,6 +134,9 @@ public class Controller {
 
 	public List<Reparto> mostraReparti()throws SQLException{
 		return repartoDAO.getReparti();
+	}
+	public boolean aggiungiPaziente(Paziente paziente) throws SQLException{
+		return pazienteDAO.aggiungiPaziente(paziente);
 	}
 
 

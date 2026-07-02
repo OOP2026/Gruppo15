@@ -98,6 +98,22 @@ public class AmministratoreGUI extends JFrame {
                 dispose();
             }
         });
+        aggiungiPazienteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PazienteGUI pazienteGUI =new PazienteGUI(controller,AmministratoreGUI.this,false);
+                pazienteGUI.setVisible(true);
+                dispose();
+            }
+        });
+        modificaPazienteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PazienteGUI pazienteGUI =new PazienteGUI(controller,AmministratoreGUI.this,true);
+                pazienteGUI.setVisible(true);
+                dispose();
+            }
+        });
     }
 
 
