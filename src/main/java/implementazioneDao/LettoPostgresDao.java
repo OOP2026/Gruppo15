@@ -16,7 +16,7 @@ public class LettoPostgresDao implements LettoDAO {
     public List<Letto> getLettiByStanza(int idStanza) throws SQLException {
         List<Letto> listaLetti = new ArrayList<>();
 
-        String sql = "SELECT codice, stato FROM letti WHERE codice_stanza = ?";
+        String sql = "SELECT codice, occupato FROM letti WHERE codice_stanza = ?";
 
         try {
             ConnessioneDatabase.getInstance();
@@ -34,9 +34,9 @@ public class LettoPostgresDao implements LettoDAO {
             while (rs.next()) {
 
                 int codice = rs.getInt("codice");
-                boolean stato = rs.getBoolean("stato");
+                boolean occupato = rs.getBoolean("occupato");
 
-                Letto l = new Letto(codice, stato);
+                Letto l = new Letto(codice, occupato);
 
                 listaLetti.add(l);
             }

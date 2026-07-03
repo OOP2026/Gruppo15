@@ -16,6 +16,7 @@ public class Home extends JFrame {
     private JPasswordField passwordField;
     private JLabel PasswordLabel;
     private JLabel Titolo;
+    private JCheckBox mostraPasswordCheckBox;
     private JButton accediComeMedicoButton;
 
     public Home() {
@@ -26,6 +27,17 @@ public class Home extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null); // Centra lo schermo
+
+        //checkbox che permette di mostrare e nascondere la password
+        mostraPasswordCheckBox.addActionListener(e -> {
+            if (mostraPasswordCheckBox.isSelected()) {
+                // Mostra la password
+                passwordField.setEchoChar((char) 0);
+            } else {
+                // Nasconde la password
+                passwordField.setEchoChar('•'); // oppure '*'
+            }
+        });
 
         //modificato l'access in modo che non venga aperta immediatamente la prossima schermata, ma che venga prima eseguito il metodo "eseguiLogin"
         //il controller aprirà poi medicoGUI o amministratoreGUI in base ai dati inseriti

@@ -25,7 +25,7 @@ public class MedicoGUI extends JFrame {
         //assegno alle label create i valori ottenuti dall'oggetto medico
         nomeLabel.setText(medico.getNome()+ " "+ medico.getCognome());
         setTitle("Medico");
-        setSize(300, 200);
+        setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
         mostraAgendaButton.addActionListener(new ActionListener() {

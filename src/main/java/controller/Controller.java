@@ -32,6 +32,7 @@ public class Controller {
 	private RepartoDAO repartoDAO;
 	private PazienteDAO pazienteDAO;
 	private StanzaDAO stanzaDAO;
+	private MedicoDAO medicoDAO;
 
 	//assegno home al controller siccome prima non aveva mai un valore
 	public Controller(Home home){
@@ -45,6 +46,7 @@ public class Controller {
 		this.repartoDAO = new RepartoPostgresDao();
 		this.pazienteDAO = new PazientePostgresDao();
 		this.stanzaDAO = new StanzaPostgresDao();
+		this.medicoDAO = new MedicoPostgresDao();
 	}
 
 	//metodo per eseguire la login, in base al ruolo apre una schermata differente
@@ -154,6 +156,10 @@ public class Controller {
 
 	public String getNomeReparto(int idReparto) throws SQLException{
 		return repartoDAO.getNomeReparto(idReparto);
+	}
+
+	public boolean aggiungiMedico(Medico medico) throws SQLException{
+		return medicoDAO.aggiungiMedico(medico);
 	}
 
 

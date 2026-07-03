@@ -135,6 +135,16 @@ public class AmministratoreGUI extends JFrame {
                 dispose();
             }
         });
+
+        aggiungiMedicoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreaMedicoGUI creaMedicoGUI = new CreaMedicoGUI(controller, AmministratoreGUI.this);
+                creaMedicoGUI.setVisible(true);
+
+                dispose();
+            }
+        });
     }
 
 

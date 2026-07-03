@@ -49,11 +49,11 @@ public class DettagliRepartoGUI extends JFrame{
                 System.out.println(letto.getStato());
                 if(letto.getStato()){
 
-                   lblStato.setText("Libero");
-                   lblStato.setForeground(Color.GREEN);
+                   lblStato.setText("Occupato");
+                   lblStato.setForeground(Color.RED);
                 } else {
-                    lblStato.setText("Occupato");
-                    lblStato.setForeground(Color.RED);
+                    lblStato.setText("Libero");
+                    lblStato.setForeground(Color.GREEN);
                 }
                 rigaLetto.add(lblStato);
                 pannelloStanza.add(rigaLetto);

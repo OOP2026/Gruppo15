@@ -5,6 +5,8 @@ import model.Reparto;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -14,6 +16,7 @@ public class VisualizzaRepartiGUI extends JFrame{
     private JTable repartiTable;
     private JScrollPane repertiScrollPane;
     private JPanel repartiPanel;
+    private JButton backButton;
     private Controller controller;
     private DefaultTableModel tableModel;
     private List<Reparto> reparti;
@@ -58,6 +61,15 @@ public class VisualizzaRepartiGUI extends JFrame{
                         }
                     }
                 }
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                framePrecedente.setVisible(true);
+
+                dispose();
             }
         });
 
