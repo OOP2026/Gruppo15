@@ -47,4 +47,40 @@ public class RepartoPostgresDao implements RepartoDAO {
         }
         return listaReparti;
     }
-}
+
+    @Override
+    public String getNomeReparto(int idReparto) throws SQLException {
+        try {
+            ConnessioneDatabase.getInstance();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT id, nome FROM reparto WHERE id = ?";
+
+        // Inizializziamo la variabile per il risultato
+        String nomeReparto = null;
+
+        // 1. Nel try metti SOLO l'apertura di Connessione e PreparedStatement
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // 2. I setter vanno presi e messi QUI, dentro le graffe!
+            pstmt.setInt(1, idReparto);
+
+            // 3. Esegui la query e gestisci il ResultSet all'interno
+            try (ResultSet rs = pstmt.executeQuery()) {
+                // 4. USCIRE SE C'È UN RISULTATO (rs.next() sposta il cursore sulla riga trovata)
+                if (rs.next()) {
+                    nomeReparto = rs.getString("nome");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        return nomeReparto; // Ritorna il nome trovato (o null se l'ID non esiste)
+    }
+    }

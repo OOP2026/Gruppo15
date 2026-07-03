@@ -1,11 +1,15 @@
 package gui;
 
 import controller.Controller;
+import dao.PazienteDAO;
 import model.Amministratore;
+import model.Paziente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.List;
 
 public class AmministratoreGUI extends JFrame {
     private JPanel AmministratorePanel;
@@ -21,6 +25,7 @@ public class AmministratoreGUI extends JFrame {
     private JButton aggiungiPazienteButton;
     private JButton modificaPazienteButton;
     private JButton visualizzaStrutturaOspedalieraButton;
+    private JButton visualizzaTuttiIPazientiButton;
     private JFrame framePrecedente;
 
     //aggiunto anche qui l'oggetto amministratore passato dal controller
@@ -114,7 +119,24 @@ public class AmministratoreGUI extends JFrame {
                 dispose();
             }
         });
+        visualizzaTuttiIPazientiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<Paziente> pazienti=null;
+                try {
+
+                    pazienti = controller.mostraPazienti(); // da qua si blocca
+
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                VisualizzaTuttiPazientiGUI visualizzaTuttiPazientiGUI = new VisualizzaTuttiPazientiGUI(controller, AmministratoreGUI.this, pazienti);
+                visualizzaTuttiPazientiGUI.setVisible(true);
+                dispose();
+            }
+        });
     }
+
 
 
 }

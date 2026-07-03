@@ -96,12 +96,12 @@ public class Controller {
 
 	//metodo che salva il ricovero e restituisce true/false
 
-	public boolean salvaRicovero(Ricovero ricovero,Paziente paziente) throws  SQLException{
+	public boolean salvaRicovero(Ricovero ricovero) throws  SQLException{
 		// chiamata al db tramite Dao
-		return ricoveroDAO.salvaRicovero(ricovero,paziente);
+		return ricoveroDAO.salvaRicovero(ricovero);
 	}
-	public boolean modificaRicovero(Ricovero ricovero,Paziente paziente) throws SQLException{
-		return ricoveroDAO.aggiornaRicovero(ricovero,paziente);
+	public boolean modificaRicovero(Ricovero ricovero) throws SQLException{
+		return ricoveroDAO.aggiornaRicovero(ricovero);
 	}
 
 
@@ -140,11 +140,21 @@ public class Controller {
 	public boolean aggiungiPaziente(Paziente paziente) throws SQLException{
 		return pazienteDAO.aggiungiPaziente(paziente);
 	}
+	public boolean modificaPaziente(Paziente paziente) throws SQLException{
+		return pazienteDAO.modificaPaziente(paziente);
+	}
+	public List<Paziente> mostraPazienti() throws SQLException{
+		System.out.println("Test");
+		return pazienteDAO.listaPazienti();
+	}
 
 	public List<Stanza> mostraStanze(int idReparto) throws SQLException{
 		return stanzaDAO.getStanzeByReparto(idReparto);
 	}
 
+	public String getNomeReparto(int idReparto) throws SQLException{
+		return repartoDAO.getNomeReparto(idReparto);
+	}
 
 
 

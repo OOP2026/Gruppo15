@@ -35,7 +35,12 @@ public class RicercaRicovero extends JFrame {
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                VisualizzaRicoveroPerPazienteGUI visualizzaRicoveroPerPazienteGUI = new VisualizzaRicoveroPerPazienteGUI(controller, frameprecedente, ricoveri);
+                VisualizzaRicoveroPerPazienteGUI visualizzaRicoveroPerPazienteGUI = null;
+                try {
+                    visualizzaRicoveroPerPazienteGUI = new VisualizzaRicoveroPerPazienteGUI(controller, frameprecedente, ricoveri);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
                 visualizzaRicoveroPerPazienteGUI.setVisible(true);
                 dispose();
 

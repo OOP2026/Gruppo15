@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 
 public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
@@ -14,14 +15,8 @@ public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
     private JPanel RicoveroPazientePanel;
     private JButton ritornaIndietroButton;
     private JTable tabledati;
-    private JLabel idPazienteLabel;
-    private JLabel medicoIdLabel;
-    private JLabel dataInizioLabel;
-    private JLabel dataFineLabel;
-    private JLabel motivoLabel;
-    private JLabel repartoLabel;
 
-    public VisualizzaRicoveroPerPazienteGUI(Controller controller, JFrame framePrecedente, List<Ricovero> ricoveri) {
+    public VisualizzaRicoveroPerPazienteGUI(Controller controller, JFrame framePrecedente, List<Ricovero> ricoveri) throws SQLException {
         this.framePrecedente = framePrecedente;
         setContentPane(RicoveroPazientePanel);
         setTitle("Ricovero");
@@ -33,7 +28,8 @@ public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
         DefaultTableModel model = new DefaultTableModel(colonne, 0);
         tabledati.setModel(model);
         for (Ricovero r : ricoveri) {
-
+            int idReparto = r.getReparto();
+            String nomeReparto = controller.getNomeReparto(idReparto);
             //  Estrai i dati
             Object[] riga = {
                     r.getTessera_sanitaria(),           // Colonna 0
@@ -41,7 +37,7 @@ public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
                     r.getMedico_id(),        // Colonna 1 (es. Nome del paziente o oggetto Paziente)
                     r.getId_letto(),
                     r.getDiagnosi(),
-                    r.getReparto(),
+                    nomeReparto,
                     r.getDataInizio().toString(),
                     r.getDataFine().toString()
             };

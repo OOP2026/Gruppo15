@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.RicoveroGUI">
-  <grid id="27dc6" binding="RegistraRicoveroPanel" layout-manager="GridLayoutManager" row-count="18" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="RegistraRicoveroPanel" layout-manager="GridLayoutManager" row-count="14" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="609"/>
+      <xy x="20" y="20" width="500" height="481"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <component id="e2cde" class="javax.swing.JButton" binding="BackButton">
+      <component id="e2cde" class="javax.swing.JButton" binding="backButton">
         <constraints>
-          <grid row="17" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Ritorna indietro"/>
         </properties>
       </component>
-      <component id="6cbc" class="javax.swing.JTextField" binding="TesseraSanitariaField">
+      <component id="6cbc" class="javax.swing.JTextField" binding="tesseraSanitariaField">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -27,9 +27,9 @@
           <toolTipText value=""/>
         </properties>
       </component>
-      <component id="8a440" class="javax.swing.JTextField" binding="MedicoAlboField">
+      <component id="8a440" class="javax.swing.JTextField" binding="medicoAlboField">
         <constraints>
-          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
@@ -37,7 +37,7 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="e4666" class="javax.swing.JLabel" binding="TesseraLabel">
+      <component id="e4666" class="javax.swing.JLabel" binding="tesseraLabel">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -45,9 +45,9 @@
           <text value="TesseraSanitaria"/>
         </properties>
       </component>
-      <component id="cb028" class="javax.swing.JLabel" binding="MedicoAlboLabel">
+      <component id="cb028" class="javax.swing.JLabel" binding="medicoAlboLabel">
         <constraints>
-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="MedicoAlbo"/>
@@ -55,7 +55,7 @@
       </component>
       <component id="a1acb" class="javax.swing.JLabel" binding="diagnosiLabel">
         <constraints>
-          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Diagnosi"/>
@@ -63,71 +63,13 @@
       </component>
       <component id="1d6b0" class="javax.swing.JButton" binding="inviaButton" default-binding="true">
         <constraints>
-          <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Invia"/>
         </properties>
       </component>
-      <component id="38a32" class="javax.swing.JTextField" binding="DiagnosiField">
-        <constraints>
-          <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="a67e9" class="javax.swing.JTextField" binding="RepartoField">
-        <constraints>
-          <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value=""/>
-        </properties>
-      </component>
-      <component id="ee81c" class="javax.swing.JLabel" binding="RepartoLabel">
-        <constraints>
-          <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Reparto"/>
-        </properties>
-      </component>
-      <component id="2dd29" class="javax.swing.JLabel" binding="IdLettoLABEL">
-        <constraints>
-          <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="N_letto"/>
-        </properties>
-      </component>
-      <component id="a8e4c" class="javax.swing.JTextField" binding="LettoField">
-        <constraints>
-          <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="70d44" class="javax.swing.JTextField" binding="nomeField">
-        <constraints>
-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="19903" class="javax.swing.JLabel" binding="nomeLabel">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Nome del paziente"/>
-        </properties>
-      </component>
-      <component id="e2838" class="javax.swing.JTextField" binding="CognomeField">
+      <component id="38a32" class="javax.swing.JTextField" binding="diagnosiField">
         <constraints>
           <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -135,13 +77,29 @@
         </constraints>
         <properties/>
       </component>
-      <component id="b3b8c" class="javax.swing.JLabel" binding="cognomeLabel">
+      <component id="ee81c" class="javax.swing.JLabel" binding="repartoLabel">
         <constraints>
-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Cognome del paziente"/>
+          <text value="Reparto"/>
         </properties>
+      </component>
+      <component id="2dd29" class="javax.swing.JLabel" binding="idLettoLABEL">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="N_letto"/>
+        </properties>
+      </component>
+      <component id="a8e4c" class="javax.swing.JTextField" binding="lettoField">
+        <constraints>
+          <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
       </component>
       <component id="1979a" class="javax.swing.JTextField" binding="id_ricoveroField">
         <constraints>
@@ -157,6 +115,19 @@
         </constraints>
         <properties>
           <text value="N° ricovero"/>
+        </properties>
+      </component>
+      <component id="e4f80" class="javax.swing.JComboBox" binding="repartoComboBox">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <model>
+            <item value="Cardiologia"/>
+            <item value="Chirurgia"/>
+            <item value="Neurologia"/>
+            <item value="Pediatria"/>
+          </model>
         </properties>
       </component>
     </children>

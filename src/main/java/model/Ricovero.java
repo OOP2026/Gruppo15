@@ -9,7 +9,7 @@ public class Ricovero {
     private int medico_id;
     private Timestamp dataInizio;
     private Timestamp dataFine; // Può essere null se il ricovero è attivo
-    private String reparto;
+    private int reparto;
     private String diagnosi;
     private int id_letto;
 
@@ -17,7 +17,7 @@ public class Ricovero {
 
     }
 
-    public Ricovero(String tessera_sanitaria, int medico_id, String diagnosi, String reparto, int id_letto,Timestamp dataInizio,Timestamp dataFine,int id_ricovero) {
+    public Ricovero(String tessera_sanitaria, int medico_id, String diagnosi, int reparto, int id_letto,Timestamp dataInizio,Timestamp dataFine,int id_ricovero) {
         this.tessera_sanitaria = tessera_sanitaria;
         this.medico_id = medico_id;
         this.diagnosi = diagnosi;
@@ -30,7 +30,7 @@ public class Ricovero {
     }
     //
 
-    public Ricovero(String tessera_sanitaria, int medico_id, String diagnosi, String reparto, int id_letto,Timestamp dataInizio,Timestamp dataFine) {
+    public Ricovero(String tessera_sanitaria, int medico_id, String diagnosi, int reparto, int id_letto,Timestamp dataInizio,Timestamp dataFine) {
         this.tessera_sanitaria = tessera_sanitaria;
         this.medico_id = medico_id;
         this.diagnosi = diagnosi;
@@ -76,10 +76,10 @@ public class Ricovero {
     public void setDataFine(Timestamp dataFine) {
         this.dataFine = dataFine;
     }
-    public String getReparto() {
+    public int getReparto() {
         return reparto;
     }
-    public void setReparto(String reparto) {
+    public void setReparto(int reparto) {
         this.reparto = reparto;
 
     }

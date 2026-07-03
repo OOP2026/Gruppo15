@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface RepartoDAO {
     List<Reparto> getReparti() throws SQLException;
+    String getNomeReparto(int idReparto) throws SQLException;
 
 }
