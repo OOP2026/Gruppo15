@@ -10,14 +10,14 @@ public class Stanza {
     private Reparto reparto;
 
     // Costruttore Stanza
-    public Stanza(int capienzaLetti){
-        this.letti=new ArrayList<>();
+    public Stanza(int codice, Reparto reparto){
+        this.codice = codice;
+        this.reparto = reparto;
+        this.letti = new ArrayList<>();
+    }
 
-        // Questa parte di codice commentata crea la lista di letti a partire da un numero che diamo noi come capienza, ma deve essere sistemato idLetto
-
-        /* for(int i = 0; i < capienzaLetti; i++){
-            letti.add(new Letto(// sarebbe da correggere l'id in Letto, siccome non deve essere passato da fuori ma aggiornato a ogni creazione di un nuovo letto));
-        }; */
+    public Stanza (int codice){
+        this.codice = codice;
     }
 
     public int getCodice(){return codice;}

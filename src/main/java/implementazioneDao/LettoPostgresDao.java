@@ -36,7 +36,7 @@ public class LettoPostgresDao implements LettoDAO {
                 int codice = rs.getInt("codice");
                 boolean stato = rs.getBoolean("stato");
 
-                Letto l = new Letto(codice);
+                Letto l = new Letto(codice, stato);
 
                 listaLetti.add(l);
             }

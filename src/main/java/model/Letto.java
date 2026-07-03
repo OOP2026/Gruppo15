@@ -5,8 +5,9 @@ public class Letto {
     private boolean stato = true;
     private Stanza stanza;
 
-    public Letto(int id_letto){
+    public Letto(int id_letto, boolean stato){
         this.id_letto=id_letto;
+        this.stato = stato;
     }
 
     public int getId_letto(){

@@ -16,6 +16,7 @@ public class VisualizzaRepartiGUI extends JFrame{
     private JPanel repartiPanel;
     private Controller controller;
     private DefaultTableModel tableModel;
+    private List<Reparto> reparti;
 
     public VisualizzaRepartiGUI(Controller controller, JFrame framePrecedente){
         this.controller = controller;
@@ -49,10 +50,12 @@ public class VisualizzaRepartiGUI extends JFrame{
 
                         int idReparto = (int) tableModel.getValueAt(riga, 0);
 
-                        // Reparto reparto = controller.getRepartoById(idReparto);
-
-                        //devo creare la gui per visualizzare i dettagli del singolo reparto
-                        // new DettagliRepartoGUI().setVisible(true);
+                        Reparto repartoSelezionato = reparti.get(riga);
+                        try {
+                            new DettagliRepartoGUI(controller, VisualizzaRepartiGUI.this, repartoSelezionato).setVisible(true);
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 }
             }
@@ -64,7 +67,7 @@ public class VisualizzaRepartiGUI extends JFrame{
         try {
             tableModel.setRowCount(0);
 
-            List<Reparto> reparti = controller.mostraReparti();
+            reparti = controller.mostraReparti();
 
             // Ciclo per aggiungere le righe al modello della tabella
             for (Reparto r : reparti) {
