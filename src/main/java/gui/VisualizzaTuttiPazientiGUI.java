@@ -5,6 +5,8 @@ import model.Paziente;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 
@@ -12,6 +14,7 @@ public class VisualizzaTuttiPazientiGUI extends JFrame {
     JFrame framePrecedente;
     private JPanel VisualizzaPazientiPanel;
     private JTable tabledati;
+    private JButton ritornaIndietroButton;
 
     public VisualizzaTuttiPazientiGUI(Controller controller, JFrame framePrecedente, List<Paziente> listaPazienti) {
         this.framePrecedente = framePrecedente;
@@ -37,5 +40,12 @@ public class VisualizzaTuttiPazientiGUI extends JFrame {
             // 5. Aggiungi la riga appena creata al model della tabella
             model.addRow(riga);
         }
+        ritornaIndietroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                framePrecedente.setVisible(true);
+                dispose();
+            }
+        });
     }
 }

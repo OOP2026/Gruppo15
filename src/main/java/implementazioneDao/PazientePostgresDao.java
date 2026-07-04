@@ -21,9 +21,9 @@ public class PazientePostgresDao implements PazienteDAO {
             e.printStackTrace();
         }
 
-        // AGGIUNTO: Statement.RETURN_GENERATED_KEYS per abilitare il recupero dell'ID seriale
+
         try (Connection conn = ConnessioneDatabase.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1,p.getTessera());
             pstmt.setString(2,p.getNome());

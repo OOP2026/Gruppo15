@@ -38,22 +38,6 @@ public class MedicoPostgresDao implements MedicoDAO {
              if (rs.next()) {
             int idUtente = rs.getInt(1);
 
-            // Qui facciamo l'INSERT nella tabella medici
-                 String sqlMedici = "INSERT INTO medici (id, nome, cognome, email, password_hash, attivo) VALUES (?, ?, ?, ?, ?, ?)";
-
-
-                 try (PreparedStatement pstmtMedico = conn.prepareStatement(sqlMedici)) {
-
-                     pstmtMedico.setInt(1, idUtente);
-                     pstmtMedico.setString(2, medico.getNome());
-                     pstmtMedico.setString(3, medico.getCognome());
-                     pstmtMedico.setString(4, medico.getEmail());
-                     pstmtMedico.setString(5, passwordHash);
-                     pstmtMedico.setBoolean(6, true);
-
-                     pstmtMedico.executeUpdate();
-                 }
-
                  return true;
 
         }

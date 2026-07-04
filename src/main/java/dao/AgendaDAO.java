@@ -12,4 +12,5 @@ public interface AgendaDAO {
     boolean modificaAgenda(Agenda agenda) throws SQLException;
 
     boolean eliminaAgenda(int idAgenda) throws SQLException;
+    boolean assegnaAgenda(int id_agenda, int id_medico) throws SQLException;
 }

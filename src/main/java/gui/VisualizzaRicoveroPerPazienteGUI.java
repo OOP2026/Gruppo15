@@ -34,7 +34,7 @@ public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
             Object[] riga = {
                     r.getTessera_sanitaria(),           // Colonna 0
                     r.getId_ricovero(),
-                    r.getMedico_id(),        // Colonna 1 (es. Nome del paziente o oggetto Paziente)
+                    r.getMedico_id(),
                     r.getId_letto(),
                     r.getDiagnosi(),
                     nomeReparto,

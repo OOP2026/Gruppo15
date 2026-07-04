@@ -11,4 +11,5 @@ public interface SlotOrarioDAO {
     boolean aggiornaSlot(SlotOrario slotOrario) throws SQLException;
 
     List<SlotOrario> mostraDaAgenda(int idAgenda) throws SQLException;
+    List<SlotOrario> mostraSlotOrari() throws SQLException;
 }

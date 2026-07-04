@@ -47,6 +47,7 @@ public class Controller {
 		this.pazienteDAO = new PazientePostgresDao();
 		this.stanzaDAO = new StanzaPostgresDao();
 		this.medicoDAO = new MedicoPostgresDao();
+		this.agendaDAO = new AgendaPostgresDao();
 	}
 
 	//metodo per eseguire la login, in base al ruolo apre una schermata differente
@@ -161,7 +162,13 @@ public class Controller {
 	public boolean aggiungiMedico(Medico medico) throws SQLException{
 		return medicoDAO.aggiungiMedico(medico);
 	}
+	public boolean assegnaAgenda(int id_agenda, int id_medico) throws SQLException{
+		return agendaDAO.assegnaAgenda(id_agenda, id_medico);
+	}
 
+	public List<SlotOrario>  mostraSlotOrari() throws SQLException{
+		return slotOrarioDAO.mostraSlotOrari();
+	}
 
 
 	}

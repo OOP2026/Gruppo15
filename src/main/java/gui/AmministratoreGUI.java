@@ -1,9 +1,9 @@
 package gui;
 
 import controller.Controller;
-import dao.PazienteDAO;
 import model.Amministratore;
 import model.Paziente;
+import model.SlotOrario;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +26,8 @@ public class AmministratoreGUI extends JFrame {
     private JButton modificaPazienteButton;
     private JButton visualizzaStrutturaOspedalieraButton;
     private JButton visualizzaTuttiIPazientiButton;
+    private JButton visualizzaSlotOrariButton;
+    private JButton visualizzaAgendeAssegnateButton;
     private JFrame framePrecedente;
 
     //aggiunto anche qui l'oggetto amministratore passato dal controller
@@ -143,6 +145,40 @@ public class AmministratoreGUI extends JFrame {
                 creaMedicoGUI.setVisible(true);
 
                 dispose();
+            }
+        });
+        assegnaAgendaAdUnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AssegnaAgendaGUI assegnaAgendaGUI = new AssegnaAgendaGUI(controller, AmministratoreGUI.this);
+                assegnaAgendaGUI.setVisible(true);
+                dispose();
+            }
+        });
+        visualizzaSlotOrariButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<SlotOrario> slotOrari=null;
+                try {
+                   slotOrari= controller.mostraSlotOrari();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                VisualizzaSlotOrariGUI visualizzaSlotOrariGUI= null;
+                try {
+                    visualizzaSlotOrariGUI = new VisualizzaSlotOrariGUI(controller, AmministratoreGUI.this,slotOrari);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                visualizzaSlotOrariGUI.setVisible(true);
+                dispose();
+
+            }
+        });
+        visualizzaAgendeAssegnateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
