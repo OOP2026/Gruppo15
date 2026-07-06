@@ -103,8 +103,8 @@ public class Controller {
 		// chiamata al db tramite Dao
 		return ricoveroDAO.salvaRicovero(ricovero);
 	}
-	public boolean modificaRicovero(Ricovero ricovero) throws SQLException{
-		return ricoveroDAO.aggiornaRicovero(ricovero);
+	public boolean modificaRicovero(Ricovero ricovero,boolean fineRicovero) throws SQLException{
+		return ricoveroDAO.aggiornaRicovero(ricovero,fineRicovero);
 	}
 
 
@@ -168,6 +168,13 @@ public class Controller {
 
 	public List<SlotOrario>  mostraSlotOrari() throws SQLException{
 		return slotOrarioDAO.mostraSlotOrari();
+	}
+	public List<Agenda> mostraTutteLeAgende() throws SQLException{
+		return agendaDAO.listaAgenda();
+
+	}
+	public boolean eliminaPaziente(String idPaziente) throws SQLException{
+		return pazienteDAO.eliminaPaziente(idPaziente);
 	}
 
 

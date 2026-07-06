@@ -1,11 +1,13 @@
 package gui;
 
 import controller.Controller;
+import model.Agenda;
 import model.Amministratore;
 import model.Paziente;
 import model.SlotOrario;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -28,24 +30,25 @@ public class AmministratoreGUI extends JFrame {
     private JButton visualizzaTuttiIPazientiButton;
     private JButton visualizzaSlotOrariButton;
     private JButton visualizzaAgendeAssegnateButton;
+    private JButton eliminaPazienteButton;
+    private JButton eliminaSlotOrarioButton;
+    private JButton rimuoviMedicoButton;
     private JFrame framePrecedente;
-
-    //aggiunto anche qui l'oggetto amministratore passato dal controller
 
     public AmministratoreGUI(Controller controller,JFrame framePrecedente, Amministratore admin) {
         this.framePrecedente=framePrecedente;
         setContentPane(AmministratorePanel);
         setTitle("Amministratore");
-        setSize(300, 450);
+        setSize(300, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
-
         registraRicoveroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 RicoveroGUI registraRicovero = new RicoveroGUI(controller,AmministratoreGUI.this, false);
                 registraRicovero.setVisible(true);
                 dispose();
+
 
             }
         });
@@ -176,6 +179,35 @@ public class AmministratoreGUI extends JFrame {
             }
         });
         visualizzaAgendeAssegnateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        visualizzaAgendeAssegnateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<Agenda> agendaList=null;
+                try {
+                    agendaList=controller.mostraTutteLeAgende();
+                    VisualizzaAgendeAssegnateGUI agendeAssegnateGUI= new VisualizzaAgendeAssegnateGUI(controller,AmministratoreGUI.this,agendaList);
+                    agendeAssegnateGUI.setVisible(true);
+                    dispose();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        });
+        eliminaPazienteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EliminaPazienteGUI eliminaPazienteGUI=new EliminaPazienteGUI(controller,AmministratoreGUI.this);
+                eliminaPazienteGUI.setVisible(true);
+                dispose();
+            }
+        });
+        eliminaSlotOrarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 

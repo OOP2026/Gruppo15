@@ -48,9 +48,11 @@ public class PazienteGUI extends JFrame {
                 try {
                     if(modifica){
                         controller.modificaPaziente(p);
+
                     }
                     else {
                         controller.aggiungiPaziente(p);
+
                     }
 
                 } catch (SQLException ex) {

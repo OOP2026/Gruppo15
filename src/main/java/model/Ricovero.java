@@ -38,7 +38,6 @@ public class Ricovero {
         this.id_letto = id_letto;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
-
     }
 
     public int getId_ricovero() {

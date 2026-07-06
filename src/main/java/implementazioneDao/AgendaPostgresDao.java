@@ -4,12 +4,15 @@ import dao.AgendaDAO;
 import dao.SlotOrarioDAO;
 import database_connection.ConnessioneDatabase;
 import model.Agenda;
+import model.Paziente;
 
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AgendaPostgresDao implements AgendaDAO {
     @Override
@@ -115,4 +118,34 @@ public class AgendaPostgresDao implements AgendaDAO {
         }
 
     }
-}
+
+
+    public List<Agenda> listaAgenda() throws SQLException {
+        List<Agenda> agendaList = new ArrayList<>();
+        String sql = "SELECT * FROM agenda";
+        try {
+            ConnessioneDatabase.getInstance();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Agenda agenda = new Agenda(
+                            rs.getInt("id_agenda"),
+                            rs.getInt("id_medico")
+                    );
+                    agendaList.add(agenda);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gestisci l'errore o mostra un avviso nella GUI
+        }
+        return agendaList;
+        }
+    }
+

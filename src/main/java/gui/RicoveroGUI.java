@@ -1,6 +1,5 @@
 package gui;
 import controller.Controller;
-import model.Paziente;
 import model.Ricovero;
 
 import javax.swing.*;
@@ -27,6 +26,7 @@ public class RicoveroGUI extends JFrame {
     private JTextField id_ricoveroField;
     private JLabel id_ricoveroLabel;
     private JComboBox repartoComboBox;
+    private JCheckBox fineRicoveroCheckBox;
     private JFrame framePrecedente;
 
     public RicoveroGUI(Controller controller, JFrame framePrecedente, boolean modificaRicovero) {
@@ -34,6 +34,7 @@ public class RicoveroGUI extends JFrame {
         this.controller = controller;
         id_ricoveroField.setVisible(false);
         id_ricoveroLabel.setVisible(false);
+        fineRicoveroCheckBox.setVisible(false);
         setContentPane(RegistraRicoveroPanel);
         setTitle("Amministratore");
         setSize(300, 450);
@@ -44,6 +45,7 @@ public class RicoveroGUI extends JFrame {
             id_ricoveroField.setVisible(true);
             id_ricoveroLabel.setVisible(true);
             setSize(300, 500);
+            fineRicoveroCheckBox.setVisible(true);
         }
 
         backButton.addActionListener(new ActionListener() {
@@ -60,9 +62,9 @@ public class RicoveroGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Timestamp currentTime = new Timestamp(System.currentTimeMillis());
                 Timestamp endtime=new Timestamp(System.currentTimeMillis());
-                //aggiunto codice che permette di provare a salvare il ricovero, in caso contrario va in errore
                 boolean salvato = false;
                 int id_reparto=0;
+                boolean fineRicovero=fineRicoveroCheckBox.isSelected();
                 if(repartoComboBox.getSelectedItem().toString().equals("Cardiologia")){
                     id_reparto=1;
                 }
@@ -76,14 +78,20 @@ public class RicoveroGUI extends JFrame {
                     id_reparto=4;
                 }
 
+
                 try {
-                    if(modificaRicovero){
+
+                    if(modificaRicovero && fineRicovero){
                         Ricovero ricovero = new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime,Integer.parseInt(id_ricoveroField.getText()));
-                        salvato=controller.modificaRicovero(ricovero);
+                        salvato=controller.modificaRicovero(ricovero,fineRicovero);
                     }
-                    else{
-                        Ricovero ricovero = new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime);
-                        salvato = controller.salvaRicovero(ricovero);}
+                    else if (modificaRicovero){
+                        Ricovero ricovero = new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime,Integer.parseInt(id_ricoveroField.getText()));
+                        salvato = controller.modificaRicovero(ricovero,fineRicovero);}
+                    else {
+                        Ricovero ricovero =new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime);
+                        salvato=controller.salvaRicovero(ricovero);
+                    }
                 }
                 catch (SQLException ex) {
                     JOptionPane.showMessageDialog(

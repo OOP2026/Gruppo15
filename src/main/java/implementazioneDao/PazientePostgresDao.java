@@ -4,6 +4,7 @@ import dao.PazienteDAO;
 import database_connection.ConnessioneDatabase;
 import model.Paziente;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,12 +34,12 @@ public class PazientePostgresDao implements PazienteDAO {
 
             int righe = pstmt.executeUpdate();
             System.out.println("Righe inserite: " + righe);
-
+            JOptionPane.showMessageDialog(null, "Paziente aggiunto con successo!");
             return righe > 0;
         }
         catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Errore nell'inserimento");
+            JOptionPane.showMessageDialog(null, "Errore nell'inserimento: " + e.getMessage());
             return false;
         }
     }
@@ -58,19 +59,23 @@ public class PazientePostgresDao implements PazienteDAO {
             pstmt.setString(4,p.getCura());
             pstmt.setString(5,p.getTessera());
             int righe = pstmt.executeUpdate();
-            System.out.println("Righe inserite: " + righe);
+
+            if(righe<=0){
+                JOptionPane.showMessageDialog(null, "Paziente inesistente", "Errore", JOptionPane.ERROR_MESSAGE);
+                throw new IllegalArgumentException("Errore: Impossibile modificare. La tessera sanitaria inserita è inesistente.");
+
+            }
 
             return righe > 0;
         }
         catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Errore nell'inserimento");
+            e.getMessage();
             return false;
         }
 
     }
     public List<Paziente> listaPazienti() {
-        System.out.println("Test2");
         List<Paziente> listaPazienti = new ArrayList<>();
         String sql = "SELECT * FROM pazienti";
 
@@ -101,5 +106,36 @@ public class PazientePostgresDao implements PazienteDAO {
             // Gestisci l'errore o mostra un avviso nella GUI
         }
         return listaPazienti;
+    }
+    public boolean eliminaPaziente(String idPaziente) throws SQLException{
+        String sql="DELETE FROM pazienti WHERE tessera_sanitaria=?";
+        try {
+            ConnessioneDatabase.getInstance();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // Imposta l'ID come parametro della query
+            pstmt.setString(1, idPaziente);
+
+
+            int righeCoinvolte = pstmt.executeUpdate();
+
+            // Se righeCoinvolte > 0, significa che l'elemento è stato eliminato
+            if(righeCoinvolte<=0){
+                JOptionPane.showMessageDialog(null, "Paziente inesistente", "", JOptionPane.ERROR_MESSAGE);
+                throw new IllegalArgumentException("Errore: Impossibile eliminare. La tessera sanitaria inserita è inesistente.");
+
+            }
+            return righeCoinvolte > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gestisci l'eccezione o rilanciala alla GUI
+            throw e;
+        }
+
     }
 }

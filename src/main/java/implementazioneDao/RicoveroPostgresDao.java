@@ -17,8 +17,8 @@ public class RicoveroPostgresDao implements RicoveroDAO {
 
         //modificato leggermente la query per aggiungere tutti i valori, manca data fine nella GUI
         //per ora letto id non è inserito siccome manca come attributo SQL
-        String sql = "INSERT INTO ricoveri (paziente_id,medico_id,motivo, data_inizio ,reparto, data_fine,id_letto) " +
-                "VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?,?)"; // da aggiungere letto_id siccome non è inserito in SQL
+        String sql = "INSERT INTO ricoveri (paziente_id,medico_id,motivo, data_inizio ,reparto,id_letto) " +
+                "VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?)"; // da aggiungere letto_id siccome non è inserito in SQL
 
         try {
             ConnessioneDatabase.getInstance();
@@ -34,8 +34,7 @@ public class RicoveroPostgresDao implements RicoveroDAO {
             pstmt.setInt(2, ricovero.getMedico_id());
             pstmt.setString(3, ricovero.getDiagnosi());
             pstmt.setInt(4, ricovero.getReparto());
-            pstmt.setTimestamp(5, (Timestamp) ricovero.getDataFine());
-            pstmt.setInt(6, ricovero.getId_letto());
+            pstmt.setInt(5, ricovero.getId_letto());
 
 
             //debug
@@ -64,12 +63,18 @@ public class RicoveroPostgresDao implements RicoveroDAO {
             return false;
         }
     }
-    public boolean aggiornaRicovero(Ricovero ricovero) {
+    public boolean aggiornaRicovero(Ricovero ricovero,boolean fineRicovero) throws SQLException {
         // Query per aggiornare il paziente usando la tessera sanitaria come chiave
-
-
+        String sqlRicovero=null;
         // Query per aggiornare il ricovero usando l'id_ricovero come chiave
-        String sqlRicovero = "UPDATE ricoveri SET paziente_id = ?, medico_id = ?, motivo = ?, reparto = ?, data_fine = ?, id_letto = ? WHERE id = ?";
+        if (fineRicovero) {
+            sqlRicovero = "UPDATE ricoveri SET paziente_id = ?, medico_id = ?, motivo = ?, reparto = ?, data_fine = CURRENT_TIMESTAMP, id_letto = ? WHERE id = ?";
+        }
+        else {
+            sqlRicovero = "UPDATE ricoveri SET paziente_id = ?, medico_id = ?, motivo = ?, reparto = ?, id_letto = ? WHERE id = ?";
+            System.out.println("Prova");
+        }
+
 
         try {
             ConnessioneDatabase.getInstance();
@@ -92,21 +97,24 @@ public class RicoveroPostgresDao implements RicoveroDAO {
                 pstmtRicovero.setInt(4, ricovero.getReparto());
 
                 // Gestione sicura del cast/conversione della data
-                if (ricovero.getDataFine() != null) {
-                    pstmtRicovero.setTimestamp(5, new java.sql.Timestamp(ricovero.getDataFine().getTime()));
-                } else {
-                    pstmtRicovero.setNull(5, java.sql.Types.TIMESTAMP);
-                }
-
-                pstmtRicovero.setInt(6, ricovero.getId_letto());
-                pstmtRicovero.setInt(7, ricovero.getId_ricovero()); // Il WHERE prende l'ID del ricovero
+//                if (ricovero.getDataFine() != null) {
+//                    pstmtRicovero.setTimestamp(5, new java.sql.Timestamp(ricovero.getDataFine().getTime()));
+//                } else {
+//                    pstmtRicovero.setNull(5, java.sql.Types.TIMESTAMP);
+//                }
+                pstmtRicovero.setInt(5, ricovero.getId_letto());
+                pstmtRicovero.setInt(6, ricovero.getId_ricovero()); // Il WHERE prende l'ID del ricovero
 
                 int righeModificate = pstmtRicovero.executeUpdate();
 
                 // Se tutto è andato a buon fine, salviamo nel DB
                 conn.commit();
                 System.out.println("Righe ricovero aggiornate: " + righeModificate);
+                if(righeModificate<=0){
+                    JOptionPane.showMessageDialog(null, "Ricovero non modificato", "", JOptionPane.ERROR_MESSAGE);
+                    throw new IllegalArgumentException("Errore: Impossibile modificare. La tessera sanitaria inserita è inesistente.");
 
+                }
                 return righeModificate > 0;
 
             } catch (SQLException e) {

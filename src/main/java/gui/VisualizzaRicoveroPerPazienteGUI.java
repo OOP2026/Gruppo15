@@ -30,7 +30,14 @@ public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
         for (Ricovero r : ricoveri) {
             int idReparto = r.getReparto();
             String nomeReparto = controller.getNomeReparto(idReparto);
-            //  Estrai i dati
+            String ricoveroInformazione=null;
+            if(r.getDataFine()==null){
+                ricoveroInformazione="Ancora in ricovero";
+
+            }
+            else {
+                ricoveroInformazione=r.getDataFine().toString();
+            }//  Estrai i dati
             Object[] riga = {
                     r.getTessera_sanitaria(),           // Colonna 0
                     r.getId_ricovero(),
@@ -39,7 +46,7 @@ public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
                     r.getDiagnosi(),
                     nomeReparto,
                     r.getDataInizio().toString(),
-                    r.getDataFine().toString()
+                    ricoveroInformazione
             };
 
             // 5. Aggiungi la riga appena creata al model della tabella
