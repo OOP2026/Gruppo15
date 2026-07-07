@@ -30,8 +30,8 @@ public class DettagliRepartoGUI extends JFrame{
         for (Stanza stanza : reparto.getStanze()) {
 
             JPanel pannelloStanza = new JPanel();
-            System.out.println(stanza.getCodice());
-            System.out.println(stanza.getReparto());
+            System.out.println("Codice "+stanza.getCodice());
+            System.out.println("Reparto: "+stanza.getReparto());
 
 
             JLabel titolo = new JLabel("Stanza " + stanza.getCodice());

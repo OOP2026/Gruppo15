@@ -17,8 +17,8 @@ public class RicoveroPostgresDao implements RicoveroDAO {
 
         //modificato leggermente la query per aggiungere tutti i valori, manca data fine nella GUI
         //per ora letto id non è inserito siccome manca come attributo SQL
-        String sql = "INSERT INTO ricoveri (paziente_id,medico_id,motivo, data_inizio ,reparto,id_letto) " +
-                "VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?)"; // da aggiungere letto_id siccome non è inserito in SQL
+        String sql = "INSERT INTO ricoveri (paziente_id,medico_id,motivo, data_inizio ,reparto,id_letto,data_dimissione_prevista) " +
+                "VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?,?)"; // da aggiungere letto_id siccome non è inserito in SQL
 
         try {
             ConnessioneDatabase.getInstance();
@@ -35,6 +35,7 @@ public class RicoveroPostgresDao implements RicoveroDAO {
             pstmt.setString(3, ricovero.getDiagnosi());
             pstmt.setInt(4, ricovero.getReparto());
             pstmt.setInt(5, ricovero.getId_letto());
+            pstmt.setObject(6,ricovero.getDataDimissionePrevistaStamp());
 
 
             //debug
@@ -68,10 +69,10 @@ public class RicoveroPostgresDao implements RicoveroDAO {
         String sqlRicovero=null;
         // Query per aggiornare il ricovero usando l'id_ricovero come chiave
         if (fineRicovero) {
-            sqlRicovero = "UPDATE ricoveri SET paziente_id = ?, medico_id = ?, motivo = ?, reparto = ?, data_fine = CURRENT_TIMESTAMP, id_letto = ? WHERE id = ?";
+            sqlRicovero = "UPDATE ricoveri SET paziente_id = ?, medico_id = ?, motivo = ?, reparto = ?, data_fine = CURRENT_TIMESTAMP, id_letto = ?,data_dimissione_prevista=? WHERE id = ?";
         }
         else {
-            sqlRicovero = "UPDATE ricoveri SET paziente_id = ?, medico_id = ?, motivo = ?, reparto = ?, id_letto = ? WHERE id = ?";
+            sqlRicovero = "UPDATE ricoveri SET paziente_id = ?, medico_id = ?, motivo = ?, reparto = ?, id_letto = ?,data_dimissione_prevista=?,data_fine=NULL WHERE id = ?";
             System.out.println("Prova");
         }
 
@@ -103,7 +104,14 @@ public class RicoveroPostgresDao implements RicoveroDAO {
 //                    pstmtRicovero.setNull(5, java.sql.Types.TIMESTAMP);
 //                }
                 pstmtRicovero.setInt(5, ricovero.getId_letto());
-                pstmtRicovero.setInt(6, ricovero.getId_ricovero()); // Il WHERE prende l'ID del ricovero
+                if (fineRicovero) {
+                    pstmtRicovero.setNull(6, java.sql.Types.TIMESTAMP);
+                }
+                else {
+                    pstmtRicovero.setTimestamp(6, ricovero.getDataDimissionePrevistaStamp());
+                }
+
+                pstmtRicovero.setInt(7, ricovero.getId_ricovero()); // Il WHERE prende l'ID del ricovero
 
                 int righeModificate = pstmtRicovero.executeUpdate();
 
@@ -136,7 +144,7 @@ public class RicoveroPostgresDao implements RicoveroDAO {
 
     public List<Ricovero> getRicoveriPerPaziente(String tesseraSanitaria){
         List<Ricovero> listaRicoveri = new ArrayList<>();
-        String sql = "SELECT paziente_id,id,medico_id,data_inizio, data_fine, reparto, motivo,id_letto FROM ricoveri WHERE paziente_id = ?";
+        String sql = "SELECT paziente_id,id,medico_id,data_inizio, data_fine, reparto, motivo,id_letto,data_dimissione_prevista FROM ricoveri WHERE paziente_id = ?";
 
         try {
             ConnessioneDatabase.getInstance();
@@ -160,7 +168,8 @@ public class RicoveroPostgresDao implements RicoveroDAO {
                             rs.getInt("id_letto"),
                             rs.getTimestamp("data_inizio"),
                             rs.getTimestamp("data_fine"),
-                            rs.getInt("id")
+                            rs.getInt("id"),
+                            rs.getTimestamp("data_dimissione_prevista")
                     );
                     listaRicoveri.add(r);
                 }

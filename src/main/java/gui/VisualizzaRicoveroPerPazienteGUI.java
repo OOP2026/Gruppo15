@@ -24,7 +24,7 @@ public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
-        String[] colonne = {"Tessera Sanitaria","N_Ricovero","MedicoAlbo", "Letto", "diagnosi", "reparto","Inizio ricovero","Fine ricovero"};
+        String[] colonne = {"Tessera Sanitaria","N_Ricovero","MedicoAlbo", "Letto", "diagnosi", "reparto","Inizio ricovero","Fine ricovero","Data dimissione prevista"};
         DefaultTableModel model = new DefaultTableModel(colonne, 0);
         tabledati.setModel(model);
         for (Ricovero r : ricoveri) {
@@ -46,7 +46,8 @@ public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
                     r.getDiagnosi(),
                     nomeReparto,
                     r.getDataInizio().toString(),
-                    ricoveroInformazione
+                    ricoveroInformazione,
+                    r.getDataDimissionePrevistaStamp(),
             };
 
             // 5. Aggiungi la riga appena creata al model della tabella

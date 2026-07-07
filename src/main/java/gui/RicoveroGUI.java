@@ -1,4 +1,5 @@
 package gui;
+import com.toedter.calendar.JDateChooser;
 import controller.Controller;
 import model.Ricovero;
 
@@ -7,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class RicoveroGUI extends JFrame {
     private Controller controller;
@@ -27,7 +29,10 @@ public class RicoveroGUI extends JFrame {
     private JLabel id_ricoveroLabel;
     private JComboBox repartoComboBox;
     private JCheckBox fineRicoveroCheckBox;
+    private JPanel dataPanel;
     private JFrame framePrecedente;
+    private JDateChooser dataDimissionePrevista;
+    private Timestamp dataDimissionePrevistaStamp;
 
     public RicoveroGUI(Controller controller, JFrame framePrecedente, boolean modificaRicovero) {
         this.framePrecedente = framePrecedente;
@@ -37,14 +42,20 @@ public class RicoveroGUI extends JFrame {
         fineRicoveroCheckBox.setVisible(false);
         setContentPane(RegistraRicoveroPanel);
         setTitle("Amministratore");
-        setSize(300, 450);
+        setSize(300, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centra lo schermo
+        setLocationRelativeTo(null);// Centra lo schermo
+        dataDimissionePrevista = new JDateChooser();
+        dataDimissionePrevista.setDateFormatString("dd/MM/yyyy");
+        dataDimissionePrevista.getDateEditor().getUiComponent().setFocusable(false);
+        dataPanel.setLayout(new java.awt.BorderLayout());
+        dataPanel.add(dataDimissionePrevista);
+
         if (modificaRicovero) {
             inviaButton.setText("Modifica Ricovero");
             id_ricoveroField.setVisible(true);
             id_ricoveroLabel.setVisible(true);
-            setSize(300, 500);
+            setSize(300, 470);
             fineRicoveroCheckBox.setVisible(true);
         }
 
@@ -53,6 +64,19 @@ public class RicoveroGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 framePrecedente.setVisible(true);
                 dispose();
+            }
+        });
+        fineRicoveroCheckBox.addActionListener(e -> {
+            // 1. Controlla se la checkbox è selezionata
+            boolean isChecked = fineRicoveroCheckBox.isSelected();
+
+            // 2. Se è selezionata, DISATTIVA il calendario (setEnabled(false))
+            //    Se non è selezionata, lo ATTIVA (setEnabled(true))
+            dataDimissionePrevista.setEnabled(!isChecked);
+
+            // 3. (Opzionale) Se vuoi anche svuotare la data quando viene spuntata la checkbox:
+            if (isChecked) {
+                dataDimissionePrevista.setDate(null);
             }
         });
 
@@ -77,19 +101,26 @@ public class RicoveroGUI extends JFrame {
                 else if(repartoComboBox.getSelectedItem().toString().equals("Pediatria")){
                     id_reparto=4;
                 }
+               Date dataSelezionata = dataDimissionePrevista.getDate();
+                if (dataSelezionata!=null){
+                    dataDimissionePrevistaStamp=new Timestamp(dataSelezionata.getTime());
+                }
+                else {
+
+                }
 
 
                 try {
 
                     if(modificaRicovero && fineRicovero){
-                        Ricovero ricovero = new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime,Integer.parseInt(id_ricoveroField.getText()));
+                        Ricovero ricovero = new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime,Integer.parseInt(id_ricoveroField.getText()),dataDimissionePrevistaStamp);
                         salvato=controller.modificaRicovero(ricovero,fineRicovero);
                     }
                     else if (modificaRicovero){
-                        Ricovero ricovero = new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime,Integer.parseInt(id_ricoveroField.getText()));
+                        Ricovero ricovero = new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime,Integer.parseInt(id_ricoveroField.getText()),dataDimissionePrevistaStamp);
                         salvato = controller.modificaRicovero(ricovero,fineRicovero);}
                     else {
-                        Ricovero ricovero =new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime);
+                        Ricovero ricovero =new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime,dataDimissionePrevistaStamp);
                         salvato=controller.salvaRicovero(ricovero);
                     }
                 }

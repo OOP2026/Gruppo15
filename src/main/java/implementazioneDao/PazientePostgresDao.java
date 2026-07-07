@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Paziente postgres dao.
+ */
 public class PazientePostgresDao implements PazienteDAO {
     public boolean aggiungiPaziente(Paziente p) {
         String sql ="INSERT INTO pazienti(tessera_sanitaria, nome, cognome, diagnosi, cura) " +
@@ -65,8 +68,12 @@ public class PazientePostgresDao implements PazienteDAO {
                 throw new IllegalArgumentException("Errore: Impossibile modificare. La tessera sanitaria inserita è inesistente.");
 
             }
-
+            if(righe>0){
+                JOptionPane.showMessageDialog(null,"Paziente modificato");
+            }
             return righe > 0;
+
+
         }
         catch (SQLException e) {
             e.printStackTrace();
