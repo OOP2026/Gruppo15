@@ -9,6 +9,7 @@ import model.Ricovero;
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RicoveroPostgresDao implements RicoveroDAO {
@@ -157,6 +158,45 @@ public class RicoveroPostgresDao implements RicoveroDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, tesseraSanitaria);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Ricovero r = new Ricovero(
+                            rs.getString("paziente_id"),
+                            rs.getInt("medico_id"),
+                            rs.getString("motivo"),
+                            rs.getInt("reparto"),
+                            rs.getInt("id_letto"),
+                            rs.getTimestamp("data_inizio"),
+                            rs.getTimestamp("data_fine"),
+                            rs.getInt("id"),
+                            rs.getTimestamp("data_dimissione_prevista")
+                    );
+                    listaRicoveri.add(r);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gestisci l'errore o mostra un avviso nella GUI
+        }
+        return listaRicoveri;
+
+    }
+    public List<Ricovero> getRicoveriPerDataDimissione(Date dataDimissionePrevista){
+        List<Ricovero> listaRicoveri = new ArrayList<>();
+        String sql = "SELECT paziente_id,id,medico_id,data_inizio, data_fine, reparto, motivo,id_letto,data_dimissione_prevista FROM ricoveri WHERE data_dimissione_prevista = ?";
+
+        try {
+            ConnessioneDatabase.getInstance();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            java.sql.Date dataSql = new java.sql.Date(dataDimissionePrevista.getTime());
+            pstmt.setDate(1,dataSql);
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {

@@ -9,6 +9,7 @@ import model.*;
 import javax.swing.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Controller {
@@ -119,6 +120,9 @@ public class Controller {
 
 	public List<Ricovero> mostraRicoveri(String tesseraSanitaria) throws SQLException{
 		return ricoveroDAO.getRicoveriPerPaziente(tesseraSanitaria);
+	}
+	public List<Ricovero> mostraRicoveriDataDimissione(Date dataDimissioniPrevista) throws SQLException{
+		return ricoveroDAO.getRicoveriPerDataDimissione(dataDimissioniPrevista);
 	}
 
 	//metodo per mostrare l'agenda

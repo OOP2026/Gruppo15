@@ -4,6 +4,7 @@ import controller.Controller;
 import model.Ricovero;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -48,7 +49,7 @@ public class RicoveroGUI extends JFrame {
         dataDimissionePrevista = new JDateChooser();
         dataDimissionePrevista.setDateFormatString("dd/MM/yyyy");
         dataDimissionePrevista.getDateEditor().getUiComponent().setFocusable(false);
-        dataPanel.setLayout(new java.awt.BorderLayout());
+        dataPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         dataPanel.add(dataDimissionePrevista);
 
         if (modificaRicovero) {

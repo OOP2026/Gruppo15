@@ -31,6 +31,7 @@ public class AmministratoreGUI extends JFrame {
     private JButton visualizzaAgendeAssegnateButton;
     private JButton eliminaSlotOrarioButton;
     private JButton visualizzaLettiDisponibiliButton;
+    private JButton visualizzaPazientiInDimissioneButton;
     private JFrame framePrecedente;
 
     public AmministratoreGUI(Controller controller,JFrame framePrecedente, Amministratore admin) {
@@ -210,6 +211,14 @@ public class AmministratoreGUI extends JFrame {
                 VisualizzaLettiDisponibiliGUI lettiDisponibiliGUI = new VisualizzaLettiDisponibiliGUI(controller, AmministratoreGUI.this);
                 lettiDisponibiliGUI.setVisible(true);
 
+                dispose();
+            }
+        });
+        visualizzaPazientiInDimissioneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                VisualizzaPazientiInDimissioneGUI visualizzaPazientiInDimissioneGUI=new VisualizzaPazientiInDimissioneGUI(controller, AmministratoreGUI.this);
+                visualizzaPazientiInDimissioneGUI.setVisible(true);
                 dispose();
             }
         });

@@ -3,6 +3,7 @@ import model.Paziente;
 import model.Ricovero;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public interface RicoveroDAO {
@@ -14,4 +15,5 @@ public interface RicoveroDAO {
 
 //    Ricovero mostraRicovero(String tesseraSanitaria) throws SQLException;
     List<Ricovero> getRicoveriPerPaziente(String tesseraSanitaria) throws SQLException;
+    List<Ricovero> getRicoveriPerDataDimissione(Date dataDimissioniPrevista) throws SQLException;
 }
