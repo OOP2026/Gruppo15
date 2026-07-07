@@ -14,7 +14,8 @@ public class UtentePostgresDao implements UtenteDAO {
     public Utente login(String email, String password) throws SQLException {
 
         // 1. Definiamo la stringa SQL. Selezioniamo sia i campi comuni che quelli specifici
-        String sql = "SELECT id, nome, cognome,password_hash, email, ruolo " +
+        //aggiunta la tabella attivo, se un utente non è attivo non può effettuare la login
+        String sql = "SELECT id, nome, cognome,password_hash, email, ruolo, attivo " +
                 "FROM utenti_sistema " +
                 "WHERE email = ?";
         //creiamo l'istanza con il database per ottenere e verificare i suoi dati
@@ -57,10 +58,10 @@ public class UtentePostgresDao implements UtenteDAO {
                             medico.setNome(rs.getString("nome"));
                             medico.setCognome(rs.getString("cognome"));
                             medico.setEmail(rs.getString("email"));
+                            medico.setAttivo(rs.getBoolean("attivo"));
 
                             //aggiungo il set del ruolo altrimenti non salviamo questo dato
                             medico.setRuolo(ruoloDalDB);
-
                             // Riempiamo il dato specifico della classe figlia Medico
                             return medico; // Restituiamo il medico pronto
 
@@ -72,6 +73,7 @@ public class UtentePostgresDao implements UtenteDAO {
                             admin.setNome(rs.getString("nome"));
                             admin.setCognome(rs.getString("cognome"));
                             admin.setEmail(rs.getString("email"));
+                            admin.setAttivo(rs.getBoolean("attivo"));
 
                             //aggiungo il set del ruolo altrimenti non salviamo questo dato
                             admin.setRuolo(ruoloDalDB);

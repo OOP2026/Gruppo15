@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface LettoDAO {
     List<Letto> getLettiByStanza (int idStanza) throws SQLException;
+
+    List<Letto> getLettiDisponibiliByReparto (int idReparto) throws SQLException;
 }

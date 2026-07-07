@@ -22,7 +22,7 @@ public class VisualizzaSlotOrariGUI extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        String[] colonne = {"ID", "Giorno", "Orario di inizio turno","Orario di fine turno","Agenda associata"};
+        String[] colonne = {"ID", "Giorno", "Orario di inizio turno","Orario di fine turno","Medico"};
 
         DefaultTableModel tableModel = new DefaultTableModel(colonne, 0) {
             @Override
@@ -38,7 +38,7 @@ public class VisualizzaSlotOrariGUI extends JFrame {
                     slotOrario.getGiorno(),
                     slotOrario.getOraInizio(),
                     slotOrario.getOraFine(),
-                    slotOrario.getAgenda().getId_agenda()
+                    slotOrario.getAgenda().getMedico().getNome() + " " + slotOrario.getAgenda().getMedico().getCognome()
 
 
             };

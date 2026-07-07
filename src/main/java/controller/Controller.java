@@ -33,6 +33,7 @@ public class Controller {
 	private PazienteDAO pazienteDAO;
 	private StanzaDAO stanzaDAO;
 	private MedicoDAO medicoDAO;
+	private LettoDAO lettoDAO;
 
 	//assegno home al controller siccome prima non aveva mai un valore
 	public Controller(Home home){
@@ -48,6 +49,7 @@ public class Controller {
 		this.stanzaDAO = new StanzaPostgresDao();
 		this.medicoDAO = new MedicoPostgresDao();
 		this.agendaDAO = new AgendaPostgresDao();
+		this.lettoDAO = new LettoPostgresDao();
 	}
 
 	//metodo per eseguire la login, in base al ruolo apre una schermata differente
@@ -61,6 +63,12 @@ public class Controller {
 		if (utenteLoggato == null) {
 			JOptionPane.showMessageDialog(finestraLogin,
 					"Email o Password errate!",
+					"Errore di Accesso",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		} else if (utenteLoggato.getAttivo() == false){
+			JOptionPane.showMessageDialog(finestraLogin,
+					"Utente disattivato!",
 					"Errore di Accesso",
 					JOptionPane.ERROR_MESSAGE);
 			return;
@@ -175,6 +183,10 @@ public class Controller {
 	}
 	public boolean eliminaPaziente(String idPaziente) throws SQLException{
 		return pazienteDAO.eliminaPaziente(idPaziente);
+	}
+
+	public List<Letto> visualizzaLettiDisponibili (int idReparto) throws SQLException{
+		return lettoDAO.getLettiDisponibiliByReparto(idReparto);
 	}
 
 

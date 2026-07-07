@@ -24,12 +24,12 @@ public class VisualizzaRepartiGUI extends JFrame{
     public VisualizzaRepartiGUI(Controller controller, JFrame framePrecedente){
         this.controller = controller;
         setContentPane(repartiPanel);
-        setTitle("Elenco dei reparti presenti");
+        setTitle("Elenco dei letti disponibili");
         setSize(750, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        String[] colonne = {"ID", "Reparto", "Piano"};
+        String[] colonne = {"Codice", "Stanza", "Stato"};
 
         tableModel = new DefaultTableModel(colonne, 0) {
             @Override

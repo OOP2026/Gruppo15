@@ -11,8 +11,8 @@ public class MedicoPostgresDao implements MedicoDAO {
 
     @Override
     public boolean aggiungiMedico(Medico medico) {
-        String sql ="INSERT INTO utenti_sistema(nome, cognome, email, password_hash, ruolo) " +
-                "values (?,?,?,?,?)";
+        String sql ="INSERT INTO utenti_sistema(nome, cognome, email, password_hash, ruolo, attivo) " +
+                "values (?,?,?,?,?,?)";
 
 
         String passwordHash = PasswordUtils.hashPassword(medico.getPassword());
@@ -31,6 +31,7 @@ public class MedicoPostgresDao implements MedicoDAO {
              pstmt.setString(3, medico.getEmail());
              pstmt.setString(4, passwordHash);
              pstmt.setString(5, "MEDICO");
+             pstmt.setBoolean(6, true);
 
              int righe = pstmt.executeUpdate();
 

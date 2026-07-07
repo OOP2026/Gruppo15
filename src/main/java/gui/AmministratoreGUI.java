@@ -7,7 +7,6 @@ import model.Paziente;
 import model.SlotOrario;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -30,16 +29,15 @@ public class AmministratoreGUI extends JFrame {
     private JButton visualizzaTuttiIPazientiButton;
     private JButton visualizzaSlotOrariButton;
     private JButton visualizzaAgendeAssegnateButton;
-    private JButton eliminaPazienteButton;
     private JButton eliminaSlotOrarioButton;
-    private JButton rimuoviMedicoButton;
+    private JButton visualizzaLettiDisponibiliButton;
     private JFrame framePrecedente;
 
     public AmministratoreGUI(Controller controller,JFrame framePrecedente, Amministratore admin) {
         this.framePrecedente=framePrecedente;
         setContentPane(AmministratorePanel);
         setTitle("Amministratore");
-        setSize(300, 550);
+        setSize(400, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
         registraRicoveroButton.addActionListener(new ActionListener() {
@@ -199,18 +197,20 @@ public class AmministratoreGUI extends JFrame {
 
             }
         });
-        eliminaPazienteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EliminaPazienteGUI eliminaPazienteGUI=new EliminaPazienteGUI(controller,AmministratoreGUI.this);
-                eliminaPazienteGUI.setVisible(true);
-                dispose();
-            }
-        });
         eliminaSlotOrarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+
+        visualizzaLettiDisponibiliButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                VisualizzaLettiDisponibiliGUI lettiDisponibiliGUI = new VisualizzaLettiDisponibiliGUI(controller, AmministratoreGUI.this);
+                lettiDisponibiliGUI.setVisible(true);
+
+                dispose();
             }
         });
     }

@@ -9,6 +9,7 @@ public class Utente {
     private String email;
     private String password;
     private String ruolo;
+    private Boolean attivo;
 
     public Utente(){
 
@@ -17,6 +18,12 @@ public class Utente {
     public Utente(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public Utente(String nome, String cognome, String ruolo){
+        this.nome = nome;
+        this.cognome = cognome;
+        this.ruolo = ruolo;
     }
 
     public boolean email(String email, String password) {
@@ -61,6 +68,13 @@ public class Utente {
         this.id = id;
     }
 
+    public void setAttivo(Boolean attivo) {
+        this.attivo = attivo;
+    }
+
+    public Boolean getAttivo() {
+        return attivo;
+    }
 }
 
 

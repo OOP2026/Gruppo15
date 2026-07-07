@@ -10,6 +10,7 @@ public class Agenda{
     private int id_agenda;
     private int id_medico;
     private List<SlotOrario> slots=new ArrayList<SlotOrario>();
+    private Utente utente;
 
 
     public Agenda(){
@@ -40,4 +41,11 @@ public class Agenda{
     }
     public void setSlots(List<SlotOrario> orari){this.slots = orari;}
 
+    public Utente getMedico() {
+        return utente;
+    }
+
+    public void setMedico(Utente medico) {
+        this.utente = medico;
+    }
 }
