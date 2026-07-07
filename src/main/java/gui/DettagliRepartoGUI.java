@@ -4,7 +4,7 @@ import controller.Controller;
 import model.Letto;
 import model.Reparto;
 import model.Stanza;
-
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
@@ -25,26 +25,43 @@ public class DettagliRepartoGUI extends JFrame{
         contenitorePanel.setLayout(new BoxLayout(contenitorePanel, BoxLayout.Y_AXIS));
 
         List<Stanza> stanzeReparto = controller.mostraStanze(reparto.getId());
+        JPanel intestazione = new JPanel(new GridLayout(1, 3));
+
+        intestazione.add(new JLabel("Stanza"));
+        intestazione.add(new JLabel("Letto"));
+        intestazione.add(new JLabel("Stato"));
+
+        contenitorePanel.add(intestazione);
+
 
         //ciclo for che permette di creare ogni stanza dato un determinato reparto
         for (Stanza stanza : reparto.getStanze()) {
+            stanza.setReparto(reparto);
 
-            JPanel pannelloStanza = new JPanel();
-            System.out.println("Codice "+stanza.getCodice());
-            System.out.println("Reparto: "+stanza.getReparto());
+            JPanel stanzaPanel = new JPanel();
+            stanzaPanel.setLayout(new BoxLayout(stanzaPanel, BoxLayout.Y_AXIS));
 
+            if (stanza.getLetti().isEmpty()) {
 
-            JLabel titolo = new JLabel("Stanza " + stanza.getCodice());
+                JPanel riga = new JPanel(new GridLayout(1,3));
+                riga.add(new JLabel("Stanza " + stanza.getCodice()));
+                riga.add(new JLabel("-"));
+                riga.add(new JLabel("Nessun letto"));
 
-            pannelloStanza.add(titolo);
-            pannelloStanza.setLayout(new BoxLayout(pannelloStanza, BoxLayout.Y_AXIS));
+                stanzaPanel.add(riga);
+            }
 
             //ciclo for che consente di creare sotto ogni stanza la lista di tutti i letti di quella stanza
             for (Letto letto : stanza.getLetti()) {
 
-                JPanel rigaLetto = new JPanel(new GridLayout(1, 2));
+                JPanel rigaLetto = new JPanel(new GridLayout(1, 3));
+                rigaLetto.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
 
-                rigaLetto.add(new JLabel("Letto " + letto.getId_letto()));
+                JLabel lblStanza = new JLabel(String.valueOf(stanza.getCodice()));
+                JLabel lblLetto = new JLabel(String.valueOf(letto.getId_letto()));
+
+                rigaLetto.add(lblStanza);
+                rigaLetto.add(lblLetto);
                 JLabel lblStato = new JLabel();
                 System.out.println(letto.getStato());
                 if(letto.getStato()){
@@ -56,11 +73,11 @@ public class DettagliRepartoGUI extends JFrame{
                     lblStato.setForeground(Color.GREEN);
                 }
                 rigaLetto.add(lblStato);
-                pannelloStanza.add(rigaLetto);
+                stanzaPanel.add(rigaLetto);
             }
 
 
-            contenitorePanel.add(pannelloStanza);
+            contenitorePanel.add(stanzaPanel);
         }
 
     }

@@ -52,7 +52,7 @@ public class LettoPostgresDao implements LettoDAO {
     public List<Letto> getLettiDisponibiliByReparto(int idReparto) throws SQLException {
         List<Letto> listaLetti = new ArrayList<>();
 
-        String sql = "SELECT l.codice, l.codice_stanza, l.occupato FROM letti l JOIN stanza s ON l.codice_stanza = s.codice WHERE s.id_reparto = ? AND l.occupato = FALSE";
+        String sql = "SELECT l.codice, l.codice_stanza, l.occupato FROM letti l JOIN stanza s ON l.codice_stanza = s.codice WHERE s.id_reparto = ? AND l.occupato = FALSE ORDER BY l.codice";
 
         try {
             ConnessioneDatabase.getInstance();
