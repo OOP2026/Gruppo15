@@ -2,7 +2,6 @@ package gui;
 
 import controller.Controller;
 import model.Agenda;
-import model.Medico;
 import model.SlotOrario;
 
 import javax.swing.*;
@@ -13,7 +12,7 @@ public class AgendaGUI extends JFrame {
     private JPanel AgendaPanel;
     private JLabel agendaLabel;
     private Controller controller;
-    public AgendaGUI(Controller controller, Medico medico) throws SQLException {
+    public AgendaGUI(Controller controller) throws SQLException {
         this.controller = controller;
         setContentPane(AgendaPanel);
         setTitle("Agenda");
@@ -21,7 +20,7 @@ public class AgendaGUI extends JFrame {
         setLocationRelativeTo(null); // Centra lo schermo
 
         try {
-            Agenda agenda = controller.mostraAgenda(medico.getId());
+            Agenda agenda = controller.mostraAgenda();
             String testoSlots = "<html>"; //variabile temporanea per aggiungere tutti gli slot presi con il get, letta come html
 
             // ciclo per mostrare tutti gli slot uno a uno

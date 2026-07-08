@@ -1,8 +1,11 @@
-package Password;
+package password;
 
 import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordUtils {
+    private PasswordUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     // 1. Questo metodo prende la password in chiaro (es. "segreta123") e la trasforma in HASH illeggibile
     public static String hashPassword(String passwordInChiaro) {

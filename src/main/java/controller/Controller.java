@@ -63,11 +63,11 @@ public class Controller {
 		// 2. Controllo se le credenziali sono errate (oggetto null)
 		if (utenteLoggato == null) {
 			JOptionPane.showMessageDialog(finestraLogin,
-					"Email o Password errate!",
+					"Email o password errate!",
 					"Errore di Accesso",
 					JOptionPane.ERROR_MESSAGE);
 			return;
-		} else if (utenteLoggato.getAttivo() == false){
+		} else if (Boolean.FALSE.equals(utenteLoggato.getAttivo())){
 			JOptionPane.showMessageDialog(finestraLogin,
 					"Utente disattivato!",
 					"Errore di Accesso",
@@ -80,7 +80,7 @@ public class Controller {
 		if ("MEDICO".equalsIgnoreCase(ruolo)) {
 
 			// CAST: Trasformiamo l'Utente in Medico per sbloccare i campi specifici
-			Medico medico = (Medico) utenteLoggato;
+			medico = (Medico) utenteLoggato;
 
 			//salvo il medico loggato per poterlo riutilizzare negli altri metodi
 			this.medicoLoggato = medico;
@@ -126,7 +126,7 @@ public class Controller {
 	}
 
 	//metodo per mostrare l'agenda
-	public Agenda mostraAgenda(int idMedico)throws SQLException{
+	public Agenda mostraAgenda()throws SQLException{
 		return agendaDAO.trovaDaMedico(medicoLoggato.getId());
 	}
 
@@ -152,13 +152,13 @@ public class Controller {
 	public List<Reparto> mostraReparti()throws SQLException{
 		return repartoDAO.getReparti();
 	}
-	public boolean aggiungiPaziente(Paziente paziente) throws SQLException{
+	public boolean aggiungiPaziente(Paziente paziente){
 		return pazienteDAO.aggiungiPaziente(paziente);
 	}
-	public boolean modificaPaziente(Paziente paziente) throws SQLException{
+	public boolean modificaPaziente(Paziente paziente){
 		return pazienteDAO.modificaPaziente(paziente);
 	}
-	public List<Paziente> mostraPazienti() throws SQLException{
+	public List<Paziente> mostraPazienti(){
 		System.out.println("Test");
 		return pazienteDAO.listaPazienti();
 	}

@@ -33,7 +33,7 @@ public class MedicoGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AgendaGUI agendaGUI = null;
                 try {
-                    agendaGUI = new AgendaGUI(controller, medico);
+                    agendaGUI = new AgendaGUI(controller);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
