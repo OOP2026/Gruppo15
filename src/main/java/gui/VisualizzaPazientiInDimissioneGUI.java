@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,7 @@ public class VisualizzaPazientiInDimissioneGUI extends JFrame {
     private JButton cercaButton;
     private JTable table1;
     private JButton ritornaIndietroButton;
+    private JLabel messaggioLabel;
     private JDateChooser dataDimissionePrevista;
     private DefaultTableModel tableModel;
     public VisualizzaPazientiInDimissioneGUI(Controller controller,JFrame framePrecedente) {
@@ -54,6 +56,15 @@ public class VisualizzaPazientiInDimissioneGUI extends JFrame {
                 }
                 tableModel.setRowCount(0);
 
+                if (listaRicoveri.isEmpty()) {
+                    table1.setVisible(false);
+                    messaggioLabel.setText("Nessun paziente in dimissione il " + new SimpleDateFormat("dd/MM/yyyy").format(dataDimissionePrevista.getDate()));
+                    return;
+                }
+
+                messaggioLabel.setText("");
+                table1.setVisible(true);
+
                 for(Ricovero ricovero : listaRicoveri) {
                     Object[] riga = {
                             ricovero.getTessera_sanitaria(),
@@ -67,6 +78,15 @@ public class VisualizzaPazientiInDimissioneGUI extends JFrame {
                     };
                     tableModel.addRow(riga);
                 }
+            }
+        });
+
+        ritornaIndietroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                framePrecedente.setVisible(true);
+
+                dispose();
             }
         });
     }
