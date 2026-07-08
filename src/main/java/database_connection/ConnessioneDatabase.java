@@ -1,11 +1,14 @@
 package database_connection;
 
 import java.sql.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 public class ConnessioneDatabase {
+    private static final Logger logger = Logger.getLogger(ConnessioneDatabase.class.getName());
     private static ConnessioneDatabase instance;
     private static Connection connection = null;
     private String nome = "postgres";
-    private String password = "postgres";
+    private String dbKey = "postgres";
     private String url = "jdbc:postgresql://localhost:5432/postgres";
     private String driver = "org.postgresql.Driver";
     String failed = "Connessione al Database fallita.";
@@ -15,11 +18,10 @@ public class ConnessioneDatabase {
     public ConnessioneDatabase() throws SQLException {
         try {
             Class.forName(getDriver());
-            setConnection(DriverManager.getConnection(getUrl(), getNome(), password));
+            setConnection(DriverManager.getConnection(getUrl(), getNome(), dbKey));
 
         } catch (ClassNotFoundException ex) {
-            System.out.println("Connessione al Database fallita: " + ex.getMessage());
-            ex.printStackTrace();
+            logger.log(Level.SEVERE, ex, () -> "Connessione al Database fallita: " + ex.getMessage());
         }
 
     }
@@ -29,9 +31,7 @@ public class ConnessioneDatabase {
     }
 
     public static ConnessioneDatabase getInstance() throws SQLException {
-        if (instance == null) {
-            instance = new ConnessioneDatabase();
-        } else if (instance.getConnection().isClosed()) {
+        if (instance == null || getConnection().isClosed()) {
             instance = new ConnessioneDatabase();
         }
         return instance;
@@ -61,8 +61,8 @@ public class ConnessioneDatabase {
         this.url = url;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    public static void setConnection(Connection connection) {
+        ConnessioneDatabase.connection = connection;
     }
 
         }

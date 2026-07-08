@@ -21,7 +21,7 @@ public class VisualizzaRepartiGUI extends JFrame{
     private DefaultTableModel tableModel;
     private List<Reparto> reparti;
 
-    public VisualizzaRepartiGUI(Controller controller, JFrame framePrecedente){
+    public VisualizzaRepartiGUI(Controller controller, JFrame framePrecedente) throws SQLException {
         this.controller = controller;
         setContentPane(repartiPanel);
         setTitle("Elenco dei letti disponibili");
@@ -54,11 +54,7 @@ public class VisualizzaRepartiGUI extends JFrame{
                         int idReparto = (int) tableModel.getValueAt(riga, 0);
 
                         Reparto repartoSelezionato = reparti.get(riga);
-                        try {
-                            new DettagliRepartoGUI(controller, VisualizzaRepartiGUI.this, repartoSelezionato).setVisible(true);
-                        } catch (SQLException ex) {
-                            throw new RuntimeException(ex);
-                        }
+                        new DettagliRepartoGUI(repartoSelezionato).setVisible(true);
                     }
                 }
             }

@@ -45,19 +45,15 @@ public class PazienteGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Paziente p = new Paziente(tesseraSanitariaField.getText(),nomeField.getText(),cognomeField.getText(),diagnosiField.getText(),curaField.getText());
-                try {
-                    if(modifica){
-                        controller.modificaPaziente(p);
+                if(modifica){
+                    controller.modificaPaziente(p);
 
-                    }
-                    else {
-                        controller.aggiungiPaziente(p);
-
-                    }
-
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
                 }
+                else {
+                    controller.aggiungiPaziente(p);
+
+                }
+
             }
         });
     }

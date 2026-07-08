@@ -13,7 +13,7 @@ public interface AgendaDAO {
     boolean modificaAgenda(Agenda agenda) throws SQLException;
 
     boolean eliminaAgenda(int idAgenda) throws SQLException;
-    boolean assegnaAgenda(int id_agenda, int id_medico) throws SQLException;
+    boolean assegnaAgenda(int idAgenda, int idMedico) throws SQLException;
 
     List<Agenda> listaAgenda() throws SQLException;
 }

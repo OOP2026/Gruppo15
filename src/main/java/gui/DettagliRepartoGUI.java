@@ -4,27 +4,24 @@ import controller.Controller;
 import model.Letto;
 import model.Reparto;
 import model.Stanza;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLException;
-import java.util.List;
+
 
 public class DettagliRepartoGUI extends JFrame{
     private JPanel dettagliRepartoPanel;
     private JPanel contenitorePanel;
-    private Controller controller;
+    private transient Controller controller;
 
-    public DettagliRepartoGUI(Controller controller, JFrame framePrecedente, Reparto reparto) throws SQLException {
-        this.controller = controller;
+    public DettagliRepartoGUI(Reparto reparto) {
         setContentPane(dettagliRepartoPanel);
         setTitle("Dettagli del reparto");
         setSize(750, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         contenitorePanel.setLayout(new BoxLayout(contenitorePanel, BoxLayout.Y_AXIS));
 
-        List<Stanza> stanzeReparto = controller.mostraStanze(reparto.getId());
+
         JPanel intestazione = new JPanel(new GridLayout(1, 3));
 
         intestazione.add(new JLabel("Stanza"));

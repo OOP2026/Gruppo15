@@ -1,5 +1,4 @@
 package dao;
-import model.Paziente;
 import model.Ricovero;
 
 import java.sql.SQLException;
@@ -13,7 +12,6 @@ public interface RicoveroDAO {
 
       boolean aggiornaRicovero(Ricovero ricovero,boolean fineRicovero) throws SQLException;
 
-//    Ricovero mostraRicovero(String tesseraSanitaria) throws SQLException;
     List<Ricovero> getRicoveriPerPaziente(String tesseraSanitaria) throws SQLException;
     List<Ricovero> getRicoveriPerDataDimissione(Date dataDimissioniPrevista) throws SQLException;
 }

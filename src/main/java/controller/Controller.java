@@ -5,7 +5,6 @@ import gui.Home;
 import gui.MedicoGUI;
 import implementazioneDao.*;
 import model.*;
-
 import javax.swing.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -98,7 +97,7 @@ public class Controller {
 			Amministratore admin = (Amministratore) utenteLoggato;
 
 			// Apriamo la schermata dell'amministratore passandogli l'oggetto admin
-			AmministratoreGUI viewAdmin = new AmministratoreGUI(this, finestraLogin, admin);
+			AmministratoreGUI viewAdmin = new AmministratoreGUI(this, finestraLogin);
 			viewAdmin.setVisible(true);
 
 			// Chiudiamo la finestra di login
@@ -159,7 +158,6 @@ public class Controller {
 		return pazienteDAO.modificaPaziente(paziente);
 	}
 	public List<Paziente> mostraPazienti(){
-		System.out.println("Test");
 		return pazienteDAO.listaPazienti();
 	}
 
@@ -174,8 +172,8 @@ public class Controller {
 	public boolean aggiungiMedico(Medico medico) throws SQLException{
 		return medicoDAO.aggiungiMedico(medico);
 	}
-	public boolean assegnaAgenda(int id_agenda, int id_medico) throws SQLException{
-		return agendaDAO.assegnaAgenda(id_agenda, id_medico);
+	public boolean assegnaAgenda(int idAgenda, int idMedico) throws SQLException{
+		return agendaDAO.assegnaAgenda(idAgenda, idMedico);
 	}
 
 	public List<SlotOrario>  mostraSlotOrari() throws SQLException{
