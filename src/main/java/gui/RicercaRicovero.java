@@ -16,7 +16,7 @@ public class RicercaRicovero extends JFrame {
     private JButton inviaButton;
     private JButton ritornaIndietroButton;
     private JFrame frameprecedente;
-    private VisualizzaRicoveroPerPazienteGUI visualizzaRicoveroPerPazienteGUI;
+
     public RicercaRicovero(Controller controller, JFrame frameprecedente){
         this.frameprecedente = frameprecedente;
         setContentPane(mostraRicoveriPanel);
@@ -35,7 +35,7 @@ public class RicercaRicovero extends JFrame {
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                visualizzaRicoveroPerPazienteGUI = null;
+                VisualizzaRicoveroPerPazienteGUI visualizzaRicoveroPerPazienteGUI = null;
                 try {
                     visualizzaRicoveroPerPazienteGUI = new VisualizzaRicoveroPerPazienteGUI(controller, frameprecedente, ricoveri);
                 } catch (SQLException ex) {

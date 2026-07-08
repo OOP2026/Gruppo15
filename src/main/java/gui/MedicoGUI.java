@@ -18,8 +18,7 @@ public class MedicoGUI extends JFrame {
     private JButton visualizzaLePrestazioniButton;
     private JLabel cognomeLabel;
     private JFrame framePrecedente;
-    private AgendaGUI agendaGUI;
-    private PrestazioneGUI prestazioneGUI;
+
     //passiamo anche il medico per ottenere i dati da visualizzare
     public MedicoGUI(Controller controller,JFrame framePrecedente, Medico medico) {
         setContentPane(MedicoPanel);
@@ -32,7 +31,7 @@ public class MedicoGUI extends JFrame {
         mostraAgendaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                AgendaGUI agendaGUI = null;
                 try {
                     agendaGUI = new AgendaGUI(controller, medico);
                 } catch (SQLException ex) {
@@ -55,7 +54,7 @@ public class MedicoGUI extends JFrame {
         creaPrestazioneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                prestazioneGUI = null;
+                PrestazioneGUI prestazioneGUI = null;
                 prestazioneGUI =new PrestazioneGUI(controller,MedicoGUI.this, medico,false);
                 prestazioneGUI.setVisible(true);
                 dispose();
@@ -68,7 +67,7 @@ public class MedicoGUI extends JFrame {
         modificaPrestazioneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                prestazioneGUI = null;
+                PrestazioneGUI prestazioneGUI = null;
                 prestazioneGUI =new PrestazioneGUI(controller,MedicoGUI.this, medico,true);
                 prestazioneGUI.setVisible(true);
                 dispose();

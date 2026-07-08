@@ -124,7 +124,7 @@ public class RicoveroPostgresDao implements RicoveroDAO {
                     throw new IllegalArgumentException("Errore: Impossibile modificare. La tessera sanitaria inserita è inesistente.");
 
                 }
-                return true;
+                return righeModificate > 0;
 
             } catch (SQLException e) {
                 // In caso di errore in una delle due tabelle, facciamo il rollback per non lasciare dati inconsistenti
@@ -159,7 +159,22 @@ public class RicoveroPostgresDao implements RicoveroDAO {
 
             pstmt.setString(1, tesseraSanitaria);
 
-            PrendiRicovero(listaRicoveri, pstmt);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Ricovero r = new Ricovero(
+                            rs.getString("paziente_id"),
+                            rs.getInt("medico_id"),
+                            rs.getString("motivo"),
+                            rs.getInt("reparto"),
+                            rs.getInt("id_letto"),
+                            rs.getTimestamp("data_inizio"),
+                            rs.getTimestamp("data_fine"),
+                            rs.getInt("id"),
+                            rs.getTimestamp("data_dimissione_prevista")
+                    );
+                    listaRicoveri.add(r);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             // Gestisci l'errore o mostra un avviso nella GUI
@@ -183,7 +198,22 @@ public class RicoveroPostgresDao implements RicoveroDAO {
             java.sql.Date dataSql = new java.sql.Date(dataDimissionePrevista.getTime());
             pstmt.setDate(1,dataSql);
 
-            PrendiRicovero(listaRicoveri, pstmt);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Ricovero r = new Ricovero(
+                            rs.getString("paziente_id"),
+                            rs.getInt("medico_id"),
+                            rs.getString("motivo"),
+                            rs.getInt("reparto"),
+                            rs.getInt("id_letto"),
+                            rs.getTimestamp("data_inizio"),
+                            rs.getTimestamp("data_fine"),
+                            rs.getInt("id"),
+                            rs.getTimestamp("data_dimissione_prevista")
+                    );
+                    listaRicoveri.add(r);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             // Gestisci l'errore o mostra un avviso nella GUI
@@ -192,24 +222,7 @@ public class RicoveroPostgresDao implements RicoveroDAO {
 
     }
 
-    private void PrendiRicovero(List<Ricovero> listaRicoveri, PreparedStatement pstmt) throws SQLException {
-        try (ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                Ricovero r = new Ricovero(
-                        rs.getString("paziente_id"),
-                        rs.getInt("medico_id"),
-                        rs.getString("motivo"),
-                        rs.getInt("reparto"),
-                        rs.getInt("id_letto"),
-                        rs.getTimestamp("data_inizio"),
-                        rs.getTimestamp("data_fine"),
-                        rs.getInt("id"),
-                        rs.getTimestamp("data_dimissione_prevista")
-                );
-                listaRicoveri.add(r);
-            }
-        }
-    }
+
 
 
 }

@@ -33,10 +33,7 @@ public class AmministratoreGUI extends JFrame {
     private JButton visualizzaLettiDisponibiliButton;
     private JButton visualizzaPazientiInDimissioneButton;
     private JFrame framePrecedente;
-    private List <Paziente>pazienti;
-    private List<Agenda> agendaList;
-    private List<SlotOrario> slotOrari;
-    private VisualizzaSlotOrariGUI  visualizzaSlotOrariGUI;
+
     public AmministratoreGUI(Controller controller,JFrame framePrecedente, Amministratore admin) {
         this.framePrecedente=framePrecedente;
         setContentPane(AmministratorePanel);
@@ -129,7 +126,7 @@ public class AmministratoreGUI extends JFrame {
         visualizzaTuttiIPazientiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                List<Paziente> pazienti=null;
                 try {
 
                     pazienti = controller.mostraPazienti(); // da qua si blocca
@@ -163,13 +160,13 @@ public class AmministratoreGUI extends JFrame {
         visualizzaSlotOrariButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                slotOrari=null;
+                List<SlotOrario> slotOrari=null;
                 try {
                    slotOrari= controller.mostraSlotOrari();
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                visualizzaSlotOrariGUI= null;
+                VisualizzaSlotOrariGUI visualizzaSlotOrariGUI= null;
                 try {
                     visualizzaSlotOrariGUI = new VisualizzaSlotOrariGUI(controller, AmministratoreGUI.this,slotOrari);
                 } catch (SQLException ex) {
@@ -189,6 +186,7 @@ public class AmministratoreGUI extends JFrame {
         visualizzaAgendeAssegnateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                List<Agenda> agendaList=null;
                 try {
                     agendaList=controller.mostraTutteLeAgende();
                     VisualizzaAgendeAssegnateGUI agendeAssegnateGUI= new VisualizzaAgendeAssegnateGUI(controller,AmministratoreGUI.this,agendaList);
