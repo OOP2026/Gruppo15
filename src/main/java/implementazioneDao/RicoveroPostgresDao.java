@@ -124,7 +124,7 @@ public class RicoveroPostgresDao implements RicoveroDAO {
                     throw new IllegalArgumentException("Errore: Impossibile modificare. La tessera sanitaria inserita è inesistente.");
 
                 }
-                return righeModificate > 0;
+                return true;
 
             } catch (SQLException e) {
                 // In caso di errore in una delle due tabelle, facciamo il rollback per non lasciare dati inconsistenti

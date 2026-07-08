@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Objects;
 
 public class RicoveroGUI extends JFrame {
     private Controller controller;
@@ -90,7 +91,7 @@ public class RicoveroGUI extends JFrame {
                 boolean salvato = false;
                 int id_reparto=0;
                 boolean fineRicovero=fineRicoveroCheckBox.isSelected();
-                if(repartoComboBox.getSelectedItem().toString().equals("Cardiologia")){
+                if(Objects.requireNonNull(repartoComboBox.getSelectedItem()).toString().equals("Cardiologia")){
                     id_reparto=1;
                 }
                 else if(repartoComboBox.getSelectedItem().toString().equals("Chirurgia")){

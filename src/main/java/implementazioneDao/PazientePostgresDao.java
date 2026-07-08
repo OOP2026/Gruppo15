@@ -68,10 +68,8 @@ public class PazientePostgresDao implements PazienteDAO {
                 throw new IllegalArgumentException("Errore: Impossibile modificare. La tessera sanitaria inserita è inesistente.");
 
             }
-            if(righe>0){
-                JOptionPane.showMessageDialog(null,"Paziente modificato");
-            }
-            return righe > 0;
+            JOptionPane.showMessageDialog(null, "Paziente modificato");
+            return true;
 
 
         }
@@ -136,7 +134,7 @@ public class PazientePostgresDao implements PazienteDAO {
                 throw new IllegalArgumentException("Errore: Impossibile eliminare. La tessera sanitaria inserita è inesistente.");
 
             }
-            return righeCoinvolte > 0;
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
