@@ -25,7 +25,6 @@ public class AmministratoreGUI extends JFrame {
     private JButton visualizzaTuttiIPazientiButton;
     private JButton visualizzaSlotOrariButton;
     private JButton visualizzaAgendeAssegnateButton;
-    private JButton eliminaSlotOrarioButton;
     private JButton visualizzaLettiDisponibiliButton;
     private JButton visualizzaPazientiInDimissioneButton;
     private JLabel amministratoreLabel;

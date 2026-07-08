@@ -18,26 +18,19 @@ public class EliminaPazienteGUI extends JFrame {
         setContentPane(eliminaPazientePanel);
         setTitle("Elimina paziente");
         setSize(300, 250);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
-        ritornaIndietroButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                framePrecedente.setVisible(true);
-                dispose();
-            }
-
+        ritornaIndietroButton.addActionListener(e -> {
+            framePrecedente.setVisible(true);
+            dispose();
         });
-        eliminaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    controller.eliminaPaziente(inserimentoTesseraField.getText());
-                    JOptionPane.showMessageDialog(null, "Paziente eliminato con successo!");
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
+        eliminaButton.addActionListener(e -> {
+            try {
+                controller.eliminaPaziente(inserimentoTesseraField.getText());
+                JOptionPane.showMessageDialog(null, "Paziente eliminato con successo!");
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
         });
     }

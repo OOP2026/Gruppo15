@@ -22,18 +22,18 @@ public class Controller {
 
 
 	// nuovi metodi dopo l'aggiunta del DB
-	private UtenteDAO utenteDAO;
-	private Home finestraLogin;
-	private RicoveroDAO ricoveroDAO;
+	private final UtenteDAO utenteDAO;
+	private final Home finestraLogin;
+	private final RicoveroDAO ricoveroDAO;
 	private AgendaDAO agendaDAO;
 	private Medico medicoLoggato;
-	private PrestazioneDAO prestazioneDAO;
-	private SlotOrarioDAO slotOrarioDAO;
-	private RepartoDAO repartoDAO;
-	private PazienteDAO pazienteDAO;
-	private StanzaDAO stanzaDAO;
-	private MedicoDAO medicoDAO;
-	private LettoDAO lettoDAO;
+	private final PrestazioneDAO prestazioneDAO;
+	private final SlotOrarioDAO slotOrarioDAO;
+	private final RepartoDAO repartoDAO;
+	private final PazienteDAO pazienteDAO;
+	private final StanzaDAO stanzaDAO;
+	private final MedicoDAO medicoDAO;
+	private final LettoDAO lettoDAO;
 
 	//assegno home al controller siccome prima non aveva mai un valore
 	public Controller(Home home){
@@ -93,10 +93,7 @@ public class Controller {
 
 		} else if ("AMMINISTRATORE".equalsIgnoreCase(ruolo)) {
 
-			// CAST: Trasformiamo l'Utente in Amministratore
-			Amministratore admin = (Amministratore) utenteLoggato;
 
-			// Apriamo la schermata dell'amministratore passandogli l'oggetto admin
 			AmministratoreGUI viewAdmin = new AmministratoreGUI(this, finestraLogin);
 			viewAdmin.setVisible(true);
 
@@ -151,11 +148,11 @@ public class Controller {
 	public List<Reparto> mostraReparti()throws SQLException{
 		return repartoDAO.getReparti();
 	}
-	public boolean aggiungiPaziente(Paziente paziente){
-		return pazienteDAO.aggiungiPaziente(paziente);
+	public void aggiungiPaziente(Paziente paziente){
+		pazienteDAO.aggiungiPaziente(paziente);
 	}
-	public boolean modificaPaziente(Paziente paziente){
-		return pazienteDAO.modificaPaziente(paziente);
+	public void modificaPaziente(Paziente paziente){
+		pazienteDAO.modificaPaziente(paziente);
 	}
 	public List<Paziente> mostraPazienti(){
 		return pazienteDAO.listaPazienti();
@@ -183,8 +180,8 @@ public class Controller {
 		return agendaDAO.listaAgenda();
 
 	}
-	public boolean eliminaPaziente(String idPaziente) throws SQLException{
-		return pazienteDAO.eliminaPaziente(idPaziente);
+	public void eliminaPaziente(String idPaziente) throws SQLException{
+		pazienteDAO.eliminaPaziente(idPaziente);
 	}
 
 	public List<Letto> visualizzaLettiDisponibili (int idReparto) throws SQLException{

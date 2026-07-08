@@ -5,15 +5,15 @@ import model.Ricovero;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RicoveroGUI extends JFrame {
-    private Controller controller;
-    private JPanel RegistraRicoveroPanel;
+    private transient Controller controller;
+    private JPanel registraRicoveroPanel;
     private JButton backButton;
     private JTextField tesseraSanitariaField;
     private JTextField medicoAlboField;
@@ -26,123 +26,120 @@ public class RicoveroGUI extends JFrame {
     private JLabel repartoLabel;
     private JLabel idLettoLABEL;
     private JTextField lettoField;
-    private JTextField id_ricoveroField;
+    private JTextField idRicoveroField;
     private JLabel id_ricoveroLabel;
     private JComboBox repartoComboBox;
     private JCheckBox fineRicoveroCheckBox;
     private JPanel dataPanel;
-    private JFrame framePrecedente;
     private JDateChooser dataDimissionePrevista;
     private Timestamp dataDimissionePrevistaStamp;
-
+    private static final Logger logger = Logger.getLogger(RicoveroGUI.class.getName());
     public RicoveroGUI(Controller controller, JFrame framePrecedente, boolean modificaRicovero) {
-        this.framePrecedente = framePrecedente;
-        this.controller = controller;
-        id_ricoveroField.setVisible(false);
+        // 1. Inizializzazione degli stati di default delle componenti della GUI
+        idRicoveroField.setVisible(false);
         id_ricoveroLabel.setVisible(false);
         fineRicoveroCheckBox.setVisible(false);
-        setContentPane(RegistraRicoveroPanel);
+        setContentPane(registraRicoveroPanel);
         setTitle("Amministratore");
-        setSize(300, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);// Centra lo schermo
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        // Configurazione del JDateChooser
         dataDimissionePrevista = new JDateChooser();
         dataDimissionePrevista.setDateFormatString("dd/MM/yyyy");
         dataDimissionePrevista.getDateEditor().getUiComponent().setFocusable(false);
         dataPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         dataPanel.add(dataDimissionePrevista);
 
+        // 2. Modifiche condizionali della GUI in base alla modalità
         if (modificaRicovero) {
             inviaButton.setText("Modifica Ricovero");
-            id_ricoveroField.setVisible(true);
+            idRicoveroField.setVisible(true);
             id_ricoveroLabel.setVisible(true);
             setSize(300, 470);
             fineRicoveroCheckBox.setVisible(true);
+        } else {
+            setSize(300, 400);
         }
 
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                framePrecedente.setVisible(true);
-                dispose();
-            }
+        // 3. ORA CENTRIAMO LO SCHERMO (Ora che setSize è definitivo!)
+        setLocationRelativeTo(null);
+
+        // 4. Delega della logica dei Listener per azzerare la complessità
+        inizializzaListener(controller, framePrecedente, modificaRicovero);
+    }
+
+    // Metodo helper per gestire tutti i Listener delle azioni utente
+    private void inizializzaListener(Controller controller, JFrame framePrecedente, boolean modificaRicovero) {
+
+        // Listener pulsante Indietro (Lambda)
+        backButton.addActionListener(e -> {
+            framePrecedente.setVisible(true);
+            dispose();
         });
+
+        // Listener CheckBox Fine Ricovero (Lambda)
         fineRicoveroCheckBox.addActionListener(e -> {
-            // 1. Controlla se la checkbox è selezionata
             boolean isChecked = fineRicoveroCheckBox.isSelected();
-
-            // 2. Se è selezionata, DISATTIVA il calendario (setEnabled(false))
-            //    Se non è selezionata, lo ATTIVA (setEnabled(true))
             dataDimissionePrevista.setEnabled(!isChecked);
-
-            // 3. (Opzionale) Se vuoi anche svuotare la data quando viene spuntata la checkbox:
             if (isChecked) {
                 dataDimissionePrevista.setDate(null);
             }
         });
 
+        // Listener pulsante Invia (Convertito in Lambda pulita)
+        inviaButton.addActionListener(e -> {
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+            Timestamp endtime = new Timestamp(System.currentTimeMillis());
+            boolean fineRicovero = fineRicoveroCheckBox.isSelected();
 
-        inviaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-                Timestamp endtime=new Timestamp(System.currentTimeMillis());
-                boolean salvato = false;
-                int id_reparto=0;
-                boolean fineRicovero=fineRicoveroCheckBox.isSelected();
-                if(repartoComboBox.getSelectedItem().toString().equals("Cardiologia")){
-                    id_reparto=1;
-                }
-                else if(repartoComboBox.getSelectedItem().toString().equals("Chirurgia")){
-                    id_reparto=2;
-                }
-                else if(repartoComboBox.getSelectedItem().toString().equals("Neurologia")){
-                    id_reparto=3;
-                }
-                else if(repartoComboBox.getSelectedItem().toString().equals("Pediatria")){
-                    id_reparto=4;
-                }
-               Date dataSelezionata = dataDimissionePrevista.getDate();
-                if (dataSelezionata!=null){
-                    dataDimissionePrevistaStamp=new Timestamp(dataSelezionata.getTime());
-                }
-                else {
+            // Estrazione dell'ID reparto tramite metodo helper dedicato
+            int idReparto = determinaIdReparto(repartoComboBox.getSelectedItem().toString());
 
+            // Parsing della data selezionata
+            Date dataSelezionata = dataDimissionePrevista.getDate();
+            if (dataSelezionata != null) {
+                dataDimissionePrevistaStamp = new Timestamp(dataSelezionata.getTime());
+            }
+
+            boolean salvato = false;
+            try {
+                // Estrazione parametri dai campi di testo
+                String tessera = tesseraSanitariaField.getText();
+                int idMedico = Integer.parseInt(medicoAlboField.getText());
+                String diagnosi = diagnosiField.getText();
+                int letto = Integer.parseInt(lettoField.getText());
+
+                if (modificaRicovero) {
+                    int idRicovero = Integer.parseInt(idRicoveroField.getText());
+                    Ricovero ricovero = new Ricovero(tessera, idMedico, diagnosi, idReparto, letto, currentTime, endtime, idRicovero, dataDimissionePrevistaStamp);
+                    salvato = controller.modificaRicovero(ricovero, fineRicovero);
+                } else {
+                    Ricovero ricovero = new Ricovero(tessera, idMedico, diagnosi, idReparto, letto, currentTime, endtime, dataDimissionePrevistaStamp);
+                    salvato = controller.salvaRicovero(ricovero);
                 }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, "Errore durante il salvataggio nel database", ex);
+                JOptionPane.showMessageDialog(RicoveroGUI.this, "Errore durante il salvataggio nel database.", "Errore", JOptionPane.ERROR_MESSAGE);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(RicoveroGUI.this, "Verifica che i campi numerici siano corretti.", "Errore Input", JOptionPane.ERROR_MESSAGE);
+            }
 
-
-                try {
-
-                    if(modificaRicovero && fineRicovero){
-                        Ricovero ricovero = new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime,Integer.parseInt(id_ricoveroField.getText()),dataDimissionePrevistaStamp);
-                        salvato=controller.modificaRicovero(ricovero,fineRicovero);
-                    }
-                    else if (modificaRicovero){
-                        Ricovero ricovero = new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime,Integer.parseInt(id_ricoveroField.getText()),dataDimissionePrevistaStamp);
-                        salvato = controller.modificaRicovero(ricovero,fineRicovero);}
-                    else {
-                        Ricovero ricovero =new Ricovero(tesseraSanitariaField.getText(),Integer.parseInt(medicoAlboField.getText()), diagnosiField.getText(),id_reparto,Integer.parseInt(lettoField.getText()),currentTime,endtime,dataDimissionePrevistaStamp);
-                        salvato=controller.salvaRicovero(ricovero);
-                    }
-                }
-                catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(
-                            RicoveroGUI.this,
-                            "Errore durante il salvataggio nel database.",
-                            "Errore",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                    ex.printStackTrace();
-                }
-
-                if(salvato){
-                    JOptionPane.showMessageDialog(null, "Ricovero registrato!");
-                }else{
-                    JOptionPane.showMessageDialog(null,"Errore durante il salvataggio.");
-                }
-
+            // Feedback all'utente
+            if (salvato) {
+                JOptionPane.showMessageDialog(null, "Ricovero registrato!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Errore durante il salvataggio.");
             }
         });
+    }
+
+    // Metodo di supporto per mappare le stringhe della ComboBox negli ID del DB
+    private int determinaIdReparto(String nomeReparto) {
+        if (nomeReparto.equals("Cardiologia")) return 1;
+        if (nomeReparto.equals("Chirurgia")) return 2;
+        if (nomeReparto.equals("Neurologia")) return 3;
+        if (nomeReparto.equals("Pediatria")) return 4;
+        return 0;
     }
 
 

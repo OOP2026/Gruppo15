@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.logging.Logger;
 
 public class SlotOrarioGUI extends JFrame{
     private JPanel registraSlotPanel;
@@ -27,9 +28,9 @@ public class SlotOrarioGUI extends JFrame{
     private JComboBox orarioFineCombobox;
     private JTextField idSlotField;
     private JLabel idSlotLabel;
-    private Controller controller;
-    private JFrame framePrecedente;
+    private transient Controller controller;
     private SlotOrario slotOrario;
+    private static final Logger logger = Logger.getLogger(SlotOrarioGUI.class.getName());
 
     public SlotOrarioGUI(Controller controller, JFrame framePrecedente,boolean modifica){
         idSlotField.setVisible(false);
@@ -40,64 +41,56 @@ public class SlotOrarioGUI extends JFrame{
             idSlotField.setVisible(true);
             idSlotLabel.setVisible(true);
         }
-        this.framePrecedente = framePrecedente;
-        this.controller = controller;
         setContentPane(registraSlotPanel);
         setTitle("Creazione Slot");
         setSize(300, 450);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
 
         //button per tornare alla schermata precedente
-        annullaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                framePrecedente.setVisible(true);
-                dispose();
-            }
+        annullaButton.addActionListener(e -> {
+            framePrecedente.setVisible(true);
+            dispose();
         });
 
         //button per salvare un nuovo slot orario nel db
-        salvaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Agenda agenda = new Agenda();
-                agenda.setId_agenda(Integer.parseInt(agendaField.getText()));
+        salvaButton.addActionListener(e -> {
+            Agenda agenda = new Agenda();
+            agenda.setId_agenda(Integer.parseInt(agendaField.getText()));
 
-                if (modifica){
-                     slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda,Integer.parseInt(idSlotField.getText()));
+            if (modifica){
+                 slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda,Integer.parseInt(idSlotField.getText()));
+            }
+            else {
+                 slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda);
+            }
+
+            boolean salvato = false;
+            try {
+                if(modifica){
+                    salvato= controller.modificaSlotOrario(slotOrario);
                 }
                 else {
-                     slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda);
+                    salvato = controller.salvaSlotOrario(slotOrario);
                 }
 
-                boolean salvato = false;
-                try {
-                    if(modifica){
-                        salvato= controller.modificaSlotOrario(slotOrario);
-                    }
-                    else {
-                        salvato = controller.salvaSlotOrario(slotOrario);
-                    }
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(
-                            SlotOrarioGUI.this,
-                            "Errore durante il salvataggio nel database.",
-                            "Errore",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                    ex.printStackTrace();
-                }
-
-                if(salvato){
-                    JOptionPane.showMessageDialog(null, "Slot orario registrato!");
-                }else{
-                    JOptionPane.showMessageDialog(null,"Errore durante il salvataggio.");
-                }
-
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(
+                        SlotOrarioGUI.this,
+                        "Errore durante il salvataggio nel database.",
+                        "Errore",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                ex.printStackTrace();
             }
+
+            if(salvato){
+                JOptionPane.showMessageDialog(null, "Slot orario registrato!");
+            }else{
+                JOptionPane.showMessageDialog(null,"Errore durante il salvataggio.");
+            }
+
         });
     }
 }

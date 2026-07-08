@@ -6,25 +6,27 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Home extends JFrame {
-    private Controller controller;
-    private JButton Access;
-    private JPanel HomePanel;
-    private JTextField Utente;
-    private JLabel UtenteLabel;
+    private static final Logger logger = Logger.getLogger(Home.class.getName());
+    private final transient Controller controller;
+    private JButton access;
+    private JPanel homePanel;
+    private JTextField utente;
+    private JLabel utenteLabel;
     private JPasswordField passwordField;
-    private JLabel PasswordLabel;
-    private JLabel Titolo;
+    private JLabel passwordLabel;
+    private JLabel titolo;
     private JCheckBox mostraPasswordCheckBox;
-    private JButton accediComeMedicoButton;
 
     public Home() {
         controller = new Controller(this);
-        setContentPane(HomePanel);
+        setContentPane(homePanel);
         setTitle("Login");
         setSize(600,400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null); // Centra lo schermo
 
@@ -42,19 +44,16 @@ public class Home extends JFrame {
         //modificato l'access in modo che non venga aperta immediatamente la prossima schermata, ma che venga prima eseguito il metodo "eseguiLogin"
         //il controller aprirà poi medicoGUI o amministratoreGUI in base ai dati inseriti
 
-        Access.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String email = Utente.getText();
-                String password = new String(passwordField.getPassword());
+        access.addActionListener(e -> {
+            String email = utente.getText();
+            String password = new String(passwordField.getPassword());
 
-                try {
-                    controller.eseguiLogin(email, password);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-
+            try {
+                controller.eseguiLogin(email, password);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
+
         });
 
     }
@@ -63,8 +62,9 @@ public class Home extends JFrame {
         try {
             UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf()); // Oppure FlatDarkLaf() per il tema scuro
         } catch(Exception ex) {
-            System.err.println("Impossibile caricare il tema");
+            logger.log(Level.SEVERE, "Impossibile caricare il tema", ex);
         }
         Home frame = new Home();
+        frame.setVisible(true);
     }
 }

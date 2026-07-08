@@ -4,8 +4,7 @@ import controller.Controller;
 import model.Ricovero;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,9 +24,8 @@ public class RicercaRicovero extends JFrame {
         setLocationRelativeTo(null); // Centra lo schermo
 
 
-        inviaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        inviaButton.addActionListener(e -> {
+
 
                 List<Ricovero> ricoveri;
                 try {
@@ -44,14 +42,11 @@ public class RicercaRicovero extends JFrame {
                 visualizzaRicoveroPerPazienteGUI.setVisible(true);
                 dispose();
 
-            }
+
         });
-        ritornaIndietroButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frameprecedente.setVisible(true);
-                dispose();
-            }
+        ritornaIndietroButton.addActionListener(e -> {
+            frameprecedente.setVisible(true);
+            dispose();
         });
     }
     }
