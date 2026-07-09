@@ -1,13 +1,11 @@
-package implementazioneDao;
+package implementazionedao;
 
-import dao.RicoveroDAO;
 import dao.SlotOrarioDAO;
 import database_connection.ConnessioneDatabase;
 import model.*;
 
 import javax.swing.*;
 import java.sql.*;
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 public class SlotOrarioPostgresDao implements SlotOrarioDAO{

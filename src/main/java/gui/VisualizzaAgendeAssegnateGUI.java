@@ -1,13 +1,9 @@
 package gui;
 
-import controller.Controller;
 import model.Agenda;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.List;
 
 public class VisualizzaAgendeAssegnateGUI extends JFrame {
@@ -15,11 +11,11 @@ public class VisualizzaAgendeAssegnateGUI extends JFrame {
     private JTable tableDati;
     private JButton ritornaIndietroButton;
 
-    public VisualizzaAgendeAssegnateGUI(Controller controller, JFrame framePrecedente, List<Agenda> agendaList) throws SQLException {
+    public VisualizzaAgendeAssegnateGUI(JFrame framePrecedente, List<Agenda> agendaList)  {
         setContentPane(visualizzaAgendeAssegnate);
         setTitle("Visualizza agende assegnate");
         setSize(300, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
         String[] colonne = {"id_agenda","id_medico"};
@@ -36,12 +32,9 @@ public class VisualizzaAgendeAssegnateGUI extends JFrame {
             model.addRow(riga);
         }
 
-        ritornaIndietroButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                framePrecedente.setVisible(true);
-                dispose();
-            }
+        ritornaIndietroButton.addActionListener(e -> {
+            framePrecedente.setVisible(true);
+            dispose();
         });
     }
 }

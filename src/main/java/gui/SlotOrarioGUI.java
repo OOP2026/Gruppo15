@@ -3,13 +3,11 @@ package gui;
 import controller.Controller;
 import model.Agenda;
 import model.SlotOrario;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalTime;
-import java.util.logging.Logger;
 
 public class SlotOrarioGUI extends JFrame{
     private JPanel registraSlotPanel;
@@ -29,9 +27,8 @@ public class SlotOrarioGUI extends JFrame{
     private JTextField idSlotField;
     private JLabel idSlotLabel;
     private transient Controller controller;
-    private SlotOrario slotOrario;
+    private transient SlotOrario slotOrario;
     private static final Logger logger = Logger.getLogger(SlotOrarioGUI.class.getName());
-
     public SlotOrarioGUI(Controller controller, JFrame framePrecedente,boolean modifica){
         idSlotField.setVisible(false);
         idSlotLabel.setVisible(false);
@@ -82,7 +79,7 @@ public class SlotOrarioGUI extends JFrame{
                         "Errore",
                         JOptionPane.ERROR_MESSAGE
                 );
-                ex.printStackTrace();
+                logger.log(Level.SEVERE, "Errore durante l'operazione nel database", ex);
             }
 
             if(salvato){

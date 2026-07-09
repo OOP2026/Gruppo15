@@ -1,6 +1,5 @@
 package gui;
 
-import controller.Controller;
 import model.Paziente;
 
 import javax.swing.*;
@@ -12,16 +11,16 @@ import java.util.List;
 
 public class VisualizzaTuttiPazientiGUI extends JFrame {
     JFrame framePrecedente;
-    private JPanel VisualizzaPazientiPanel;
+    private JPanel visualizzaPazientiPanel;
     private JTable tabledati;
     private JButton ritornaIndietroButton;
 
-    public VisualizzaTuttiPazientiGUI(Controller controller, JFrame framePrecedente, List<Paziente> listaPazienti) {
+    public VisualizzaTuttiPazientiGUI(JFrame framePrecedente, List<Paziente> listaPazienti) {
         this.framePrecedente = framePrecedente;
-        setContentPane(VisualizzaPazientiPanel);
+        setContentPane(visualizzaPazientiPanel);
         setTitle("Visualizza pazienti");
         setSize(850, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
         String[] colonne = {"Tessera Sanitaria","Nome","Cognome", "Diagnosi", "Cura"};
@@ -40,12 +39,9 @@ public class VisualizzaTuttiPazientiGUI extends JFrame {
             // 5. Aggiungi la riga appena creata al model della tabella
             model.addRow(riga);
         }
-        ritornaIndietroButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                framePrecedente.setVisible(true);
-                dispose();
-            }
+        ritornaIndietroButton.addActionListener(e -> {
+            framePrecedente.setVisible(true);
+            dispose();
         });
     }
 }

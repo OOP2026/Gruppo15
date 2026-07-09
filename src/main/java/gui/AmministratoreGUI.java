@@ -76,11 +76,7 @@ public class AmministratoreGUI extends JFrame {
 
         visualizzaStrutturaOspedalieraButton.addActionListener(e -> {
             VisualizzaRepartiGUI visualizzaRepartiGUI = null;
-            try {
-                visualizzaRepartiGUI = new VisualizzaRepartiGUI(controller, AmministratoreGUI.this);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+            visualizzaRepartiGUI = new VisualizzaRepartiGUI(AmministratoreGUI.this);
             visualizzaRepartiGUI.setVisible(true);
 
             dispose();
@@ -100,7 +96,7 @@ public class AmministratoreGUI extends JFrame {
 
             pazienti = controller.mostraPazienti(); // da qua si blocca
 
-            VisualizzaTuttiPazientiGUI visualizzaTuttiPazientiGUI = new VisualizzaTuttiPazientiGUI(controller, AmministratoreGUI.this, pazienti);
+            VisualizzaTuttiPazientiGUI visualizzaTuttiPazientiGUI = new VisualizzaTuttiPazientiGUI(AmministratoreGUI.this, pazienti);
             visualizzaTuttiPazientiGUI.setVisible(true);
             dispose();
         });
@@ -124,11 +120,7 @@ public class AmministratoreGUI extends JFrame {
                 throw new RuntimeException(ex);
             }
             VisualizzaSlotOrariGUI visualizzaSlotOrariGUI= null;
-            try {
-                visualizzaSlotOrariGUI = new VisualizzaSlotOrariGUI(controller, AmministratoreGUI.this,slotOrari);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+            visualizzaSlotOrariGUI = new VisualizzaSlotOrariGUI(AmministratoreGUI.this,slotOrari);
             visualizzaSlotOrariGUI.setVisible(true);
             dispose();
 
@@ -137,7 +129,7 @@ public class AmministratoreGUI extends JFrame {
             List<Agenda> agendaList=null;
             try {
                 agendaList=controller.mostraTutteLeAgende();
-                VisualizzaAgendeAssegnateGUI agendeAssegnateGUI= new VisualizzaAgendeAssegnateGUI(controller,AmministratoreGUI.this,agendaList);
+                VisualizzaAgendeAssegnateGUI agendeAssegnateGUI= new VisualizzaAgendeAssegnateGUI(AmministratoreGUI.this,agendaList);
                 agendeAssegnateGUI.setVisible(true);
                 dispose();
             } catch (SQLException ex) {

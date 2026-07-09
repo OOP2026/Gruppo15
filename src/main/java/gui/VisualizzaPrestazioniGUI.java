@@ -5,26 +5,24 @@ import model.Prestazione;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class VisualizzaPrestazioniGUI extends JFrame {
     private JTable tabellaPrestazioni;
     private DefaultTableModel tableModel;
     private JScrollPane scrollPane;
-    private Controller controller;
+    private transient Controller controller;
     private JPanel visualizzaDatiPanel;
     private JTable tableDati;
     private JButton ritornaIndietroButton;
-
-    public VisualizzaPrestazioniGUI(Controller controller,JFrame framePrecedente) {
-        this.controller = controller;
+    private static final Logger logger = Logger.getLogger(VisualizzaPrestazioniGUI.class.getName());
+    public VisualizzaPrestazioniGUI(JFrame framePrecedente) {
         setContentPane(visualizzaDatiPanel);
         setTitle("Elenco Prestazioni Mediche");
         setSize(750, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         // 1. Definiamo le colonne della tabella
@@ -41,12 +39,9 @@ public class VisualizzaPrestazioniGUI extends JFrame {
 
         caricaDatiTabelle();
 
-        ritornaIndietroButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                framePrecedente.setVisible(true);
-                dispose();
-            }
+        ritornaIndietroButton.addActionListener(e -> {
+            framePrecedente.setVisible(true);
+            dispose();
         });
     }
 
@@ -74,7 +69,8 @@ public class VisualizzaPrestazioniGUI extends JFrame {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Errore nel caricamento delle prestazioni dal database.", "Errore", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore", e);
         }
+
     }
 }

@@ -1,9 +1,7 @@
-package implementazioneDao;
+package implementazionedao;
 
 import dao.RicoveroDAO;
-import dao.UtenteDAO;
 import database_connection.ConnessioneDatabase;
-import model.Paziente;
 import model.Ricovero;
 
 import javax.swing.*;

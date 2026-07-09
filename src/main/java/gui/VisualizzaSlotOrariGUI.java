@@ -1,13 +1,10 @@
 package gui;
 
-import controller.Controller;
 import model.SlotOrario;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
+
 import java.util.List;
 
 public class VisualizzaSlotOrariGUI extends JFrame {
@@ -15,11 +12,11 @@ public class VisualizzaSlotOrariGUI extends JFrame {
     private JTable table1;
     private JButton ritornaIndietroButton;
 
-    public VisualizzaSlotOrariGUI(Controller controller, JFrame framePrecedente, List<SlotOrario> slotOrari) throws SQLException {
+    public VisualizzaSlotOrariGUI(JFrame framePrecedente, List<SlotOrario> slotOrari) {
         setContentPane(visualizzaSlotPanel);
         setTitle("Elenco dei slot presenti");
         setSize(750, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         String[] colonne = {"ID", "Giorno", "Orario di inizio turno","Orario di fine turno","Medico"};
@@ -46,12 +43,9 @@ public class VisualizzaSlotOrariGUI extends JFrame {
         }
 
 
-        ritornaIndietroButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                framePrecedente.setVisible(true);
-                dispose();
-            }
+        ritornaIndietroButton.addActionListener(e -> {
+            framePrecedente.setVisible(true);
+            dispose();
         });
     }
 }

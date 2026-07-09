@@ -3,7 +3,7 @@ import dao.*;
 import gui.AmministratoreGUI;
 import gui.Home;
 import gui.MedicoGUI;
-import implementazioneDao.*;
+import implementazionedao.*;
 import model.*;
 import javax.swing.*;
 import java.sql.SQLException;

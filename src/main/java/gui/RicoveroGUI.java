@@ -22,12 +22,11 @@ public class RicoveroGUI extends JFrame {
     private JLabel diagnosiLabel;
     private JButton inviaButton;
     private JTextField diagnosiField;
-    private JTextField RepartoField;
     private JLabel repartoLabel;
     private JLabel idLettoLABEL;
     private JTextField lettoField;
     private JTextField idRicoveroField;
-    private JLabel id_ricoveroLabel;
+    private JLabel idRicoveroLabel;
     private JComboBox repartoComboBox;
     private JCheckBox fineRicoveroCheckBox;
     private JPanel dataPanel;
@@ -37,7 +36,7 @@ public class RicoveroGUI extends JFrame {
     public RicoveroGUI(Controller controller, JFrame framePrecedente, boolean modificaRicovero) {
         // 1. Inizializzazione degli stati di default delle componenti della GUI
         idRicoveroField.setVisible(false);
-        id_ricoveroLabel.setVisible(false);
+        idRicoveroLabel.setVisible(false);
         fineRicoveroCheckBox.setVisible(false);
         setContentPane(registraRicoveroPanel);
         setTitle("Amministratore");
@@ -54,7 +53,7 @@ public class RicoveroGUI extends JFrame {
         if (modificaRicovero) {
             inviaButton.setText("Modifica Ricovero");
             idRicoveroField.setVisible(true);
-            id_ricoveroLabel.setVisible(true);
+            idRicoveroLabel.setVisible(true);
             setSize(300, 470);
             fineRicoveroCheckBox.setVisible(true);
         } else {

@@ -60,7 +60,7 @@ public class DettagliRepartoGUI extends JFrame{
                 rigaLetto.add(lblStanza);
                 rigaLetto.add(lblLetto);
                 JLabel lblStato = new JLabel();
-                System.out.println(letto.getStato());
+
                 if(letto.getStato()){
 
                    lblStato.setText("Occupato");

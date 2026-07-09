@@ -5,23 +5,21 @@ import model.Ricovero;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
 public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
     JFrame framePrecedente;
-    private JPanel RicoveroPazientePanel;
+    private JPanel ricoveroPazientePanel;
     private JButton ritornaIndietroButton;
     private JTable tabledati;
 
     public VisualizzaRicoveroPerPazienteGUI(Controller controller, JFrame framePrecedente, List<Ricovero> ricoveri) throws SQLException {
         this.framePrecedente = framePrecedente;
-        setContentPane(RicoveroPazientePanel);
+        setContentPane(ricoveroPazientePanel);
         setTitle("Ricovero");
         setSize(850, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
         String[] colonne = {"Tessera Sanitaria","N_Ricovero","MedicoAlbo", "Letto", "diagnosi", "reparto","Inizio ricovero","Fine ricovero","Data dimissione prevista"};
@@ -57,12 +55,9 @@ public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
 
 
 
-        ritornaIndietroButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                framePrecedente.setVisible(true);
-                dispose();
-            }
+        ritornaIndietroButton.addActionListener(e -> {
+            framePrecedente.setVisible(true);
+            dispose();
         });
     }
 

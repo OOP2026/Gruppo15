@@ -4,8 +4,6 @@ import controller.Controller;
 import model.Medico;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class MedicoGUI extends JFrame {
@@ -61,7 +59,7 @@ public class MedicoGUI extends JFrame {
             dispose();
         });
         visualizzaLePrestazioniButton.addActionListener(e -> {
-            VisualizzaPrestazioniGUI viewLista = new VisualizzaPrestazioniGUI(controller,MedicoGUI.this);
+            VisualizzaPrestazioniGUI viewLista = new VisualizzaPrestazioniGUI(MedicoGUI.this);
             viewLista.setVisible(true);
             dispose();
         });

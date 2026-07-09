@@ -1,10 +1,10 @@
-package implementazioneDao;
+package implementazionedao;
 
 import dao.AgendaDAO;
 import dao.SlotOrarioDAO;
 import database_connection.ConnessioneDatabase;
 import model.Agenda;
-import model.Paziente;
+
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -13,14 +13,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class AgendaPostgresDao implements AgendaDAO {
+    private static final Logger logger = Logger.getLogger(AgendaPostgresDao.class.getName());
     @Override
     public Agenda trovaDaMedico(int idMedico) throws SQLException {
+
         try {
             ConnessioneDatabase.getInstance();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore di connessione al db",e);
         }
         Connection conn = ConnessioneDatabase.getConnection();
 
@@ -61,31 +64,30 @@ public class AgendaPostgresDao implements AgendaDAO {
     public boolean eliminaAgenda(int idAgenda) throws SQLException {
         return false;
     }
-    public boolean assegnaAgenda(int id_agenda, int id_medico) throws SQLException {
-        Agenda agenda = new Agenda();
+    public boolean assegnaAgenda(int idAgenda, int idMedico) throws SQLException {
+
         String sql ="INSERT INTO agenda(id_agenda, id_medico) " +
                 "values (?,?)";
         try {
             ConnessioneDatabase.getInstance();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore durante la connessione al DB", e);
         }
 
 
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1,id_agenda);
-            pstmt.setInt(2,id_medico);
+            pstmt.setInt(1,idAgenda);
+            pstmt.setInt(2,idMedico);
 
             int righe = pstmt.executeUpdate();
-            System.out.println("Righe inserite: " + righe);
+            logger.log(Level.INFO, "Sono state inserite {0} righe.", righe);
             JOptionPane.showMessageDialog(null, "Agenda assegnata con successo!");
             return righe > 0;
         }
         catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Errore nell'inserimento");
+            logger.log(Level.SEVERE, "Errore durante l'assegnazione dell'agenda nel DB", e);
             // Gestione dell'errore di chiave per PostgreSQL
             // 23503 = Violazione di Foreign Key (chiave non trovata nella tabella padre)
             // 23505 = Violazione di Unique/Primary Key (chiave già esistente)
@@ -127,7 +129,7 @@ public class AgendaPostgresDao implements AgendaDAO {
             ConnessioneDatabase.getInstance();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore connessione DB", e);
         }
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -142,7 +144,7 @@ public class AgendaPostgresDao implements AgendaDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore durante l'assegnazione dell'agenda nel DB,2", e);
             // Gestisci l'errore o mostra un avviso nella GUI
         }
         return agendaList;

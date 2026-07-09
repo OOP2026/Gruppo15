@@ -5,8 +5,8 @@ import model.Reparto;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -17,16 +17,15 @@ public class VisualizzaRepartiGUI extends JFrame{
     private JScrollPane repertiScrollPane;
     private JPanel repartiPanel;
     private JButton backButton;
-    private Controller controller;
-    private DefaultTableModel tableModel;
+    private transient Controller controller;
+    private final DefaultTableModel tableModel;
     private List<Reparto> reparti;
-
-    public VisualizzaRepartiGUI(Controller controller, JFrame framePrecedente) throws SQLException {
-        this.controller = controller;
+    private static final Logger logger = Logger.getLogger(VisualizzaRepartiGUI.class.getName());
+    public VisualizzaRepartiGUI(JFrame framePrecedente)  {
         setContentPane(repartiPanel);
         setTitle("Elenco dei letti disponibili");
         setSize(750, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         String[] colonne = {"Codice", "Stanza", "Stato"};
@@ -51,7 +50,6 @@ public class VisualizzaRepartiGUI extends JFrame{
 
                     if (riga != -1) {
 
-                        int idReparto = (int) tableModel.getValueAt(riga, 0);
 
                         Reparto repartoSelezionato = reparti.get(riga);
                         new DettagliRepartoGUI(repartoSelezionato).setVisible(true);
@@ -60,13 +58,10 @@ public class VisualizzaRepartiGUI extends JFrame{
             }
         });
 
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                framePrecedente.setVisible(true);
+        backButton.addActionListener(e -> {
+            framePrecedente.setVisible(true);
 
-                dispose();
-            }
+            dispose();
         });
 
 
@@ -90,7 +85,8 @@ public class VisualizzaRepartiGUI extends JFrame{
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Errore nel caricamento delle prestazioni dal database.", "Errore", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore", e);
+
         }
     }
 

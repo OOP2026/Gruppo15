@@ -1,10 +1,11 @@
-package implementazioneDao;
+package implementazionedao;
 
 import dao.LettoDAO;
 import database_connection.ConnessioneDatabase;
 import model.Letto;
 import model.Stanza;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LettoPostgresDao implements LettoDAO {
+    private static final Logger logger = Logger.getLogger(LettoPostgresDao.class.getName());
     @Override
     public List<Letto> getLettiByStanza(int idStanza) throws SQLException {
         List<Letto> listaLetti = new ArrayList<>();
@@ -22,7 +24,7 @@ public class LettoPostgresDao implements LettoDAO {
         try {
             ConnessioneDatabase.getInstance();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage());
         }
 
         try (Connection conn = ConnessioneDatabase.getConnection();
@@ -57,7 +59,7 @@ public class LettoPostgresDao implements LettoDAO {
         try {
             ConnessioneDatabase.getInstance();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage());
         }
 
         try (Connection conn = ConnessioneDatabase.getConnection();
