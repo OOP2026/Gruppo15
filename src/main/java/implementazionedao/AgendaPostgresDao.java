@@ -25,29 +25,31 @@ public class AgendaPostgresDao implements AgendaDAO {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Errore di connessione al db",e);
         }
-        Connection conn = ConnessioneDatabase.getConnection();
+
 
         //select per trovare l'agenda a partire dall'id medico
         String sql = "SELECT id_agenda FROM agenda WHERE id_medico = ?";
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
 
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, idMedico);
+            pstmt.setInt(1, idMedico);
 
-        ResultSet rs = pstmt.executeQuery();
+            try(ResultSet rs = pstmt.executeQuery()){
 
-        if(!rs.next()){ return null;}
+                if(!rs.next()){ return null;}
 
-        Agenda agenda = new Agenda();
-        agenda.setId_agenda(rs.getInt("id_agenda"));
+                Agenda agenda = new Agenda();
+                agenda.setId_agenda(rs.getInt("id_agenda"));
 
-        SlotOrarioDAO slotOrarioDAO = new SlotOrarioPostgresDao();
-        agenda.setSlots(slotOrarioDAO.mostraDaAgenda(agenda.getId_agenda()));
+                SlotOrarioDAO slotOrarioDAO = new SlotOrarioPostgresDao();
+                agenda.setSlots(slotOrarioDAO.mostraDaAgenda(agenda.getId_agenda()));
 
-        rs.close();
-        pstmt.close();
-        conn.close();
+                return agenda;
+            }
+        }
 
-        return agenda;
+
+
     }
 
     @Override

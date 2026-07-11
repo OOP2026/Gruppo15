@@ -103,35 +103,38 @@ public class SlotOrarioPostgresDao implements SlotOrarioDAO{
 
         List<SlotOrario> slots = new ArrayList<>();
 
-        Connection conn = ConnessioneDatabase.getConnection();
+
 
         String sql = "SELECT giorno, ora_inizio, ora_fine,id_agenda FROM slot_orario WHERE id_agenda = ? ORDER BY giorno, ora_inizio";
 
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, idAgenda);
+        try(Connection conn = ConnessioneDatabase.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, idAgenda);
+            try (ResultSet rs = pstmt.executeQuery();){
 
-        ResultSet rs = pstmt.executeQuery();
 
-        while (rs.next()) {
-            //creiamo prima un agenda siccome nel costruttore non prendiamo solo l'id ma tutto l'oggetto
-            Agenda agenda = new Agenda();
-            agenda.setId_agenda(rs.getInt("id_agenda"));
 
-            SlotOrario slot = new SlotOrario(
-                    rs.getString("giorno"),
-                    rs.getTime("ora_inizio").toLocalTime(),
-                    rs.getTime("ora_fine").toLocalTime(),
-                    agenda
-            );
 
-            slots.add(slot);
+                while (rs.next()) {
+                    //creiamo prima un agenda siccome nel costruttore non prendiamo solo l'id ma tutto l'oggetto
+                    Agenda agenda = new Agenda();
+                    agenda.setId_agenda(rs.getInt("id_agenda"));
+
+                    SlotOrario slot = new SlotOrario(
+                            rs.getString("giorno"),
+                            rs.getTime("ora_inizio").toLocalTime(),
+                            rs.getTime("ora_fine").toLocalTime(),
+                            agenda
+                    );
+
+                    slots.add(slot);
+                }
+
+                return slots;
+            }
         }
 
-        rs.close();
-        pstmt.close();
-        conn.close();
-
-        return slots;    }
+    }
     public List<SlotOrario> mostraSlotOrari() throws SQLException {
         try {
             ConnessioneDatabase.getInstance();
@@ -140,45 +143,46 @@ public class SlotOrarioPostgresDao implements SlotOrarioDAO{
         }
         List<SlotOrario> slots = new ArrayList<>();
 
-        Connection conn = ConnessioneDatabase.getConnection();
+
 
         //per ottenere nome e cognome dei medici si fa una doppia join per raggiungere la tabella degli utenti, in modo da ottenere nome e cognome
         String sql = "SELECT s.id_slot, s.giorno, s.ora_inizio, s.ora_fine, s.id_agenda, u.nome, u.cognome FROM slot_orario s " +
                 "JOIN agenda a ON s.id_agenda = a.id_agenda " +
                 "JOIN utenti_sistema u ON a.id_medico = u.id ORDER BY s.id_agenda, s.giorno, s.ora_inizio";
 
-        PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (Connection conn = ConnessioneDatabase.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()){
 
-        ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                //creiamo prima un agenda siccome nel costruttore non prendiamo solo l'id ma tutto l'oggetto
+                Agenda agenda = new Agenda();
+                agenda.setId_agenda(rs.getInt("id_agenda"));
 
-        while (rs.next()) {
-            //creiamo prima un agenda siccome nel costruttore non prendiamo solo l'id ma tutto l'oggetto
-            Agenda agenda = new Agenda();
-            agenda.setId_agenda(rs.getInt("id_agenda"));
+                Utente utente = new Utente();
+                utente.setNome(rs.getString("nome"));
+                utente.setCognome(rs.getString("cognome"));
+                utente.setRuolo("MEDICO");
 
-            Utente utente = new Utente();
-            utente.setNome(rs.getString("nome"));
-            utente.setCognome(rs.getString("cognome"));
-            utente.setRuolo("MEDICO");
+                agenda.setMedico(utente);
 
-            agenda.setMedico(utente);
+                SlotOrario slot = new SlotOrario(
+                        rs.getString("giorno"),
+                        rs.getTime("ora_inizio").toLocalTime(),
+                        rs.getTime("ora_fine").toLocalTime(),
+                        agenda
 
-            SlotOrario slot = new SlotOrario(
-                    rs.getString("giorno"),
-                    rs.getTime("ora_inizio").toLocalTime(),
-                    rs.getTime("ora_fine").toLocalTime(),
-                    agenda
+                );
+                slot.setId_slot(rs.getInt("id_slot"));
+                slots.add(slot);
+            }
 
-            );
-            slot.setId_slot(rs.getInt("id_slot"));
-            slots.add(slot);
+            return slots;
         }
 
-        rs.close();
-        pstmt.close();
-        conn.close();
 
-        return slots;
+
+
 
     }
 }
