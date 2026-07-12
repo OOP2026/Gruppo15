@@ -14,10 +14,8 @@ public class RicercaRicovero extends JFrame {
     private JTextField tesseraSanitariaField;
     private JButton inviaButton;
     private JButton ritornaIndietroButton;
-    private JFrame frameprecedente;
 
     public RicercaRicovero(Controller controller, JFrame frameprecedente){
-        this.frameprecedente = frameprecedente;
         setContentPane(mostraRicoveriPanel);
         setTitle("RicercaRicovero");
         setSize(400, 300);
@@ -33,7 +31,7 @@ public class RicercaRicovero extends JFrame {
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                VisualizzaRicoveroPerPazienteGUI visualizzaRicoveroPerPazienteGUI = null;
+                VisualizzaRicoveroPerPazienteGUI visualizzaRicoveroPerPazienteGUI;
                 try {
                     visualizzaRicoveroPerPazienteGUI = new VisualizzaRicoveroPerPazienteGUI(controller, frameprecedente, ricoveri);
                 } catch (SQLException ex) {

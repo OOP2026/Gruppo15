@@ -4,8 +4,6 @@ import controller.Controller;
 import model.Paziente;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PazienteGUI extends JFrame {
     private JTextField tesseraSanitariaField;

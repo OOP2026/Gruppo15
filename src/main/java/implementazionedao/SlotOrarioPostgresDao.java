@@ -63,14 +63,14 @@ public class SlotOrarioPostgresDao implements SlotOrarioDAO{
             e.printStackTrace();
         }
 
-        String sql = "UPDATE slot_orario SET giorno = ?, ora_inizio = ?, ora_fine = ?, id_agenda = ? " +
+        String sql = "UPDATE slot_orario SET giorno = ?::giorno_settimana, ora_inizio = ?, ora_fine = ?, id_agenda = ? " +
                 "WHERE id_slot = ?";
 
         try (Connection conn = ConnessioneDatabase.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // 1. Impostiamo i nuovi valori
-            pstmt.setString(1, slotOrario.getGiorno()); // da rivedere siccome il giorno non è string
+            pstmt.setObject(1, slotOrario.getGiorno()); // da rivedere siccome il giorno non è string
             pstmt.setTime(2, java.sql.Time.valueOf(slotOrario.getOraInizio()));
             pstmt.setTime(3, java.sql.Time.valueOf(slotOrario.getOraFine()));
             pstmt.setInt(4, slotOrario.getAgenda().getId_agenda());

@@ -21,6 +21,7 @@ public class SlotOrario {
         this.oraInizio=oraInizio;
         this.oraFine=oraFine;
         this.agenda = agenda;
+        this.id_slot = id_slot;
     }
 
     public int getId_slot(){return id_slot;}

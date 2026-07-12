@@ -8,6 +8,7 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +31,7 @@ public class RicoveroGUI extends JFrame {
     private JComboBox repartoComboBox;
     private JCheckBox fineRicoveroCheckBox;
     private JPanel dataPanel;
-    private JDateChooser dataDimissionePrevista;
+    private final JDateChooser dataDimissionePrevista;
     private Timestamp dataDimissionePrevistaStamp;
     private static final Logger logger = Logger.getLogger(RicoveroGUI.class.getName());
     public RicoveroGUI(Controller controller, JFrame framePrecedente, boolean modificaRicovero) {
@@ -54,10 +55,10 @@ public class RicoveroGUI extends JFrame {
             inviaButton.setText("Modifica Ricovero");
             idRicoveroField.setVisible(true);
             idRicoveroLabel.setVisible(true);
-            setSize(300, 470);
+            setSize(500, 600);
             fineRicoveroCheckBox.setVisible(true);
         } else {
-            setSize(300, 400);
+            setSize(400, 500);
         }
 
         // 3. ORA CENTRIAMO LO SCHERMO (Ora che setSize è definitivo!)
@@ -92,7 +93,7 @@ public class RicoveroGUI extends JFrame {
             boolean fineRicovero = fineRicoveroCheckBox.isSelected();
 
             // Estrazione dell'ID reparto tramite metodo helper dedicato
-            int idReparto = determinaIdReparto(repartoComboBox.getSelectedItem().toString());
+            int idReparto = determinaIdReparto(Objects.requireNonNull(repartoComboBox.getSelectedItem()).toString());
 
             // Parsing della data selezionata
             Date dataSelezionata = dataDimissionePrevista.getDate();
@@ -134,10 +135,16 @@ public class RicoveroGUI extends JFrame {
 
     // Metodo di supporto per mappare le stringhe della ComboBox negli ID del DB
     private int determinaIdReparto(String nomeReparto) {
-        if (nomeReparto.equals("Cardiologia")) return 1;
-        if (nomeReparto.equals("Chirurgia")) return 2;
-        if (nomeReparto.equals("Neurologia")) return 3;
-        if (nomeReparto.equals("Pediatria")) return 4;
+        switch (nomeReparto) {
+            case "Cardiologia":
+                return 1;
+            case "Chirurgia":
+                return 2;
+            case "Neurologia":
+                return 3;
+            case "Pediatria":
+                return 4;
+        }
         return 0;
     }
 

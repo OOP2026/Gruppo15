@@ -75,8 +75,8 @@ public class AmministratoreGUI extends JFrame {
         });
 
         visualizzaStrutturaOspedalieraButton.addActionListener(e -> {
-            VisualizzaRepartiGUI visualizzaRepartiGUI = null;
-            visualizzaRepartiGUI = new VisualizzaRepartiGUI(AmministratoreGUI.this);
+            VisualizzaRepartiGUI visualizzaRepartiGUI;
+            visualizzaRepartiGUI = new VisualizzaRepartiGUI(controller, AmministratoreGUI.this);
             visualizzaRepartiGUI.setVisible(true);
 
             dispose();
@@ -92,7 +92,7 @@ public class AmministratoreGUI extends JFrame {
             dispose();
         });
         visualizzaTuttiIPazientiButton.addActionListener(e -> {
-            List<Paziente> pazienti=null;
+            List<Paziente> pazienti;
 
             pazienti = controller.mostraPazienti(); // da qua si blocca
 
@@ -113,20 +113,20 @@ public class AmministratoreGUI extends JFrame {
             dispose();
         });
         visualizzaSlotOrariButton.addActionListener(e -> {
-            List<SlotOrario> slotOrari=null;
+            List<SlotOrario> slotOrari;
             try {
                slotOrari= controller.mostraSlotOrari();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-            VisualizzaSlotOrariGUI visualizzaSlotOrariGUI= null;
+            VisualizzaSlotOrariGUI visualizzaSlotOrariGUI;
             visualizzaSlotOrariGUI = new VisualizzaSlotOrariGUI(AmministratoreGUI.this,slotOrari);
             visualizzaSlotOrariGUI.setVisible(true);
             dispose();
 
         });
         visualizzaAgendeAssegnateButton.addActionListener(e -> {
-            List<Agenda> agendaList=null;
+            List<Agenda> agendaList;
             try {
                 agendaList=controller.mostraTutteLeAgende();
                 VisualizzaAgendeAssegnateGUI agendeAssegnateGUI= new VisualizzaAgendeAssegnateGUI(AmministratoreGUI.this,agendaList);

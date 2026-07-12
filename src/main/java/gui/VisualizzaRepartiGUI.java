@@ -21,12 +21,13 @@ public class VisualizzaRepartiGUI extends JFrame{
     private final DefaultTableModel tableModel;
     private List<Reparto> reparti;
     private static final Logger logger = Logger.getLogger(VisualizzaRepartiGUI.class.getName());
-    public VisualizzaRepartiGUI(JFrame framePrecedente)  {
+    public VisualizzaRepartiGUI(Controller controller, JFrame framePrecedente)  {
         setContentPane(repartiPanel);
         setTitle("Elenco dei letti disponibili");
         setSize(750, 400);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        this.controller = controller;
 
         String[] colonne = {"Codice", "Stanza", "Stato"};
 

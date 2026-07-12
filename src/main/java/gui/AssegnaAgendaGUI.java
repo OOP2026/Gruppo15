@@ -24,7 +24,7 @@ public class AssegnaAgendaGUI extends JFrame {
 
         assegnaButton.addActionListener(e -> {
             try {
-                controller.assegnaAgenda(Integer.parseInt(idAgendaField.getText()),Integer.parseInt(idMedicoField.getText()));
+                controller.creaAgenda(Integer.parseInt(idAgendaField.getText()),Integer.parseInt(idMedicoField.getText()));
 
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);

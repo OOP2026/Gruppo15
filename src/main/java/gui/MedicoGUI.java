@@ -26,7 +26,7 @@ public class MedicoGUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
         mostraAgendaButton.addActionListener(e -> {
-            AgendaGUI agendaGUI = null;
+            AgendaGUI agendaGUI;
             try {
                 agendaGUI = new AgendaGUI(controller);
             } catch (SQLException ex) {
@@ -43,7 +43,7 @@ public class MedicoGUI extends JFrame {
 
 
         creaPrestazioneButton.addActionListener(e -> {
-            PrestazioneGUI prestazioneGUI = null;
+            PrestazioneGUI prestazioneGUI;
             prestazioneGUI =new PrestazioneGUI(controller,MedicoGUI.this, medico,false);
             prestazioneGUI.setVisible(true);
             dispose();
@@ -53,13 +53,13 @@ public class MedicoGUI extends JFrame {
 
 
         modificaPrestazioneButton.addActionListener(e -> {
-            PrestazioneGUI prestazioneGUI = null;
+            PrestazioneGUI prestazioneGUI;
             prestazioneGUI =new PrestazioneGUI(controller,MedicoGUI.this, medico,true);
             prestazioneGUI.setVisible(true);
             dispose();
         });
         visualizzaLePrestazioniButton.addActionListener(e -> {
-            VisualizzaPrestazioniGUI viewLista = new VisualizzaPrestazioniGUI(MedicoGUI.this);
+            VisualizzaPrestazioniGUI viewLista = new VisualizzaPrestazioniGUI(controller, MedicoGUI.this);
             viewLista.setVisible(true);
             dispose();
         });

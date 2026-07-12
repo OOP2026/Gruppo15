@@ -169,8 +169,8 @@ public class Controller {
 	public boolean aggiungiMedico(Medico medico) throws SQLException{
 		return medicoDAO.aggiungiMedico(medico);
 	}
-	public boolean assegnaAgenda(int idAgenda, int idMedico) throws SQLException{
-		return agendaDAO.assegnaAgenda(idAgenda, idMedico);
+	public boolean creaAgenda(int idAgenda, int idMedico) throws SQLException{
+		return agendaDAO.creaAgenda(idAgenda, idMedico);
 	}
 
 	public List<SlotOrario>  mostraSlotOrari() throws SQLException{

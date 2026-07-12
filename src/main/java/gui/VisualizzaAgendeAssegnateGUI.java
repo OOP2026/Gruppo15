@@ -18,7 +18,7 @@ public class VisualizzaAgendeAssegnateGUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
 
-        String[] colonne = {"id_agenda","id_medico"};
+        String[] colonne = {"id_agenda","Medico"};
         DefaultTableModel model = new DefaultTableModel(colonne, 0);
         tableDati.setModel(model);
 

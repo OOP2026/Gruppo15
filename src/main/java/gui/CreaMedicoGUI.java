@@ -29,6 +29,7 @@ public class CreaMedicoGUI extends JFrame{
         setSize(600, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra lo schermo
+        this.controller = controller;
 
         mostraPasswordCheckBox.addActionListener(e -> {
             if (mostraPasswordCheckBox.isSelected()) {

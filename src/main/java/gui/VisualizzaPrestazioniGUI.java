@@ -18,12 +18,13 @@ public class VisualizzaPrestazioniGUI extends JFrame {
     private JTable tableDati;
     private JButton ritornaIndietroButton;
     private static final Logger logger = Logger.getLogger(VisualizzaPrestazioniGUI.class.getName());
-    public VisualizzaPrestazioniGUI(JFrame framePrecedente) {
+    public VisualizzaPrestazioniGUI(Controller controller, JFrame framePrecedente) {
         setContentPane(visualizzaDatiPanel);
         setTitle("Elenco Prestazioni Mediche");
         setSize(750, 400);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        this.controller = controller;
 
         // 1. Definiamo le colonne della tabella
         String[] colonne = {"ID", "Paziente (Tessera)", "ID Medico", "Tipo", "Descrizione", "Esito", "Data"};

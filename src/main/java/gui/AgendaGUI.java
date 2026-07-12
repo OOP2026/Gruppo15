@@ -7,37 +7,44 @@ import model.Agenda;
 import model.SlotOrario;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 
 public class AgendaGUI extends JFrame {
 
     private static final Logger logger = Logger.getLogger(AgendaGUI.class.getName());
     private JPanel agendaPanel;
-    private JLabel agendaLabel;
+    private JScrollPane scrollPanel;
+    private JTable agendaTable;
     private transient Controller controller;
+
     public AgendaGUI(Controller controller) throws SQLException {
         setContentPane(agendaPanel);
         setTitle("Agenda");
-        setSize(400, 200);
+        setSize(700, 500);
         setLocationRelativeTo(null); // Centra lo schermo
+
+        String[] colonne = {"Giorno", "Inizio", "Fine"};
+        DefaultTableModel model = new DefaultTableModel(colonne, 0){
+            @Override
+            public  boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
 
         try {
             Agenda agenda = controller.mostraAgenda();
 
-            // 1. Inizializza lo StringBuilder
-            StringBuilder testoSlots = new StringBuilder("<html>");
-
             // ciclo per mostrare tutti gli slot uno a uno
             for (SlotOrario slot : agenda.getSlots()) {
-                // 2. Usa il metodo .append() al posto di +=
-                testoSlots.append(slot.toString()).append("<br>");
+                model.addRow(new Object[]{
+                        slot.getGiorno(),
+                        slot.getOraInizio(),
+                        slot.getOraFine()
+                });
             }
 
-            // 3. Aggiungi la chiusura del tag HTML
-            testoSlots.append("</html>");
-
-            // 4. Converti in stringa normale alla fine con .toString()
-            agendaLabel.setText(testoSlots.toString());
+            agendaTable.setModel(model);
 
         } catch (SQLException e) {
             // Nota: anche qui SonarQube ti segnalerà e.printStackTrace(),

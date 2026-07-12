@@ -53,20 +53,7 @@ public class AgendaPostgresDao implements AgendaDAO {
     }
 
     @Override
-    public boolean creaAgenda(Agenda agenda) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public boolean modificaAgenda(Agenda agenda) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public boolean eliminaAgenda(int idAgenda) throws SQLException {
-        return false;
-    }
-    public boolean assegnaAgenda(int idAgenda, int idMedico) throws SQLException {
+    public boolean creaAgenda(int idAgenda, int idMedico) throws SQLException {
 
         String sql ="INSERT INTO agenda(id_agenda, id_medico) " +
                 "values (?,?)";

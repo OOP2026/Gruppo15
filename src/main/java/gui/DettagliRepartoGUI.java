@@ -1,6 +1,5 @@
 package gui;
 
-import controller.Controller;
 import model.Letto;
 import model.Reparto;
 import model.Stanza;
@@ -11,7 +10,6 @@ import java.awt.*;
 public class DettagliRepartoGUI extends JFrame{
     private JPanel dettagliRepartoPanel;
     private JPanel contenitorePanel;
-    private transient Controller controller;
 
     public DettagliRepartoGUI(Reparto reparto) {
         setContentPane(dettagliRepartoPanel);
@@ -51,25 +49,7 @@ public class DettagliRepartoGUI extends JFrame{
             //ciclo for che consente di creare sotto ogni stanza la lista di tutti i letti di quella stanza
             for (Letto letto : stanza.getLetti()) {
 
-                JPanel rigaLetto = new JPanel(new GridLayout(1, 3));
-                rigaLetto.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
-
-                JLabel lblStanza = new JLabel(String.valueOf(stanza.getCodice()));
-                JLabel lblLetto = new JLabel(String.valueOf(letto.getId_letto()));
-
-                rigaLetto.add(lblStanza);
-                rigaLetto.add(lblLetto);
-                JLabel lblStato = new JLabel();
-
-                if(letto.getStato()){
-
-                   lblStato.setText("Occupato");
-                   lblStato.setForeground(Color.RED);
-                } else {
-                    lblStato.setText("Libero");
-                    lblStato.setForeground(Color.GREEN);
-                }
-                rigaLetto.add(lblStato);
+                JPanel rigaLetto = getJPanel(stanza, letto);
                 stanzaPanel.add(rigaLetto);
             }
 
@@ -77,5 +57,29 @@ public class DettagliRepartoGUI extends JFrame{
             contenitorePanel.add(stanzaPanel);
         }
 
+    }
+
+    //metodo che serve per generare e mostrare un panel con tutti i dettagli del singolo reparto
+    private static JPanel getJPanel(Stanza stanza, Letto letto) {
+        JPanel rigaLetto = new JPanel(new GridLayout(1, 3));
+        rigaLetto.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+
+        JLabel lblStanza = new JLabel(String.valueOf(stanza.getCodice()));
+        JLabel lblLetto = new JLabel(String.valueOf(letto.getId_letto()));
+
+        rigaLetto.add(lblStanza);
+        rigaLetto.add(lblLetto);
+        JLabel lblStato = new JLabel();
+
+        if(letto.getStato()){
+
+           lblStato.setText("Occupato");
+           lblStato.setForeground(Color.RED);
+        } else {
+            lblStato.setText("Libero");
+            lblStato.setForeground(Color.GREEN);
+        }
+        rigaLetto.add(lblStato);
+        return rigaLetto;
     }
 }
