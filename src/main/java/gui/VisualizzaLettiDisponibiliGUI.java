@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 public class VisualizzaLettiDisponibiliGUI extends JFrame{
     private JPanel lettiDisponibiliPanel;
@@ -15,7 +16,7 @@ public class VisualizzaLettiDisponibiliGUI extends JFrame{
     private JComboBox repartiBox;
     private JButton cercaButton;
     private JScrollPane scrollPanel;
-    private transient Controller controller;
+    private final transient Controller controller;
     private final DefaultTableModel tableModel;
 
 
@@ -42,16 +43,21 @@ public class VisualizzaLettiDisponibiliGUI extends JFrame{
 
             int idReparto = 0;
 
-            String reparto = repartiBox.getSelectedItem().toString();
+            String reparto = Objects.requireNonNull(repartiBox.getSelectedItem()).toString();
 
-            if (reparto.equals("Cardiologia")) {
-                idReparto = 1;
-            } else if (reparto.equals("Chirurgia")) {
-                idReparto = 2;
-            } else if (reparto.equals("Neurologia")) {
-                idReparto = 3;
-            } else if (reparto.equals("Pediatria")) {
-                idReparto = 4;
+            switch (reparto) {
+                case "Cardiologia":
+                    idReparto = 1;
+                    break;
+                case "Chirurgia":
+                    idReparto = 2;
+                    break;
+                case "Neurologia":
+                    idReparto = 3;
+                    break;
+                case "Pediatria":
+                    idReparto = 4;
+                    break;
             }
 
 

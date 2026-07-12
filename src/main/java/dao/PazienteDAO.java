@@ -7,8 +7,7 @@ import java.util.List;
 
 public interface PazienteDAO
 {
-    boolean aggiungiPaziente(Paziente p);
-    boolean modificaPaziente(Paziente p);
-    boolean eliminaPaziente(String idPaziente) throws SQLException;
+    boolean aggiungiPaziente(Paziente p) throws SQLException;
+    boolean modificaPaziente(Paziente p) throws SQLException;
     List<Paziente> listaPazienti();
 }

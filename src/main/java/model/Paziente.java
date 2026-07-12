@@ -15,16 +15,16 @@ public class Paziente {
         this.cura=cura;
     }
 
-    public void setNome(){
-        this.nome=nome;
+    public void setNome(String nome){
+        this.nome = nome;
     }
-    public void setCognome(){
-        this.cognome=cognome;
+    public void setCognome(String cognome){
+        this.cognome = cognome;
     }
-    public void setDiagnosi(){
-        this.diagnosi=diagnosi;
+    public void setDiagnosi(String diagnosi){
+        this.diagnosi = diagnosi;
     }
-    public void setCura(){
+    public void setCura(String cura){
         this.cura=cura;
     }
     public String getCura(){

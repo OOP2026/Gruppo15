@@ -28,7 +28,7 @@ public class VisualizzaRicoveroPerPazienteGUI extends JFrame {
         for (Ricovero r : ricoveri) {
             int idReparto = r.getReparto();
             String nomeReparto = controller.getNomeReparto(idReparto);
-            String ricoveroInformazione=null;
+            String ricoveroInformazione;
             if(r.getDataFine()==null){
                 ricoveroInformazione="Ancora in ricovero";
 

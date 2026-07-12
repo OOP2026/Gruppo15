@@ -53,7 +53,7 @@ public class AgendaPostgresDao implements AgendaDAO {
     }
 
     @Override
-    public boolean creaAgenda(int idAgenda, int idMedico) throws SQLException {
+    public boolean creaAgenda(int idAgenda, int idMedico) {
 
         String sql ="INSERT INTO agenda(id_agenda, id_medico) " +
                 "values (?,?)";
@@ -111,7 +111,7 @@ public class AgendaPostgresDao implements AgendaDAO {
     }
 
 
-    public List<Agenda> listaAgenda() throws SQLException {
+    public List<Agenda> listaAgenda() {
         List<Agenda> agendaList = new ArrayList<>();
         String sql = "SELECT * FROM agenda";
         try {

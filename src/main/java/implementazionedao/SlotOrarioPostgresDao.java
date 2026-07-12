@@ -56,7 +56,7 @@ public class SlotOrarioPostgresDao implements SlotOrarioDAO{
     }
 
     @Override
-    public boolean aggiornaSlot(SlotOrario slotOrario) throws SQLException {
+    public boolean aggiornaSlot(SlotOrario slotOrario) {
         try {
             ConnessioneDatabase.getInstance();
         } catch (SQLException e) {
@@ -110,7 +110,7 @@ public class SlotOrarioPostgresDao implements SlotOrarioDAO{
         try(Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1, idAgenda);
-            try (ResultSet rs = pstmt.executeQuery();){
+            try (ResultSet rs = pstmt.executeQuery()){
 
 
 

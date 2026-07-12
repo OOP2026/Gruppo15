@@ -15,7 +15,7 @@ public class Controller {
 
 	Medico medico = new Medico();
 	Agenda agenda = new Agenda();
-	List<Ricovero> ricoveri = new ArrayList<Ricovero>();
+	List<Ricovero> ricoveri = new ArrayList<>();
 	// testo da restituire
 	String testoRicovero = "<html>";
 
@@ -25,7 +25,7 @@ public class Controller {
 	private final UtenteDAO utenteDAO;
 	private final Home finestraLogin;
 	private final RicoveroDAO ricoveroDAO;
-	private AgendaDAO agendaDAO;
+	private final AgendaDAO agendaDAO;
 	private Medico medicoLoggato;
 	private final PrestazioneDAO prestazioneDAO;
 	private final SlotOrarioDAO slotOrarioDAO;
@@ -41,8 +41,7 @@ public class Controller {
 		// assegnamo tutti i valori dei DAO, aggiunto ricoveroDAO
 		this.utenteDAO = new UtentePostgresDao();
 		this.ricoveroDAO = new RicoveroPostgresDao();
-		this.agendaDAO = new AgendaPostgresDao();
-		this.prestazioneDAO = new PrestazionePostgresDao();
+        this.prestazioneDAO = new PrestazionePostgresDao();
 		this.slotOrarioDAO = new SlotOrarioPostgresDao();
 		this.repartoDAO = new RepartoPostgresDao();
 		this.pazienteDAO = new PazientePostgresDao();
@@ -148,10 +147,10 @@ public class Controller {
 	public List<Reparto> mostraReparti()throws SQLException{
 		return repartoDAO.getReparti();
 	}
-	public void aggiungiPaziente(Paziente paziente){
+	public void aggiungiPaziente(Paziente paziente) throws SQLException {
 		pazienteDAO.aggiungiPaziente(paziente);
 	}
-	public void modificaPaziente(Paziente paziente){
+	public void modificaPaziente(Paziente paziente) throws SQLException {
 		pazienteDAO.modificaPaziente(paziente);
 	}
 	public List<Paziente> mostraPazienti(){
@@ -169,8 +168,8 @@ public class Controller {
 	public boolean aggiungiMedico(Medico medico) throws SQLException{
 		return medicoDAO.aggiungiMedico(medico);
 	}
-	public boolean creaAgenda(int idAgenda, int idMedico) throws SQLException{
-		return agendaDAO.creaAgenda(idAgenda, idMedico);
+	public void creaAgenda(int idAgenda, int idMedico) throws SQLException{
+		agendaDAO.creaAgenda(idAgenda, idMedico);
 	}
 
 	public List<SlotOrario>  mostraSlotOrari() throws SQLException{
@@ -179,9 +178,6 @@ public class Controller {
 	public List<Agenda> mostraTutteLeAgende() throws SQLException{
 		return agendaDAO.listaAgenda();
 
-	}
-	public void eliminaPaziente(String idPaziente) throws SQLException{
-		pazienteDAO.eliminaPaziente(idPaziente);
 	}
 
 	public List<Letto> visualizzaLettiDisponibili (int idReparto) throws SQLException{

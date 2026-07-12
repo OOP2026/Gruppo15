@@ -1,8 +1,7 @@
 package model;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Date;
+
 
 public class Prestazione {
     private int id;

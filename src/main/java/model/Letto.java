@@ -2,7 +2,7 @@ package model;
 
 public class Letto {
     private int id_letto;
-    private boolean stato = false;
+    private boolean stato;
     private Stanza stanza;
 
     public Letto(int id_letto, boolean stato){
@@ -20,7 +20,7 @@ public class Letto {
     public boolean getStato(){
         return stato;
     }
-    public void setStao(boolean stato){
+    public void setStato(boolean stato){
         this.stato=stato;
     }
 

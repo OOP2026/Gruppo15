@@ -4,6 +4,7 @@ import controller.Controller;
 import model.Paziente;
 
 import javax.swing.*;
+import java.sql.SQLException;
 
 public class PazienteGUI extends JFrame {
     private JTextField tesseraSanitariaField;
@@ -38,11 +39,19 @@ public class PazienteGUI extends JFrame {
         aggiungiPazienteButton.addActionListener(e -> {
             Paziente p = new Paziente(tesseraSanitariaField.getText(),nomeField.getText(),cognomeField.getText(),diagnosiField.getText(),curaField.getText());
             if(modifica){
-                controller.modificaPaziente(p);
+                try {
+                    controller.modificaPaziente(p);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
 
             }
             else {
-                controller.aggiungiPaziente(p);
+                try {
+                    controller.aggiungiPaziente(p);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
 
             }
 

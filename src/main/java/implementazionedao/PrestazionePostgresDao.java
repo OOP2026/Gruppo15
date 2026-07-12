@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PrestazionePostgresDao implements PrestazioneDAO {
 
-    public boolean salvaPrestazione(Prestazione prestazione) throws SQLException {
+    public boolean salvaPrestazione(Prestazione prestazione) {
 
         String sql ="INSERT INTO prestazioni_mediche(id_paziente, id_medico, tipo_prestazione, descrizione, esito_prestazione, data_inserimento) " +
                 "values (?,?,?,?,?,CURRENT_TIMESTAMP)";
@@ -59,7 +59,7 @@ public class PrestazionePostgresDao implements PrestazioneDAO {
         }
 
     }
-    public boolean aggiornaPrestazione(Prestazione prestazione) throws SQLException {
+    public boolean aggiornaPrestazione(Prestazione prestazione) {
         try {
             ConnessioneDatabase.getInstance();
         } catch (SQLException e) {

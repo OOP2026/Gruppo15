@@ -11,9 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 public class VisualizzaPrestazioniGUI extends JFrame {
     private JTable tabellaPrestazioni;
-    private DefaultTableModel tableModel;
+    private final DefaultTableModel tableModel;
     private JScrollPane scrollPane;
-    private transient Controller controller;
+    private final transient Controller controller;
     private JPanel visualizzaDatiPanel;
     private JTable tableDati;
     private JButton ritornaIndietroButton;

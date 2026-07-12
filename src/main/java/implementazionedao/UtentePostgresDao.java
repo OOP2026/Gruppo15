@@ -84,7 +84,7 @@ public class UtentePostgresDao implements UtenteDAO {
                 }
 
             } catch (SQLException e) {
-                // Gestione dell'errore in caso di problemi con Postgres (es. server spento, tabella inesistente)
+                // Gestione dell'errore in caso di problemi con Postgres (es. Server spento, tabella inesistente)
                 System.err.println("❌ Errore critico durante l'esecuzione del Login nel database:");
                 e.printStackTrace();
             }

@@ -17,7 +17,7 @@ public class VisualizzaRepartiGUI extends JFrame{
     private JScrollPane repertiScrollPane;
     private JPanel repartiPanel;
     private JButton backButton;
-    private transient Controller controller;
+    private final transient Controller controller;
     private final DefaultTableModel tableModel;
     private List<Reparto> reparti;
     private static final Logger logger = Logger.getLogger(VisualizzaRepartiGUI.class.getName());

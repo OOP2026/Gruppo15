@@ -68,10 +68,8 @@ public class PazientePostgresDao implements PazienteDAO {
                 throw new IllegalArgumentException("Errore: Impossibile modificare. La tessera sanitaria inserita è inesistente.");
 
             }
-            if(righe>0){
-                JOptionPane.showMessageDialog(null,"Paziente modificato");
-            }
-            return righe > 0;
+            JOptionPane.showMessageDialog(null, "Paziente modificato");
+            return true;
 
 
         }
@@ -113,36 +111,5 @@ public class PazientePostgresDao implements PazienteDAO {
             // Gestisci l'errore o mostra un avviso nella GUI
         }
         return listaPazienti;
-    }
-    public boolean eliminaPaziente(String idPaziente) throws SQLException{
-        String sql="DELETE FROM pazienti WHERE tessera_sanitaria=?";
-        try {
-            ConnessioneDatabase.getInstance();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try (Connection conn = ConnessioneDatabase.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            // Imposta l'ID come parametro della query
-            pstmt.setString(1, idPaziente);
-
-
-            int righeCoinvolte = pstmt.executeUpdate();
-
-            // Se righeCoinvolte > 0, significa che l'elemento è stato eliminato
-            if(righeCoinvolte<=0){
-                JOptionPane.showMessageDialog(null, "Paziente inesistente", "", JOptionPane.ERROR_MESSAGE);
-                throw new IllegalArgumentException("Errore: Impossibile eliminare. La tessera sanitaria inserita è inesistente.");
-
-            }
-            return righeCoinvolte > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Gestisci l'eccezione o rilanciala alla GUI
-            throw e;
-        }
-
     }
 }

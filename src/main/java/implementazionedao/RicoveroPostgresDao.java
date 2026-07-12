@@ -63,9 +63,9 @@ public class RicoveroPostgresDao implements RicoveroDAO {
             return false;
         }
     }
-    public boolean aggiornaRicovero(Ricovero ricovero,boolean fineRicovero) throws SQLException {
+    public boolean aggiornaRicovero(Ricovero ricovero,boolean fineRicovero) {
         // Query per aggiornare il paziente usando la tessera sanitaria come chiave
-        String sqlRicovero=null;
+        String sqlRicovero;
         // Query per aggiornare il ricovero usando l'id_ricovero come chiave
         if (fineRicovero) {
             sqlRicovero = "UPDATE ricoveri SET paziente_id = ?, medico_id = ?, motivo = ?, reparto = ?, data_fine = CURRENT_TIMESTAMP, id_letto = ?,data_dimissione_prevista=? WHERE id = ?";
@@ -122,7 +122,7 @@ public class RicoveroPostgresDao implements RicoveroDAO {
                     throw new IllegalArgumentException("Errore: Impossibile modificare. La tessera sanitaria inserita è inesistente.");
 
                 }
-                return righeModificate > 0;
+                return true;
 
             } catch (SQLException e) {
                 // In caso di errore in una delle due tabelle, facciamo il rollback per non lasciare dati inconsistenti

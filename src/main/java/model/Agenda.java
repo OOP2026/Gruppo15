@@ -1,7 +1,5 @@
 package model;
 
-import java.time.DayOfWeek;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +7,7 @@ public class Agenda{
     // vogliamo provare a scrivere un agenda in una classe, proviamo a fare un Arraylist del giorno con LocalTime
     private int id_agenda;
     private int id_medico;
-    private List<SlotOrario> slots=new ArrayList<SlotOrario>();
+    private List<SlotOrario> slots=new ArrayList<>();
     private Utente utente;
 
 

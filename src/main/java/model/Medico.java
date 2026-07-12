@@ -1,11 +1,5 @@
 package model;
 
-import java.time.DayOfWeek;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 public class Medico extends Utente {
     public String n_albo;
     private String reparto;
@@ -34,13 +28,7 @@ public class Medico extends Utente {
         return agenda.toString();
     }
     public void setAgenda(Agenda agenda){
-
-
-
-
-
-
-
-}}
+        this.agenda = agenda;
+    }}
 
 

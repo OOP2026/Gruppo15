@@ -3,6 +3,8 @@ package gui;
 import controller.Controller;
 import model.Agenda;
 import model.SlotOrario;
+
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -57,10 +59,10 @@ public class SlotOrarioGUI extends JFrame{
             agenda.setId_agenda(Integer.parseInt(agendaField.getText()));
 
             if (modifica){
-                 slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda,Integer.parseInt(idSlotField.getText()));
+                 slotOrario = new SlotOrario(Objects.requireNonNull(giornoCombobox.getSelectedItem()).toString(), LocalTime.parse(Objects.requireNonNull(orarioInizioCombobox.getSelectedItem()).toString()), LocalTime.parse(Objects.requireNonNull(orarioFineCombobox.getSelectedItem()).toString()),agenda,Integer.parseInt(idSlotField.getText()));
             }
             else {
-                 slotOrario = new SlotOrario(giornoCombobox.getSelectedItem().toString(), LocalTime.parse(orarioInizioCombobox.getSelectedItem().toString()), LocalTime.parse(orarioFineCombobox.getSelectedItem().toString()),agenda);
+                 slotOrario = new SlotOrario(Objects.requireNonNull(giornoCombobox.getSelectedItem()).toString(), LocalTime.parse(Objects.requireNonNull(orarioInizioCombobox.getSelectedItem()).toString()), LocalTime.parse(Objects.requireNonNull(orarioFineCombobox.getSelectedItem()).toString()),agenda);
             }
 
             boolean salvato = false;

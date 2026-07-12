@@ -8,7 +8,6 @@ public class ConnessioneDatabase {
     private static ConnessioneDatabase instance;
     private static Connection connection = null;
     private String nome = "postgres";
-    private String dbKey = "postgres";
     private String url = "jdbc:postgresql://localhost:5432/postgres";
     private String driver = "org.postgresql.Driver";
     String failed = "Connessione al Database fallita.";
@@ -18,6 +17,7 @@ public class ConnessioneDatabase {
     public ConnessioneDatabase() throws SQLException {
         try {
             Class.forName(getDriver());
+            String dbKey = "postgres";
             setConnection(DriverManager.getConnection(getUrl(), getNome(), dbKey));
 
         } catch (ClassNotFoundException ex) {
