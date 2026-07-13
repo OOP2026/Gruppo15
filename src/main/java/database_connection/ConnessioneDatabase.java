@@ -49,16 +49,8 @@ public class ConnessioneDatabase {
         return driver;
     }
 
-    public void setDriver(String driver) {
-        this.driver = driver;
-    }
-
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public static void setConnection(Connection connection) {

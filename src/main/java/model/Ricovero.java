@@ -54,30 +54,20 @@ public class Ricovero {
         return tessera_sanitaria;
 
     }
-    public void setTessera_sanitaria(String tessera_sanitaria) {
-        this.tessera_sanitaria = tessera_sanitaria;
-    }
+
     public int getMedico_id() {
         return medico_id;
     }
-    public void setMedico_id(int medico_id) {
-        this.medico_id = medico_id;
-    }
+
     public Timestamp getDataInizio() {
         return dataInizio;
 
     }
 
-    //cambiato get e set reparto in String siccome è VARCHAR in SQL
-    public void setDataInizio(Timestamp dataInizio) {
-        this.dataInizio = dataInizio;
-    }
     public Date getDataFine() {
         return dataFine;
     }
-    public void setDataFine(Timestamp dataFine) {
-        this.dataFine = dataFine;
-    }
+
     public int getReparto() {
         return reparto;
     }
@@ -88,10 +78,6 @@ public class Ricovero {
 
     //aggiunti set e get diagnosi
 
-    public void setDiagnosi(String diagnosi) {
-        this.diagnosi = diagnosi;
-    }
-
     public String getDiagnosi(){ return diagnosi;}
 
     //ho momentaneamente commentato il codice di set e get id siccome dava problemi essendo inutilizzabile
@@ -99,18 +85,10 @@ public class Ricovero {
      public int getId_letto() {
         return id_letto;
     }
-     public void setId_letto(int id_letto) {
-        this.id_letto = id_letto;
-    }
+
     public Timestamp getDataDimissionePrevistaStamp() {
         return dataDimissionePrevista;
     }
-    public void setDataDimissionePrevistaStamp(Timestamp dataDimissionePrevistaStamp) {
-        this.dataDimissionePrevista = dataDimissionePrevistaStamp;
-    }
-
-
-
 
 
 }

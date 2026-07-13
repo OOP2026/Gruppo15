@@ -110,7 +110,7 @@ public class AgendaPostgresDao implements AgendaDAO {
 
     }
 
-
+    @Override
     public List<Agenda> listaAgenda() {
         List<Agenda> agendaList = new ArrayList<>();
         String sql = "SELECT * FROM agenda";

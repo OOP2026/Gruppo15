@@ -7,19 +7,12 @@ import implementazionedao.*;
 import model.*;
 import javax.swing.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Controller {
 
 	Medico medico = new Medico();
-	Agenda agenda = new Agenda();
-	List<Ricovero> ricoveri = new ArrayList<>();
-	// testo da restituire
-	String testoRicovero = "<html>";
-
-
 
 	// nuovi metodi dopo l'aggiunta del DB
 	private final UtenteDAO utenteDAO;

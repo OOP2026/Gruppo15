@@ -21,12 +21,6 @@ public class Paziente {
     public void setCognome(String cognome){
         this.cognome = cognome;
     }
-    public void setDiagnosi(String diagnosi){
-        this.diagnosi = diagnosi;
-    }
-    public void setCura(String cura){
-        this.cura=cura;
-    }
     public String getCura(){
         return cura;
     }

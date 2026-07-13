@@ -9,9 +9,6 @@ public class Medico extends Utente {
 
         super.setRuolo("MEDICO");
     }
-    public void setN_albo(String n_albo){
-        this.n_albo=n_albo;
-    }
 
     public String getN_albo(){
         return this.n_albo;

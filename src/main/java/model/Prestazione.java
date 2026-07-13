@@ -29,9 +29,6 @@ public class Prestazione {
         this.id = id;
     }
 
-    public void setTipo_prestazione(TipoPrestazione tipo_prestazione){
-        this.tipo_prestazione=tipo_prestazione;
-    }
     public TipoPrestazione getTipo_prestazione(){
         return tipo_prestazione;
 
@@ -53,24 +50,12 @@ public class Prestazione {
         return esito;
     }
 
-    public void setDescrizione(String descrizione){
-        this.descrizione=descrizione;
-    }
-
     public String getDescrizione(){
         return descrizione;
     }
 
-    public void setTesseraPaziente(String tesseraPaziente){
-        this.tesseraPaziente=tesseraPaziente;
-    }
-
     public String getTesseraPaziente(){
         return tesseraPaziente;
-    }
-
-    public void setMedicoAlbo(int medicoAlbo){
-        this.medicoAlbo=medicoAlbo;
     }
 
     public int getMedicoAlbo(){

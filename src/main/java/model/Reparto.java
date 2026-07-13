@@ -23,9 +23,6 @@ public class Reparto {
     public String getNomeReparto() {
         return nomeReparto;
     }
-    public void setNomeReparto(String nomeReparto) {
-        this.nomeReparto = nomeReparto;
-    }
 
     public int getId() {
         return id;
@@ -36,8 +33,5 @@ public class Reparto {
 
     public int getPiano() {
         return piano;
-    }
-    public void setPiano(int piano) {
-        this.piano = piano;
     }
 }

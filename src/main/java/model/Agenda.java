@@ -28,10 +28,6 @@ public class Agenda{
     public int getId_medico() {
         return id_medico;
     }
-    public void setId_medico(int id_medico) {
-        this.id_medico = id_medico;
-    }
-
 
     // metodo per ottenere tutti gli slots presenti in Agenda
     public List<SlotOrario> getSlots() {

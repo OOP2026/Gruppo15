@@ -14,14 +14,8 @@ public class Letto {
         return id_letto;
     }
 
-    public void setId_letto(int id_letto){
-        this.id_letto=id_letto;
-    }
     public boolean getStato(){
         return stato;
-    }
-    public void setStato(boolean stato){
-        this.stato=stato;
     }
 
     public Stanza getStanza() {

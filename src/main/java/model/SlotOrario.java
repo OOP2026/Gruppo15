@@ -33,22 +33,13 @@ public class SlotOrario {
     public String getGiorno() {
         return giorno;
     }
-    public void setGiorno(String giorno) {
-        this.giorno = giorno;
-    }
 
     public LocalTime getOraInizio() {
         return oraInizio;
     }
-    public void setOraInizio(LocalTime oraInizio) {
-        this.oraInizio = oraInizio;
-    }
 
     public LocalTime getOraFine() {
         return oraFine;
-    }
-    public void setOraFine(LocalTime oraFine) {
-        this.oraFine = oraFine;
     }
 
     public Agenda getAgenda(){return agenda;}
