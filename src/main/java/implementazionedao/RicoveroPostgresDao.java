@@ -19,6 +19,8 @@ public class RicoveroPostgresDao implements RicoveroDAO {
         String sql = "INSERT INTO ricoveri (paziente_id,medico_id,motivo, data_inizio ,reparto,id_letto,data_dimissione_prevista) " +
                 "VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?, ?,?)"; // da aggiungere letto_id siccome non è inserito in SQL
 
+        String sqlVerifica= "SELECT id, ruolo, attivo FROM utenti_sistema WHERE id = ? AND ruolo = 'MEDICO' AND attivo = true";
+
         try {
             ConnessioneDatabase.getInstance();
         } catch (SQLException e) {
@@ -26,36 +28,56 @@ public class RicoveroPostgresDao implements RicoveroDAO {
         }
 
         try (Connection conn = ConnessioneDatabase.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmtVerifica = conn.prepareStatement(sqlVerifica)) {
 
-             // Ricovero
-            pstmt.setString(1, ricovero.getTessera_sanitaria());
-            pstmt.setInt(2, ricovero.getMedico_id());
-            pstmt.setString(3, ricovero.getDiagnosi());
-            pstmt.setInt(4, ricovero.getReparto());
-            pstmt.setInt(5, ricovero.getId_letto());
-            pstmt.setObject(6,ricovero.getDataDimissionePrevistaStamp());
+            // Ricovero
+            pstmtVerifica.setInt(1,ricovero.getMedico_id());
+            ResultSet rs = pstmtVerifica.executeQuery();
+            if (rs.next()){
+
+                try (Connection connInsert = ConnessioneDatabase.getConnection();
+                     PreparedStatement pstmt = connInsert.prepareStatement(sql)) {
+
+                    // Ricovero
+                    pstmt.setString(1, ricovero.getTessera_sanitaria());
+                    pstmt.setInt(2, ricovero.getMedico_id());
+                    pstmt.setString(3, ricovero.getDiagnosi());
+                    pstmt.setInt(4, ricovero.getReparto());
+                    pstmt.setInt(5, ricovero.getId_letto());
+                    pstmt.setObject(6,ricovero.getDataDimissionePrevistaStamp());
 
 
-            //debug
-            int righe = pstmt.executeUpdate();
+                    //debug
+                    int righe = pstmt.executeUpdate();
 
-            System.out.println("Righe inserite: " + righe);
-            if (righe > 0) {
-                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                    // CORRETTO: rimosso il System.out.println(generatedKeys.next()) che "consumava" il primo record
-                    if (generatedKeys.next()) {
-                        // Recuperiamo l'id generato (la prima colonna del set)
-                        int idGenerato = generatedKeys.getInt(1);
+                    System.out.println("Righe inserite: " + righe);
+                    if (righe > 0) {
+                        try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                            // CORRETTO: rimosso il System.out.println(generatedKeys.next()) che "consumava" il primo record
+                            if (generatedKeys.next()) {
+                                // Recuperiamo l'id generato (la prima colonna del set)
+                                int idGenerato = generatedKeys.getInt(1);
 
-                        // Salvi l'ID appena generato dentro l'oggetto prestazione
-                        ricovero.setId_ricovero(idGenerato);
+                                // Salvi l'ID appena generato dentro l'oggetto prestazione
+                                ricovero.setId_ricovero(idGenerato);
 
-                        System.out.println("Ricovero inserito con successo. ID Seriale assegnato: " + idGenerato);
+                                System.out.println("Ricovero inserito con successo. ID Seriale assegnato: " + idGenerato);
+                            }
+                        }
                     }
-                }
+                    return righe > 0;
             }
-            return righe > 0;
+        }
+            else {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Il medico non esiste o non è attivo.",
+                        "Errore",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return false;
+            }
+
         } catch (SQLException e) {
             System.err.println("❌ Errore durante il salvataggio del ricovero:");
             JOptionPane.showMessageDialog(null, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);

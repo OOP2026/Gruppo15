@@ -39,6 +39,7 @@ public class SlotOrarioGUI extends JFrame{
             salvaButton.setText("Modifica");
             idSlotField.setVisible(true);
             idSlotLabel.setVisible(true);
+            setTitle("Modifica slot orario");
         }
         setContentPane(registraSlotPanel);
         setTitle("Creazione Slot");
